@@ -243,7 +243,7 @@ export class ContactSectionController {
 
       // Show verified success message
       this.setNotice(
-        'Message sent successfully. Thanks for reaching out — I’ve received your message and will get back to you within 1 business day.',
+        'Message sent successfully.',
         'state-success'
       );
     } catch (err) {
