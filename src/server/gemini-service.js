@@ -16,30 +16,12 @@
  */
 
 import { GoogleGenAI } from '@google/genai';
-import { readFileSync } from 'fs';
-import { resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { PORTFOLIO_KNOWLEDGE } from '../data/portfolio-knowledge.js';
 import { getActiveTopic, determineMessageTopic, resolveOrdinalFollowUp, detectJayaDefenseRoastClaim } from '../data/bob-responder.js';
 import { detectNavigationIntent } from '../data/bob-navigation.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Load verified structured portfolio knowledge
-let PORTFOLIO_DATA = null;
-try {
-  const jsonPath = resolve(__dirname, '../data/bob/portfolioKnowledge.json');
-  PORTFOLIO_DATA = JSON.parse(readFileSync(jsonPath, 'utf8'));
-} catch (e) {
-  // Fallback to in-memory import if json file read fails
-  try {
-    const jsPath = resolve(__dirname, '../data/portfolio-knowledge.js');
-    import(jsPath).then(m => {
-      PORTFOLIO_DATA = m.PORTFOLIO_KNOWLEDGE;
-      initStaticKnowledgeSlices();
-    });
-  } catch (err) {}
-}
+// Load verified structured portfolio knowledge directly from static ESM module
+const PORTFOLIO_DATA = PORTFOLIO_KNOWLEDGE;
 
 // Pre-computed static knowledge slices (frozen to avoid repeated allocations on every request)
 let STATIC_PROJECTS_SUMMARY = null;
@@ -536,9 +518,10 @@ export async function* streamGeminiResponse({ messages, apiKey, model = 'gemini-
   const candidateModels = [
     model,
     'gemini-3.5-flash-lite',
+    'gemini-3.6-flash',
     'gemini-flash-lite-latest',
     'gemini-3.1-flash-lite'
-  ].filter((m, i, a) => a.indexOf(m) === i);
+  ].filter(Boolean).filter((m, i, a) => a.indexOf(m) === i);
 
   let lastError = null;
 

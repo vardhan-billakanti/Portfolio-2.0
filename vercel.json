@@ -29,5 +29,15 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/bob/health",
+      "destination": "/api/bob"
+    },
+    {
+      "source": "/api/bob-chat",
+      "destination": "/api/bob"
+    }
   ]
 }

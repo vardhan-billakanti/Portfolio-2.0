@@ -1,39 +1,65 @@
 /**
  * Vercel Serverless Function — BOB AI API Endpoint (/api/bob)
  * Production-ready, secure streaming endpoint with rate limiting,
- * CORS restriction, payload validation, and sanitized error masking.
+ * CORS restriction, payload validation, health checks, and sanitized error masking.
  */
 
 import { streamGeminiResponse } from '../src/server/gemini-service.js';
 import { rateLimiter } from '../src/server/rate-limiter.js';
 import { classifyBobRequest, searchFreeImages, generateGeminiImage } from '../src/server/bob-image-service.js';
 
-const ALLOWED_ORIGIN_PATTERNS = [
-  /^https?:\/\/localhost(:\d+)?$/,
-  /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
-  /^https:\/\/(?:www\.)?vardhanbillakanti\.in$/,
-  /^https:\/\/portfolio-2-0[a-z0-9-]*\.vercel\.app$/,
-  /^https:\/\/vardhanbillakanti[a-z0-9-]*\.vercel\.app$/
-];
+/**
+ * Validates request origins against allowed production and preview hosts.
+ * Dynamically recognizes same-host requests, any .vercel.app deployment,
+ * the official domain, and local loopback.
+ */
+function isOriginAllowed(origin, req) {
+  if (!origin) return true; // Direct/same-origin navigation or server-to-server
+  try {
+    const originUrl = new URL(origin);
+    const originHost = originUrl.host;
+    const reqHost = req?.headers?.host || req?.headers?.['x-forwarded-host'];
 
-function isOriginAllowed(origin) {
-  if (!origin) return true; // Direct/same-origin navigation
-  return ALLOWED_ORIGIN_PATTERNS.some(pattern => pattern.test(origin));
+    // 1. Same-host request is always allowed
+    if (reqHost && (originHost === reqHost || reqHost.startsWith(originHost))) {
+      return true;
+    }
+
+    // 2. All Vercel deployments (production, preview, branch previews, custom team subdomains)
+    if (originUrl.hostname.endsWith('.vercel.app')) {
+      return true;
+    }
+
+    // 3. Official portfolio domain and subdomains
+    if (originUrl.hostname === 'vardhanbillakanti.in' || originUrl.hostname.endsWith('.vardhanbillakanti.in')) {
+      return true;
+    }
+
+    // 4. Localhost and local loopback for development/testing
+    if (originUrl.hostname === 'localhost' || originUrl.hostname === '127.0.0.1') {
+      return true;
+    }
+  } catch (e) {
+    // Malformed origin
+  }
+  return false;
 }
 
 export default async function handler(req, res) {
   const origin = req.headers.origin;
 
   // 1. CORS Origin Validation
-  if (origin && !isOriginAllowed(origin)) {
+  if (origin && !isOriginAllowed(origin, req)) {
     return res.status(403).json({ error: 'Access forbidden from this origin' });
   }
 
-  if (origin && isOriginAllowed(origin)) {
+  if (origin && isOriginAllowed(origin, req)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Vary', 'Origin');
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
   }
 
   // 2. OPTIONS preflight
@@ -41,12 +67,23 @@ export default async function handler(req, res) {
     return res.status(204).end();
   }
 
-  // 3. Strict Method Check
+  // 3. Health check GET handler (safe: never leaks key value, returns boolean hasGeminiKey)
+  if (req.method === 'GET') {
+    const hasKey = Boolean(process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim().length > 0);
+    return res.status(200).json({
+      status: 'ok',
+      service: 'bob-ai',
+      hasGeminiKey: hasKey,
+      timestamp: new Date().toISOString()
+    });
+  }
+
+  // 4. Strict Method Check for chat requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
-  // 4. Rate Limiting Check
+  // 5. Rate Limiting Check
   const clientIp = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 
                    req.socket?.remoteAddress || 
                    '127.0.0.1';
@@ -59,10 +96,20 @@ export default async function handler(req, res) {
   }
 
   try {
-    const data = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+    let data = req.body;
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data || '{}');
+      } catch (e) {
+        data = {};
+      }
+    } else if (!data || typeof data !== 'object') {
+      data = {};
+    }
+
     const messages = data.messages;
 
-    // 5. Input Validation
+    // 6. Input Validation
     if (!Array.isArray(messages) || messages.length === 0 || messages.length > 20) {
       return res.status(400).json({ error: 'Invalid messages array (must contain 1 to 20 messages)' });
     }
@@ -76,12 +123,13 @@ export default async function handler(req, res) {
       }
     }
 
-    const apiKey = process.env.GEMINI_API_KEY || '';
+    const apiKey = (process.env.GEMINI_API_KEY || '').trim();
     if (!apiKey) {
+      console.error('[BOB Serverless Error] GEMINI_API_KEY environment variable is not configured');
       return res.status(500).json({ error: 'BOB service is temporarily unavailable.' });
     }
 
-    // 6. Setup SSE Headers
+    // 7. Setup SSE Headers
     res.writeHead(200, {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache, no-transform',
@@ -142,7 +190,7 @@ export default async function handler(req, res) {
         }
         return;
       } catch (searchErr) {
-        console.warn('[BOB Serverless] Image search failed:', searchErr.message);
+        console.warn('[BOB Serverless] Image search error:', searchErr.message);
         if (isClientConnected) {
           res.write(`data: ${JSON.stringify({
             type: 'image_search',
@@ -183,7 +231,7 @@ export default async function handler(req, res) {
         }
         return;
       } catch (genErr) {
-        console.error('[BOB Serverless] Image generation exception:', genErr);
+        console.error('[BOB Serverless] Image generation exception:', genErr?.message || genErr);
         if (isClientConnected) {
           res.write(`data: ${JSON.stringify({
             type: 'image_generation_error',
@@ -212,7 +260,7 @@ export default async function handler(req, res) {
         res.end();
       }
     } catch (streamErr) {
-      console.warn('[BOB Serverless] Gemini call failed safely');
+      console.error('[BOB Serverless] Gemini streaming error:', streamErr?.message || streamErr);
       if (isClientConnected) {
         res.write(`data: ${JSON.stringify({ error: "Sorry bro, I couldn't reach BOB right now. Try again." })}\n\n`);
         res.write('data: [DONE]\n\n');
@@ -220,6 +268,7 @@ export default async function handler(req, res) {
       }
     }
   } catch (err) {
+    console.error('[BOB Serverless] Handler error:', err?.message || err);
     if (!res.headersSent) {
       return res.status(500).json({ error: "Sorry bro, I couldn't reach BOB right now. Try again." });
     }

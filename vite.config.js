@@ -8,18 +8,18 @@ import { dirname, resolve } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Allowed origins for CORS validation
-const ALLOWED_ORIGIN_PATTERNS = [
-  /^https?:\/\/localhost(:\d+)?$/,
-  /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
-  /^https:\/\/(?:www\.)?vardhanbillakanti\.in$/,
-  /^https:\/\/portfolio-2-0[a-z0-9-]*\.vercel\.app$/,
-  /^https:\/\/vardhanbillakanti[a-z0-9-]*\.vercel\.app$/
-];
-
-function isOriginAllowed(origin) {
+function isOriginAllowed(origin, req) {
   if (!origin) return true; // Direct/same-origin navigation
-  return ALLOWED_ORIGIN_PATTERNS.some(pattern => pattern.test(origin));
+  try {
+    const originUrl = new URL(origin);
+    const originHost = originUrl.host;
+    const reqHost = req?.headers?.host || req?.headers?.['x-forwarded-host'];
+    if (reqHost && (originHost === reqHost || reqHost.startsWith(originHost))) return true;
+    if (originUrl.hostname.endsWith('.vercel.app')) return true;
+    if (originUrl.hostname === 'vardhanbillakanti.in' || originUrl.hostname.endsWith('.vardhanbillakanti.in')) return true;
+    if (originUrl.hostname === 'localhost' || originUrl.hostname === '127.0.0.1') return true;
+  } catch (e) {}
+  return false;
 }
 
 export default defineConfig(({ mode }) => {
@@ -65,16 +65,18 @@ export default defineConfig(({ mode }) => {
             const origin = req.headers.origin;
 
             // 1. CORS Origin Validation
-            if (origin && !isOriginAllowed(origin)) {
+            if (origin && !isOriginAllowed(origin, req)) {
               res.writeHead(403, { 'Content-Type': 'application/json' });
               return res.end(JSON.stringify({ error: 'Access forbidden from this origin' }));
             }
 
-            if (origin && isOriginAllowed(origin)) {
+            if (origin && isOriginAllowed(origin, req)) {
               res.setHeader('Access-Control-Allow-Origin', origin);
-              res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+              res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
               res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
               res.setHeader('Vary', 'Origin');
+            } else {
+              res.setHeader('Access-Control-Allow-Origin', '*');
             }
 
             // 2. Handle OPTIONS preflight
@@ -83,7 +85,18 @@ export default defineConfig(({ mode }) => {
               return res.end();
             }
 
-            // 3. Strict Method Restriction
+            // 3. Safe Health Check GET Handler
+            if (req.method === 'GET') {
+              res.writeHead(200, { 'Content-Type': 'application/json' });
+              return res.end(JSON.stringify({
+                status: 'ok',
+                service: 'bob-ai',
+                hasGeminiKey: Boolean(serverApiKey && serverApiKey.trim().length > 0),
+                timestamp: new Date().toISOString()
+              }));
+            }
+
+            // 4. Strict Method Restriction
             if (req.method !== 'POST') {
               res.writeHead(405, { 'Content-Type': 'application/json' });
               return res.end(JSON.stringify({ error: 'Method Not Allowed' }));
