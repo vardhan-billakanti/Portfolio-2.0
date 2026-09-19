@@ -1,0 +1,426 @@
+/* ==========================================================================
+   PORTFOLIO 2.0 — LORVEN ENTERPRISE FOUNDERS SECTION
+   High-Contrast Editorial Founder Showcase with Subtle Atmospheric Depth
+   ========================================================================== */
+
+.section-founders {
+  position: relative;
+  width: 100%;
+  background: var(--pr-black-1000, #000000);
+  color: var(--pr-white-pure, #ffffff);
+  padding: clamp(72px, 10vh, 120px) clamp(36px, 8vw, 120px);
+  overflow: hidden;
+  z-index: 10;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Subtle atmospheric warm radial glow in the background */
+.founders-ambient-glow {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  width: min(880px, 90vw);
+  height: 520px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 77, 0, 0.045) 0%,
+    rgba(255, 138, 66, 0.02) 40%,
+    transparent 72%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Centered Boundary Container with Generous Breathing Room from Viewport Edges & BOB */
+.founders-container {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(36px, 5vh, 56px);
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   1. SECTION HEADER (Centered Composition)
+   -------------------------------------------------------------------------- */
+
+.founders-header-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 720px;
+}
+
+.founders-label-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.founders-label-text {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pr-accent-orange, #ff4d00);
+  background: rgba(255, 77, 0, 0.08);
+  border: 1px solid rgba(255, 77, 0, 0.22);
+  padding: 5px 16px;
+  border-radius: 9999px;
+}
+
+.founders-main-heading {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(2.2rem, 3.8vw, 3.3rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--pr-white-pure, #ffffff);
+  margin: 0;
+  text-transform: none;
+}
+
+.founders-main-heading span {
+  background: linear-gradient(135deg, #ffffff 30%, var(--pr-accent-orange, #ff4d00) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.founders-subtext {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: clamp(0.95rem, 1.15vw, 1.06rem);
+  line-height: 1.6;
+  color: var(--pr-gray-200, #a1a1aa);
+  margin: 0;
+  max-width: 580px;
+  text-wrap: balance;
+}
+
+/* --------------------------------------------------------------------------
+   2. THREE-FOUNDER HORIZONTAL SHOWCASE GRID
+   -------------------------------------------------------------------------- */
+
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.2vw, 32px);
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+/* Founder Profile Showcase (Narrower, elegant proportions) */
+.founder-profile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(30px, 3.2vw, 40px) clamp(16px, 1.8vw, 24px);
+  background: rgba(14, 14, 16, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.7);
+  transform: translateY(0) scale(1);
+  will-change: transform, border-color, box-shadow;
+  /* INSTANT HOVER & RETURN: 0ms delay, fast 240ms natural ease-out */
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 200ms ease,
+              box-shadow 240ms ease,
+              background-color 200ms ease;
+  transition-delay: 0s !important;
+}
+
+/* Premium Hover Enlarge & Subtle Lift Interaction:
+   - Starts the instant cursor enters (0ms delay)
+   - Smoothly scales to ~1.03 (1.025–1.035)
+   - Subtle 5px upward lift
+   - Natural ease-out over 240ms
+   - Zero layout shift */
+.founder-profile:hover {
+  transform: translateY(-5px) scale(1.03) !important;
+  border-color: rgba(255, 77, 0, 0.42);
+  background: rgba(18, 18, 24, 0.84);
+  box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.85),
+              0 0 24px -6px rgba(255, 77, 0, 0.16);
+  z-index: 5;
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 200ms ease,
+              box-shadow 240ms ease,
+              background-color 200ms ease !important;
+  transition-delay: 0s !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. FOUNDER PHOTO (Visual Focal Point)
+   -------------------------------------------------------------------------- */
+
+.founder-avatar-frame {
+  position: relative;
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 0 1px rgba(255, 77, 0, 0.06), 0 10px 25px -5px rgba(0, 0, 0, 0.7);
+  margin-bottom: 22px;
+  flex-shrink: 0;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.founder-avatar-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #0d0d0f;
+}
+
+.founder-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0s !important;
+}
+
+/* Portrait crop alignment for balanced headroom & consistent framing */
+.founder-profile:nth-child(1) .founder-avatar-img {
+  object-position: center 18%;
+}
+
+.founder-profile:nth-child(2) .founder-avatar-img {
+  object-position: center 62%;
+}
+
+.founder-profile:nth-child(3) .founder-avatar-img {
+  object-position: center 13%;
+}
+
+/* Subtle portrait response on card hover */
+.founder-profile:hover .founder-avatar-frame {
+  border-color: rgba(255, 77, 0, 0.5);
+  box-shadow: 0 0 0 2px rgba(255, 77, 0, 0.18), 0 14px 30px -5px rgba(255, 77, 0, 0.12);
+}
+
+.founder-profile:hover .founder-avatar-img {
+  transform: scale(1.035);
+  transition-delay: 0s !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. FOUNDER DETAILS & TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+
+.founder-name {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(1.15rem, 1.4vw, 1.34rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--pr-white-pure, #ffffff);
+  margin: 0 0 6px 0;
+}
+
+.founder-role-primary {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-accent-orange, #ff4d00);
+  margin-bottom: 3px;
+}
+
+.founder-role-secondary {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.80rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--pr-gray-300, #71717a);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.founder-bio {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.92rem;
+  line-height: 1.62;
+  color: var(--pr-gray-200, #a1a1aa);
+  margin: 0 0 24px 0;
+  flex-grow: 1;
+}
+
+/* --------------------------------------------------------------------------
+   5. VERIFIED WEBSITE / INTERACTION LINKS
+   -------------------------------------------------------------------------- */
+
+.founder-action-wrapper {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.founder-website-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pr-white-pure, #ffffff);
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: color 0.25s ease,
+              border-color 0.25s ease,
+              background-color 0.25s ease,
+              transform 0.25s ease;
+}
+
+.founder-website-btn:hover {
+  color: #ff8a42;
+  background: rgba(255, 77, 0, 0.1);
+  border-color: rgba(255, 77, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.founder-website-arrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  transition: transform 0.25s ease;
+}
+
+.founder-website-btn:hover .founder-website-arrow {
+  transform: translateX(3px);
+}
+
+.founder-author-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.70rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pr-gray-300, #a1a1aa);
+  padding: 7px 16px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   6. SCROLL REVEAL ANIMATIONS (IntersectionObserver-Driven)
+   -------------------------------------------------------------------------- */
+
+/* --------------------------------------------------------------------------
+   6. SCROLL REVEAL ANIMATIONS (IntersectionObserver-Driven)
+   -------------------------------------------------------------------------- */
+
+.founders-reveal-badge,
+.founders-reveal-heading,
+.founders-reveal-subtext {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+/* Card scroll reveal ONLY controls opacity fade-in.
+   Transform is deliberately excluded here so card hover is 100% instant with ZERO delay. */
+.founders-reveal-card {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+/* Triggered on enter viewport */
+.section-founders.is-visible .founders-reveal-badge {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.05s;
+}
+
+.section-founders.is-visible .founders-reveal-heading {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.15s;
+}
+
+.section-founders.is-visible .founders-reveal-subtext {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.25s;
+}
+
+.section-founders.is-visible .founders-reveal-card {
+  opacity: 1;
+}
+
+.section-founders.is-visible .founders-reveal-card:nth-child(1) {
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+}
+
+.section-founders.is-visible .founders-reveal-card:nth-child(2) {
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.22s;
+}
+
+.section-founders.is-visible .founders-reveal-card:nth-child(3) {
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.32s;
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVE LAYOUT (Desktop -> Tablet -> Mobile)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .founders-grid {
+    gap: 24px;
+  }
+
+  .founder-profile {
+    padding: 32px 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .section-founders {
+    padding: clamp(56px, 8vh, 88px) clamp(20px, 5vw, 36px);
+  }
+
+  .founders-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    gap: 24px;
+  }
+
+  .founder-profile {
+    max-width: 100%;
+  }
+
+  .founder-avatar-frame {
+    width: 104px;
+    height: 104px;
+  }
+}

@@ -1,0 +1,362 @@
+/* ==========================================================================
+   PORTFOLIO 2.0 — LORVEN ENTERPRISE SECTION
+   High-Contrast Editorial Scroll Story with 3D Downward Traveling Brand Symbol
+   ========================================================================== */
+
+/* High-Contrast Editorial Transitional Serif (Matching Font Reference Image) */
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap');
+
+/* --------------------------------------------------------------------------
+   1. SECTION ROOT & FULL-HEIGHT VISUAL COMPANION ARCHITECTURE
+   -------------------------------------------------------------------------- */
+
+.section-lorven {
+  position: relative;
+  width: 100%;
+  background: var(--pr-black-1000, #000000);
+  z-index: 10;
+  padding: 0;
+  overflow: visible;
+}
+
+/* --------------------------------------------------------------------------
+   2. EDITORIAL SCROLL-STORY CONTAINER (Left Column)
+   -------------------------------------------------------------------------- */
+
+.lorven-content-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: clamp(96px, 12vh, 136px) clamp(24px, 5vw, 64px) clamp(120px, 15vh, 180px);
+}
+
+/* Left Editorial Column:
+   Occupies ~54% of desktop width so the sticky 3D hexagon on the right
+   physically accompanies the story */
+.lorven-editorial-stream {
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(60px, 8.5vh, 92px);
+}
+
+/* --------------------------------------------------------------------------
+   3. FULL-HEIGHT VISUAL LAYER & STICKY 3D STAGE (Right Column)
+   -------------------------------------------------------------------------- */
+
+.lorven-visual-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.lorven-3d-sticky {
+  position: sticky;
+  top: calc(var(--nav-height, 72px) + 16px);
+  height: calc(100vh - var(--nav-height, 72px) - 32px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.lorven-3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: auto;
+}
+
+/* Atmospheric Layer:
+   Integrated overlay with subtle left-side horizontal vignette protecting the text
+   column while leaving the rich golden/cyan 3D hexagon on the right completely clear. */
+.lorven-atmospheric-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.45) 30%,
+    rgba(0, 0, 0, 0.05) 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   3. SECTION HEADER / CORE IDENTITY BLOCK
+   -------------------------------------------------------------------------- */
+
+.lorven-hero-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* LORVEN ENTERPRISE SECTION LABEL: Solid Bright Warm Orange */
+.lorven-eyebrow {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: clamp(1.30rem, 1.85vw, 1.68rem);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  display: inline-block;
+  color: var(--pr-accent-orange, #ff4d00);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* EDITORIAL SERIF FONT MATCHING REFERENCE IMAGE ("Email for developers") */
+.lorven-headline {
+  font-family: 'Newsreader', 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.5rem, 5.2vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  color: var(--pr-white-pure, #ffffff);
+  text-transform: none;
+  margin: 0 0 18px 0;
+  text-wrap: balance;
+}
+
+.lorven-subhead {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: clamp(0.90rem, 1.25vw, 1.08rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #ff8a42;
+  text-transform: uppercase;
+  margin: 0 0 22px 0;
+}
+
+.lorven-description {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: clamp(1.04rem, 1.45vw, 1.20rem);
+  line-height: 1.72;
+  color: var(--pr-gray-200, #a1a1aa);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. PROGRESSIVE CAPABILITY MILESTONES (NO CARDS / CLEAN EDITORIAL)
+   -------------------------------------------------------------------------- */
+
+.lorven-capabilities-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.lorven-capability-item {
+  position: relative;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.lorven-capability-title {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--pr-white-pure, #ffffff);
+  text-transform: uppercase;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Small, minimal, thin/clean warm peach/orange capability icon */
+.lorven-capability-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--pr-accent-orange, #ff4d00);
+  opacity: 0.9;
+  transition: transform 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+}
+
+.lorven-capability-item:hover .lorven-capability-icon {
+  opacity: 1;
+  color: #ff8a42;
+  transform: translateX(2px);
+}
+
+.lorven-capability-desc {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--pr-gray-200, #a1a1aa);
+  margin: 0;
+}
+
+.lorven-capability-item:hover {
+  border-top-color: rgba(255, 77, 0, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   5. VENTURE NARRATIVE BLOCK
+   -------------------------------------------------------------------------- */
+
+.lorven-narrative-block {
+  position: relative;
+  padding-left: 24px;
+  border-left: 2px solid var(--pr-accent-orange, #ff4d00);
+}
+
+.lorven-narrative-text {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: clamp(1.08rem, 1.45vw, 1.24rem);
+  line-height: 1.72;
+  font-weight: 500;
+  color: var(--pr-white-pure, #ffffff);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   6. INTEGRATED EDITORIAL CTA (Warm Peach/Orange Animated Underline)
+   -------------------------------------------------------------------------- */
+
+.lorven-cta-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.lorven-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: clamp(0.95rem, 1.3vw, 1.08rem);
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--pr-white-pure, #ffffff);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 6px;
+  cursor: pointer;
+  transition: color 0.28s ease;
+}
+
+/* Subtle warm peach/orange animated underline */
+.lorven-cta-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--pr-accent-orange, #ff4d00);
+  transform: scaleX(0.7);
+  transform-origin: left;
+  transition:
+    transform 0.3s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 0.3s ease;
+}
+
+.lorven-cta-link .cta-arrow {
+  color: var(--pr-accent-orange, #ff4d00);
+  font-size: 1.15rem;
+  display: inline-block;
+  transition: transform 0.28s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+@media (hover: hover) {
+  .lorven-cta-link:hover {
+    color: #ffffff;
+  }
+
+  .lorven-cta-link:hover::after {
+    transform: scaleX(1);
+    box-shadow: 0 0 12px rgba(255, 77, 0, 0.6);
+  }
+
+  .lorven-cta-link:hover .cta-arrow {
+    transform: translateX(6px);
+  }
+}
+
+.lorven-cta-note {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  color: var(--pr-gray-300, #71717a);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVE MEDIA QUERIES
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 960px) {
+  .lorven-editorial-stream {
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 860px) {
+  .lorven-visual-layer {
+    width: 100%;
+    z-index: 1;
+    opacity: 0.38;
+  }
+
+  .lorven-content-container {
+    z-index: 2;
+    padding-top: 60px;
+    padding-bottom: 90px;
+  }
+
+  .lorven-editorial-stream {
+    max-width: 100%;
+    gap: 46px;
+  }
+
+  .lorven-atmospheric-layer {
+    background: radial-gradient(
+      circle at 50% 40%,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(0, 0, 0, 0.82) 60%,
+      #000000 95%
+    );
+  }
+
+  .lorven-eyebrow {
+    font-size: clamp(1.22rem, 4vw, 1.40rem);
+  }
+
+  .lorven-headline {
+    font-size: 2.3rem;
+  }
+
+  .lorven-subhead {
+    font-size: 0.88rem;
+  }
+
+  .lorven-description {
+    font-size: 1rem;
+  }
+
+  .lorven-narrative-text {
+    font-size: 1.04rem;
+  }
+}

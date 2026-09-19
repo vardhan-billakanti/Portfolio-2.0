@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#000000">
+  <title>BILLAKANTI JAYA VARDHAN — Portfolio 2.0</title>
+  <meta name="description" content="Portfolio of Billakanti Jaya Vardhan. Cyber Security, Technology, Entrepreneurship, Innovation.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <!-- Critical Above-The-Fold Styles: Completely eliminates FOUC and guarantees immediate pitch-black paint -->
+  <style>
+    html, body {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+      margin: 0;
+      padding: 0;
+      overflow-x: clip;
+    }
+    /* Guarantee elements begin in their intended State 1 hidden position before animation */
+    .site-nav {
+      opacity: 0;
+      transform: translateY(-16px);
+    }
+    .hero-name-line {
+      opacity: 0;
+      transform: translateY(20px);
+      filter: blur(12px);
+    }
+    .hero-signature,
+    .hero-subline,
+    .hero-social-constellation,
+    .hero-scroll-indicator {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  </style>
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+
+  <!-- Render-blocking CSS links in head to prevent layout shifts & unstyled content -->
+  <link rel="stylesheet" href="/src/styles/variables.css">
+  <link rel="stylesheet" href="/src/styles/typography.css">
+  <link rel="stylesheet" href="/src/styles/global.css">
+  <link rel="stylesheet" href="/src/styles/nav.css">
+  <link rel="stylesheet" href="/src/styles/canvas.css">
+  <link rel="stylesheet" href="/src/styles/hero.css">
+  <link rel="stylesheet" href="/src/styles/transition.css">
+  <link rel="stylesheet" href="/src/styles/cursor.css">
+  <link rel="stylesheet" href="/src/styles/bob.css">
+  <link rel="stylesheet" href="/src/styles/about-intro.css">
+  <link rel="stylesheet" href="/src/styles/about.css">
+  <link rel="stylesheet" href="/src/styles/academics.css">
+  <link rel="stylesheet" href="/src/styles/toolkit.css">
+  <link rel="stylesheet" href="/src/styles/projects.css">
+  <link rel="stylesheet" href="/src/styles/certifications.css">
+  <link rel="stylesheet" href="/src/styles/lorven.css">
+  <link rel="stylesheet" href="/src/styles/founders.css">
+  <link rel="stylesheet" href="/src/styles/contact.css">
+  <link rel="stylesheet" href="/src/styles/footer.css">
+
+  <!-- EmailJS Client-Side Delivery SDK -->
+  <script src="/js/email.min.js" defer></script>
+</head>
+<body>
+  <!-- Minimal Futuristic Navigation with Real Portfolio Structure -->
+  <header id="site-nav" class="site-nav nav-hidden" role="banner">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand" aria-label="Billakanti Jaya Vardhan">
+        <span class="nav-brand-title">BILLAKANTI JAYA VARDHAN</span>
+      </a>
+
+      <div class="nav-menu-group">
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li class="nav-link-item"><a href="#home" class="active" aria-current="page">HOME</a></li>
+            <li class="nav-link-item"><a href="#about">ABOUT</a></li>
+            <li class="nav-link-item"><a href="#academics">ACADEMICS</a></li>
+            <li class="nav-link-item"><a href="#toolkit">TOOLKIT</a></li>
+            <li class="nav-link-item"><a href="#projects">PROJECTS</a></li>
+            <li class="nav-link-item"><a href="#certifications">CERTIFICATIONS</a></li>
+            <li class="nav-link-item"><a href="#lorven">LORVEN</a></li>
+            <li class="nav-link-item"><a href="#founders">FOUNDERS</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-right">
+          <!-- Distinctive Futuristic Capsule Contact Trigger -->
+          <a href="#contact" class="nav-contact-capsule" aria-label="Get in touch">
+            <span class="capsule-text">GET IN TOUCH</span>
+            <span class="capsule-disc" aria-hidden="true">
+              <svg class="capsule-arrow" width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.5 7H11.5M11.5 7L7.5 3M11.5 7L7.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu with Complete Portfolio Structure -->
+  <div id="mobile-nav-drawer" class="mobile-nav-drawer" aria-hidden="true">
+    <ul class="nav-links">
+      <li class="nav-link-item"><a href="#home" class="active" aria-current="page">HOME</a></li>
+      <li class="nav-link-item"><a href="#about">ABOUT</a></li>
+      <li class="nav-link-item"><a href="#academics">ACADEMICS</a></li>
+      <li class="nav-link-item"><a href="#toolkit">TOOLKIT</a></li>
+      <li class="nav-link-item"><a href="#projects">PROJECTS</a></li>
+      <li class="nav-link-item"><a href="#certifications">CERTIFICATIONS</a></li>
+      <li class="nav-link-item"><a href="#lorven">LORVEN</a></li>
+      <li class="nav-link-item"><a href="#founders">FOUNDERS</a></li>
+      <li class="nav-link-item mobile-contact-item">
+        <a href="#contact" class="mobile-contact-link">GET IN TOUCH →</a>
+      </li>
+    </ul>
+  </div>
+
+  <main id="main-content">
+    <!-- Clean, Distinctive Full-Viewport Hero -->
+    <section class="hero-section" id="home" aria-label="Hero Introduction">
+      <!-- High-Speed Radial Streaks Canvas -->
+      <div class="radial-canvas-container" aria-hidden="true">
+        <canvas id="radial-canvas"></canvas>
+      </div>
+
+      <!-- Subtle Center Protection Vignette -->
+      <div class="radial-vignette" aria-hidden="true"></div>
+
+      <!-- State 2 Singularity Ignition Spark -->
+      <div id="hero-singularity" class="hero-singularity" aria-hidden="true"></div>
+
+      <!-- Balanced Hero Cluster -->
+      <div id="hero-content-wrapper" class="hero-content-wrapper">
+        <div class="hero-center-cluster">
+          <!-- Refined Personal Signature Introduction -->
+          <div id="hero-signature" class="hero-signature" aria-hidden="true">
+            Hello World, I’m
+          </div>
+
+          <!-- Dominant, Distinctive Modern Sans-Serif Typography -->
+          <h1 class="hero-title-group" aria-label="Billakanti Jaya Vardhan">
+            <span id="hero-first-name" class="hero-name-line first-name">BILLAKANTI</span>
+            <span id="hero-last-name" class="hero-name-line last-name">JAYA VARDHAN</span>
+          </h1>
+
+          <!-- Authentic Supporting Descriptor -->
+          <p class="hero-subline">
+            CYBER SECURITY &bull; TECHNOLOGY &bull; ENTREPRENEURSHIP &bull; INNOVATION
+          </p>
+
+          <!-- Exactly Three Circular Floating Social Profile Icons (Visible, Clickable, No Tooltips) -->
+          <div class="hero-social-constellation" aria-label="Social Profiles">
+            <!-- 1. GitHub Profile -->
+            <div class="hero-social-float float-github">
+              <a href="https://github.com/vardhanbillakanti125-crypto" target="_blank" rel="noopener noreferrer" class="hero-social-circle circle-github" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+              </a>
+            </div>
+
+            <!-- 2. LinkedIn Profile -->
+            <div class="hero-social-float float-linkedin">
+              <a href="https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/" target="_blank" rel="noopener noreferrer" class="hero-social-circle circle-linkedin" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+            </div>
+
+            <!-- 3. Instagram Profile -->
+            <div class="hero-social-float float-instagram">
+              <a href="https://www.instagram.com/vardhan_billakanti/" target="_blank" rel="noopener noreferrer" class="hero-social-circle circle-instagram" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                  <circle cx="12" cy="12" r="4"/>
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Subtle Scroll Down Indicator -->
+        <a href="#about" class="hero-scroll-indicator" aria-label="Scroll down to explore">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION: ABOUT ME CINEMATIC TRANSITION
+         Minimal full-width transition with subtle translucent charcoal backdrop
+         and the single elegant cursive "About Me" typography.
+         ====================================================================== -->
+    <section class="section-about-intro" id="about-intro" aria-label="About Me Transition">
+      <div class="about-intro-stage">
+        <h2 class="about-intro-title">About Me</h2>
+        <canvas class="about-intro-canvas" aria-hidden="true"></canvas>
+      </div>
+    </section>
+
+    <!-- Clean, Human Editorial About Me Section -->
+    <section class="section-about-me" id="about" aria-label="About Billakanti Jaya Vardhan">
+      <!-- Subtle Ambient Depth Background -->
+      <div class="about-ambient-depth" aria-hidden="true"></div>
+
+      <div class="about-container">
+        <!-- Two-Column Main Content: Photo (Left ~40%) + Heading & Story (Right ~60%) -->
+        <div class="about-main-grid">
+          <!-- 1. Section Intro: Small Orange Label + Editorial Heading (Right Column Header on desktop, Top on mobile) -->
+          <header class="about-intro-header">
+            <div class="about-eyebrow">ABOUT ME</div>
+
+            <h2 class="about-main-heading" aria-label="Building Ideas Into Experiences">
+              <span class="about-heading-mask">
+                <span class="about-heading-line">BUILDING IDEAS</span>
+              </span>
+              <span class="about-heading-mask">
+                <span class="about-heading-line">INTO EXPERIENCES</span>
+              </span>
+            </h2>
+          </header>
+
+          <!-- LEFT COLUMN: Portrait Photo -->
+          <div class="about-photo-column">
+            <div class="about-photo-wrapper">
+              <span class="about-photo-corner corner-top-left" aria-hidden="true"></span>
+              <span class="about-photo-corner corner-bottom-right" aria-hidden="true"></span>
+              <img 
+                src="/images/founder_jayavardhan.jpg" 
+                alt="Billakanti Jaya Vardhan — Portrait" 
+                class="about-photo-img"
+                loading="lazy"
+                width="880"
+                height="1173"
+              >
+            </div>
+            <div class="about-photo-caption">
+              <span class="about-photo-tag">CYBER SECURITY <span class="tag-bullet">&bull;</span> TECH BUILDER</span>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Introduction -->
+          <div class="about-text-column">
+            <div class="about-intro-text-group">
+              <p class="about-body-para">
+                Hi, I'm <strong>Billakanti Jaya Vardhan</strong> (also known as Jaya Vardhan Billakanti) — I’m currently pursuing my B.Tech in Cyber Security at <strong>CVR College of Engineering</strong>, where I’m building a strong foundation in technology and cybersecurity while exploring my interests in innovation, digital products, and entrepreneurship.
+              </p>
+              <p class="about-body-para">
+                I enjoy exploring how technology can solve real-world problems and turn ideas into practical products. Alongside my academic journey, I'm building projects, developing my technical skills, and working on entrepreneurial ideas through <strong>Lorven Enterprise</strong>.
+              </p>
+            </div>
+
+            <!-- Core Philosophy Quote -->
+            <div class="about-philosophy-quote-block">
+              <p class="about-philosophy-text">
+                &ldquo;My goal is to continuously learn, create, and build things that make an impact.&rdquo;
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interest & Identity Tags -->
+        <div class="about-interests-block">
+          <span class="about-interests-label">CORE FOCUS &amp; INTERESTS</span>
+          <div class="about-tags-list">
+            <span class="about-interest-tag">
+              <span class="tag-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+              </span>
+              Cyber Security
+            </span>
+            <span class="about-interest-tag">
+              <span class="tag-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="16" height="16" x="4" y="4" rx="2"/>
+                  <rect width="6" height="6" x="9" y="9" rx="1"/>
+                  <path d="M15 2v2"/>
+                  <path d="M15 20v2"/>
+                  <path d="M2 15h2"/>
+                  <path d="M2 9h2"/>
+                  <path d="M20 15h2"/>
+                  <path d="M20 9h2"/>
+                  <path d="M9 2v2"/>
+                  <path d="M9 20v2"/>
+                </svg>
+              </span>
+              Technology &amp; Innovation
+            </span>
+            <span class="about-interest-tag">
+              <span class="tag-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                  <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                </svg>
+              </span>
+              Entrepreneurship
+            </span>
+            <span class="about-interest-tag">
+              <span class="tag-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m18 16 4-4-4-4"/>
+                  <path d="m6 8-4 4 4 4"/>
+                  <path d="m14.5 4-5 16"/>
+                </svg>
+              </span>
+              Web Development
+            </span>
+            <span class="about-interest-tag">
+              <span class="tag-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 8V4H8"/>
+                  <rect width="16" height="12" x="4" y="8" rx="2"/>
+                  <path d="M2 14h2"/>
+                  <path d="M20 14h2"/>
+                  <path d="M15 13v2"/>
+                  <path d="M9 13v2"/>
+                </svg>
+              </span>
+              AI &amp; Emerging Technologies
+            </span>
+            <span class="about-interest-tag">
+              <span class="tag-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+                </svg>
+              </span>
+              Cloud &amp; Infrastructure
+            </span>
+            <span class="about-interest-tag">
+              <span class="tag-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="7" height="7" x="14" y="3" rx="1"/>
+                  <path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/>
+                </svg>
+              </span>
+              Problem Solving &amp; Product Building
+            </span>
+          </div>
+        </div>
+
+        <!-- Explore My Work CTA Link -->
+        <div class="about-cta-container">
+          <a href="#projects" class="about-explore-link">
+            <span>EXPLORE MY WORK</span>
+            <span class="link-arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Compact Premium Academic Foundation Section -->
+    <section class="section-academics" id="academics" aria-label="Academics — Educational Foundation">
+      <!-- Faint background technical grid & ambient depth -->
+      <div class="academics-bg-grid" aria-hidden="true"></div>
+      <div class="academics-ambient-glow" aria-hidden="true"></div>
+
+      <div class="academics-container">
+        <!-- Section Header (Preserved exactly as required) -->
+        <header class="academics-header">
+          <span class="academics-eyebrow">ACADEMICS</span>
+          <h2 class="academics-main-heading">
+            <span class="academics-heading-line academics-heading-line--top">WHERE LEARNING BECAME</span>
+            <span class="academics-heading-line academics-heading-line--bottom accent-line">MY FOUNDATION</span>
+          </h2>
+
+          <p class="academics-intro-para">
+            My academic journey has taken me from school to engineering, with every stage developing the discipline and mindset I bring to technology.
+          </p>
+        </header>
+
+        <!-- Futuristic Connected Academic System -->
+        <div class="academic-system academics-reveal-item">
+
+          <!-- Desktop Journey Rail Track with Animated Signal (Static Card Timeline) -->
+          <div class="journey-rail-track" aria-hidden="true">
+            <div class="journey-rail-line"></div>
+            <div class="journey-pulse-signal"></div>
+          </div>
+
+          <!-- 3-Step Educational Progression -->
+          <div class="academics-grid">
+
+            <!-- Step 1: CVR College of Engineering (Current Education) -->
+            <div class="academic-step academic-step--current">
+              <!-- Top Connection Hub -->
+              <div class="step-connector-hub" aria-hidden="true">
+                <div class="step-node step-node--active">
+                  <span class="node-ping"></span>
+                  <span class="node-ring"></span>
+                  <span class="node-dot"></span>
+                </div>
+                <div class="step-stem"></div>
+              </div>
+
+              <!-- Floating Suspended Module Wrapper -->
+              <div class="academic-card-float">
+                <!-- Clickable Engineered Card -->
+                <a 
+                  href="https://cvr.ac.in/home4/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="academic-card academic-card--current" 
+                  data-cursor-hover="true"
+                  aria-label="CVR College of Engineering — B.Tech in Computer Science & Engineering (Cyber Security)"
+                >
+                  <!-- Engineered Edge Glow & Inner Frame -->
+                  <div class="card-edge-glow" aria-hidden="true"></div>
+                  <div class="card-light-sweep" aria-hidden="true"></div>
+                  <div class="card-inner-chassis" aria-hidden="true"></div>
+
+                  <!-- Card Topbar: Timeline Badge + Visual Status Node -->
+                  <div class="academic-card-topbar">
+                    <div class="academic-timeline-badge academic-timeline--active">
+                      <span class="status-pulse-dot" aria-hidden="true"></span>
+                      <span>2025 &mdash; Present</span>
+                    </div>
+                    <div class="academic-status-marker" aria-hidden="true">
+                      <span class="status-active-glow"></span>
+                    </div>
+                  </div>
+
+                  <!-- Architectural Logo Focal Module -->
+                  <div class="academic-logo-stage">
+                    <div class="academic-logo-module">
+                      <div class="logo-ambient-glow" aria-hidden="true"></div>
+                      <img 
+                        src="/images/cvr_logo.png" 
+                        alt="CVR College of Engineering Logo" 
+                        class="academic-logo-img"
+                        loading="lazy"
+                        width="46"
+                        height="46"
+                      >
+                    </div>
+                    <div class="logo-connector-stem" aria-hidden="true"></div>
+                  </div>
+
+                  <!-- Institution Meta -->
+                  <div class="academic-institution-group">
+                    <h3 class="academic-institution-name">CVR College of Engineering</h3>
+                    <span class="academic-location">Hyderabad</span>
+                  </div>
+
+                  <!-- Qualification / Degree -->
+                  <div class="academic-qualification-group">
+                    <h4 class="academic-degree-title">
+                      B.Tech in Computer Science &amp; Engineering
+                      <span class="academic-degree-spec">(Cyber Security)</span>
+                    </h4>
+                  </div>
+
+                  <!-- Description -->
+                  <div class="academic-desc-box">
+                    <p class="academic-desc-para">
+                      I’m currently pursuing my B.Tech in Computer Science &amp; Engineering at CVR College of Engineering. This is where I’m building my technical foundation and exploring my interests in Cyber Security, technology, innovation, and entrepreneurship.
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Step 2: Motion Junior College -->
+            <div class="academic-step academic-step--completed">
+              <!-- Top Connection Hub -->
+              <div class="step-connector-hub" aria-hidden="true">
+                <div class="step-node step-node--completed">
+                  <span class="node-ring"></span>
+                  <span class="node-dot"></span>
+                </div>
+                <div class="step-stem"></div>
+              </div>
+
+              <!-- Floating Suspended Module Wrapper -->
+              <div class="academic-card-float">
+                <!-- Clickable Engineered Card -->
+                <a 
+                  href="https://motion.ac.in/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="academic-card" 
+                  data-cursor-hover="true"
+                  aria-label="Motion Junior College — Intermediate (MPC)"
+                >
+                  <!-- Engineered Edge Glow & Inner Frame -->
+                  <div class="card-edge-glow" aria-hidden="true"></div>
+                  <div class="card-light-sweep" aria-hidden="true"></div>
+                  <div class="card-inner-chassis" aria-hidden="true"></div>
+
+                  <!-- Card Topbar: Timeline Badge + Visual Status Node -->
+                  <div class="academic-card-topbar">
+                    <div class="academic-timeline-badge">
+                      <span>2023 &mdash; 2025</span>
+                    </div>
+                    <div class="academic-status-marker" aria-hidden="true">
+                      <span class="status-completed-dot"></span>
+                    </div>
+                  </div>
+
+                  <!-- Architectural Logo Focal Module -->
+                  <div class="academic-logo-stage">
+                    <div class="academic-logo-module">
+                      <div class="logo-ambient-glow" aria-hidden="true"></div>
+                      <img 
+                        src="/images/motion_logo.png" 
+                        alt="Motion Junior College Logo" 
+                        class="academic-logo-img"
+                        loading="lazy"
+                        width="46"
+                        height="46"
+                      >
+                    </div>
+                    <div class="logo-connector-stem" aria-hidden="true"></div>
+                  </div>
+
+                  <!-- Institution Meta -->
+                  <div class="academic-institution-group">
+                    <h3 class="academic-institution-name">Motion Junior College</h3>
+                    <span class="academic-location">Madhapur, Hyderabad</span>
+                  </div>
+
+                  <!-- Qualification / Degree -->
+                  <div class="academic-qualification-group">
+                    <h4 class="academic-degree-title">
+                      Intermediate (MPC)
+                    </h4>
+                  </div>
+
+                  <!-- Description -->
+                  <div class="academic-desc-box">
+                    <p class="academic-desc-para">
+                      I continued my academic journey at Motion Junior College, Madhapur, where I completed my intermediate education. This stage strengthened my academic foundation and prepared me for the transition into engineering.
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Step 3: Bhashyam Blooms -->
+            <div class="academic-step academic-step--completed">
+              <!-- Top Connection Hub -->
+              <div class="step-connector-hub" aria-hidden="true">
+                <div class="step-node step-node--completed">
+                  <span class="node-ring"></span>
+                  <span class="node-dot"></span>
+                </div>
+                <div class="step-stem"></div>
+              </div>
+
+              <!-- Floating Suspended Module Wrapper -->
+              <div class="academic-card-float">
+                <!-- Clickable Engineered Card -->
+                <a 
+                  href="https://bloomsmaheswaram.in/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="academic-card" 
+                  data-cursor-hover="true"
+                  aria-label="Bhashyam Blooms — Class 10"
+                >
+                  <!-- Engineered Edge Glow & Inner Frame -->
+                  <div class="card-edge-glow" aria-hidden="true"></div>
+                  <div class="card-light-sweep" aria-hidden="true"></div>
+                  <div class="card-inner-chassis" aria-hidden="true"></div>
+
+                  <!-- Card Topbar: Timeline Badge + Visual Status Node -->
+                  <div class="academic-card-topbar">
+                    <div class="academic-timeline-badge">
+                      <span>2023</span>
+                    </div>
+                    <div class="academic-status-marker" aria-hidden="true">
+                      <span class="status-completed-dot"></span>
+                    </div>
+                  </div>
+
+                  <!-- Architectural Logo Focal Module -->
+                  <div class="academic-logo-stage">
+                    <div class="academic-logo-module">
+                      <div class="logo-ambient-glow" aria-hidden="true"></div>
+                      <img 
+                        src="/images/bhashyam_logo.png" 
+                        alt="Bhashyam Blooms Logo" 
+                        class="academic-logo-img"
+                        loading="lazy"
+                        width="46"
+                        height="46"
+                      >
+                    </div>
+                    <div class="logo-connector-stem" aria-hidden="true"></div>
+                  </div>
+
+                  <!-- Institution Meta -->
+                  <div class="academic-institution-group">
+                    <h3 class="academic-institution-name">Bhashyam Blooms</h3>
+                    <span class="academic-location">Maheshwaram, Hyderabad</span>
+                  </div>
+
+                  <!-- Qualification / Degree -->
+                  <div class="academic-qualification-group">
+                    <h4 class="academic-degree-title">
+                      Class 10
+                    </h4>
+                  </div>
+
+                  <!-- Description -->
+                  <div class="academic-desc-box">
+                    <p class="academic-desc-para">
+                      I completed my Class 10 education at Bhashyam Blooms, Maheshwaram. This stage formed an important early foundation in my academic journey and helped shape my approach toward learning and growth.
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION: TOOLKIT (3D Orbital Technology Ecosystem)
+         ====================================================================== -->
+    <section class="section-toolkit" id="toolkit" aria-label="Technical Toolkit">
+      <div class="toolkit-bg-grid" aria-hidden="true"></div>
+      <div class="toolkit-ambient-glow" aria-hidden="true"></div>
+
+      <div class="toolkit-container">
+        <!-- Section Header -->
+        <div class="toolkit-header toolkit-reveal-item">
+          <div class="toolkit-eyebrow">
+            <span>MY TOOLKIT</span>
+          </div>
+          <h2 class="toolkit-main-heading">
+            <span class="toolkit-heading-accent">TOOLS I BUILD WITH</span>
+          </h2>
+          <p class="toolkit-intro-desc">
+            A growing collection of technologies I use, learn, and explore across security, full-stack architecture, and intelligent systems.
+          </p>
+        </div>
+
+        <!-- 2-Column Interactive Dashboard Layout: LEFT (Directory) | RIGHT (Orbital System) -->
+        <div class="toolkit-dashboard-grid">
+          
+          <!-- LEFT SIDE: Vertical Tool Directory -->
+          <div class="toolkit-directory-col toolkit-reveal-item" id="toolkitDirectoryCol">
+            <!-- Dynamically populated categories with pills -->
+          </div>
+
+          <!-- RIGHT SIDE: Rotating 3D Orbital System Viewport -->
+          <div class="toolkit-showcase-col toolkit-reveal-item">
+            <div class="orbital-showcase-viewport" id="orbitalShowcaseViewport">
+
+              <!-- SVG Orbital Ring Paths -->
+              <svg class="orbital-svg-tracks" id="orbitSvgTracks" viewBox="0 0 540 540" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <ellipse id="orbitRing1" class="orbit-ring-1" cx="270" cy="270" rx="92"  ry="70" />
+                <ellipse id="orbitRing2" class="orbit-ring-2" cx="270" cy="270" rx="152" ry="114" />
+                <ellipse id="orbitRing3" class="orbit-ring-3" cx="270" cy="270" rx="206" ry="155" />
+                <ellipse id="orbitRing4" class="orbit-ring-4" cx="270" cy="270" rx="254" ry="190" />
+              </svg>
+
+              <!-- Central TECH CORE -->
+              <div class="orbital-center-core" id="techCore">
+                <div class="core-outer-ring" aria-hidden="true"></div>
+                <div class="core-inner-ring" aria-hidden="true"></div>
+                <span class="core-symbol">&lt;/&gt;</span>
+                <span class="core-label">TECH CORE</span>
+              </div>
+
+              <!-- Rotating technology nodes layer -->
+              <div class="orbital-nodes-layer" id="orbitalNodesLayer"></div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION: PROJECTS (Selected Works — 3-Column Card Grid)
+         ====================================================================== -->
+    <section class="section-projects" id="projects" aria-label="Selected Works — Projects">
+      <div class="projects-container">
+
+        <!-- Section Header (Centered Composition) -->
+        <div class="projects-header">
+          <div class="projects-eyebrow">
+            <span class="projects-eyebrow-text">MY WORK</span>
+          </div>
+          <h2 class="projects-main-heading">
+            <span class="projects-heading-accent">SELECTED</span>
+            <span class="projects-heading-white">WORKS</span>
+          </h2>
+          <p class="projects-intro-desc">
+            A collection of projects built across cybersecurity, web development,<br class="projects-desc-br"> cloud systems, and emerging technology.
+          </p>
+        </div>
+
+        <!-- 3-column project card grid — populated by ProjectsSectionController -->
+        <div class="projects-grid" id="projectsGrid" aria-label="Project showcase">
+          <!-- Image-free info cards injected by projects-section.js -->
+        </div>
+
+        <!-- View All Projects CTA (Refined Interactive Control) -->
+        <div class="projects-view-all-wrap">
+          <a
+            href="/projects.html"
+            class="projects-view-all-btn"
+            aria-label="View all projects — detailed case studies"
+            data-cursor-hover="true"
+          >
+            <span class="projects-btn-glow" aria-hidden="true"></span>
+            <span class="projects-btn-label">VIEW ALL PROJECTS</span>
+            <span class="projects-btn-arrow-disc" aria-hidden="true">
+              <svg class="projects-btn-arrow-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         CERTIFICATIONS SECTION
+         Authentic 10-Certificate Overlapping Fanned Arc Deck from Original Portfolio
+         Adapted strictly to Portfolio 2.0 Colors, Typography, and UI Language
+         =================================================================== -->
+    <section class="section-certifications" id="certifications" aria-label="Certifications and Credentials">
+      <div class="cert-container">
+
+        <!-- Centered Section Header -->
+        <div class="cert-header-block">
+          <div class="cert-label-badge">
+            <span class="cert-label-text">CERTIFICATIONS</span>
+          </div>
+          <h2 class="cert-main-heading">Credentials</h2>
+        </div>
+
+        <!-- Fanned Arc Deck Stage -->
+        <div class="cert-stack-wrapper">
+          <div class="cert-stack-stage" role="region" aria-label="Interactive Certificates Fan Deck">
+
+            <!-- Card 01: CVR • ACM -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="CVR • ACM: Code in Borderland" data-cert-img="/images/cert_cvr_coding.jpg" data-cert-caption="CVR • ACM — Code in Borderland (Coding Competition, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_cvr_coding.jpg" alt="CVR • ACM Code in Borderland Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">CVR • ACM</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">Code in Borderland</h3>
+                <p class="cert-fan-sub">Coding Competition</p>
+              </div>
+            </div>
+
+            <!-- Card 02: LETSUPGRADE -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="LETSUPGRADE: Git & GitHub Bootcamp" data-cert-img="/images/cert_git_github.jpg" data-cert-caption="LETSUPGRADE — Git & GitHub Bootcamp (Version Control, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_git_github.jpg" alt="LETSUPGRADE Git & GitHub Bootcamp Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">LETSUPGRADE</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">Git &amp; GitHub Bootcamp</h3>
+                <p class="cert-fan-sub">Version Control</p>
+              </div>
+            </div>
+
+            <!-- Card 03: E-BOX -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="E-BOX: Data Structures : Deep Dive in C" data-cert-img="/images/cert_dsa_c.jpg" data-cert-caption="E-BOX — Data Structures : Deep Dive in C (Data Structures, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_dsa_c.jpg" alt="E-BOX Data Structures Deep Dive in C Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">E-BOX</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">Data Structures : Deep Dive in C</h3>
+                <p class="cert-fan-sub">Data Structures</p>
+              </div>
+            </div>
+
+            <!-- Card 04: GOOGLE -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="GOOGLE: Crash Course on Python" data-cert-img="/images/cert_google_python.jpg" data-cert-caption="GOOGLE — Crash Course on Python (Python Specialization, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_google_python.jpg" alt="GOOGLE Crash Course on Python Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">GOOGLE</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">Crash Course on Python</h3>
+                <p class="cert-fan-sub">Python Specialization</p>
+              </div>
+            </div>
+
+            <!-- Card 05: LETSUPGRADE (Center Left Prominent) -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="LETSUPGRADE: HTML & CSS Bootcamp" data-cert-img="/images/cert_html_css.jpg" data-cert-caption="LETSUPGRADE — HTML & CSS Bootcamp (Web Development, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_html_css.jpg" alt="LETSUPGRADE HTML & CSS Bootcamp Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">LETSUPGRADE</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">HTML &amp; CSS Bootcamp</h3>
+                <p class="cert-fan-sub">Web Development</p>
+              </div>
+            </div>
+
+            <!-- Card 06: E-BOX (Center Right Prominent) -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="E-BOX: Python Basics for Beginners" data-cert-img="/images/cert_ebox_python.jpg" data-cert-caption="E-BOX — Python Basics for Beginners (Programming Fundamentals, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_ebox_python.jpg" alt="E-BOX Python Basics for Beginners Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">E-BOX</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">Python Basics for Beginners</h3>
+                <p class="cert-fan-sub">Programming Fundamentals</p>
+              </div>
+            </div>
+
+            <!-- Card 07: TATA GROUP -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="TATA GROUP: TATA Crucible Quiz" data-cert-img="/images/cert_tata_crucible.jpg" data-cert-caption="TATA GROUP — TATA Crucible Quiz (Campus Quiz 2025, 2025)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_tata_crucible.jpg" alt="TATA Crucible Quiz Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">TATA GROUP</span>
+                  <span class="cert-fan-date">2025</span>
+                </div>
+                <h3 class="cert-fan-title">TATA Crucible Quiz</h3>
+                <p class="cert-fan-sub">Campus Quiz 2025</p>
+              </div>
+            </div>
+
+            <!-- Card 08: INSPIRELEAP -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="INSPIRELEAP: Marketing Intern" data-cert-img="/images/cert_inspireleap_marketing.jpg" data-cert-caption="INSPIRELEAP — Marketing Intern (Internship Certificate, 2025 - 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_inspireleap_marketing.jpg" alt="INSPIRELEAP Marketing Intern Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">INSPIRELEAP</span>
+                  <span class="cert-fan-date">2025 - 2026</span>
+                </div>
+                <h3 class="cert-fan-title">Marketing Intern</h3>
+                <p class="cert-fan-sub">Internship Certificate</p>
+              </div>
+            </div>
+
+            <!-- Card 09: BE10X -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="BE10X: AI Tools & Claude Workshop" data-cert-img="/images/cert_be10x_ai.jpg" data-cert-caption="BE10X — AI Tools & Claude Workshop (AI Productivity, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_be10x_ai.jpg" alt="BE10X AI Tools & Claude Workshop Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">BE10X</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">AI Tools &amp; Claude Workshop</h3>
+                <p class="cert-fan-sub">AI Productivity</p>
+              </div>
+            </div>
+
+            <!-- Card 10: LETSUPGRADE -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="LETSUPGRADE: Prompt Engineering Bootcamp" data-cert-img="/images/cert_letsupgrade_prompt.jpg" data-cert-caption="LETSUPGRADE — Prompt Engineering Bootcamp (Generative AI, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_letsupgrade_prompt.jpg" alt="LETSUPGRADE Prompt Engineering Bootcamp Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">LETSUPGRADE</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">Prompt Engineering Bootcamp</h3>
+                <p class="cert-fan-sub">Generative AI</p>
+              </div>
+            </div>
+
+            <!-- Card 11: VAULTOFCODES -->
+            <div class="cert-fan-card" tabindex="0" role="button" aria-label="VAULTOFCODES: Prompt Engineering Certification Test" data-cert-img="/images/cert_vaultofcodes_prompt.jpg" data-cert-caption="VAULTOFCODES — Prompt Engineering Certification Test (Score 100/100, 2026)">
+              <div class="cert-fan-media">
+                <img class="cert-fan-img" src="/images/cert_vaultofcodes_prompt.jpg" alt="VAULTOFCODES Prompt Engineering Certificate" loading="lazy">
+                <div class="cert-fan-overlay">
+                  <span class="cert-fan-hint">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    View
+                  </span>
+                </div>
+              </div>
+              <div class="cert-fan-info">
+                <div class="cert-fan-badge-row">
+                  <span class="cert-fan-org">VAULTOFCODES</span>
+                  <span class="cert-fan-date">2026</span>
+                </div>
+                <h3 class="cert-fan-title">Prompt Engineering</h3>
+                <p class="cert-fan-sub">Problem Solving &amp; Coding</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION: LORVEN ENTERPRISE — 3D SCROLL-STORYTELLING EXPERIENCE
+         Architectural 3D Hexagonal Brand Structure with Scroll-Linked Progression
+         ====================================================================== -->
+    <section class="section-lorven" id="lorven" aria-label="Lorven Enterprise">
+      <!-- Foreground Storytelling Content (Left Column) -->
+      <div class="lorven-content-container">
+        <div class="lorven-editorial-stream">
+          
+          <!-- 1. Hero / Brand Introduction -->
+          <div class="lorven-hero-block">
+            <span class="lorven-eyebrow">LORVEN ENTERPRISE</span>
+            <h2 class="lorven-headline">Building Modern<br>Growth &amp; Secure<br>Digital Systems</h2>
+            <p class="lorven-subhead">WHERE STRATEGY MEETS GROWTH</p>
+            <p class="lorven-description">
+              Lorven Enterprise focuses on digital solutions, technology, cybersecurity, and growth-oriented products designed to help businesses build and grow in the digital world.
+            </p>
+          </div>
+
+          <!-- 2. Progressive Capability Milestones (No Cards / Clean Editorial) -->
+          <div class="lorven-capabilities-stream">
+            
+            <div class="lorven-capability-item">
+              <h3 class="lorven-capability-title">
+                <svg class="lorven-capability-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+                <span>DIGITAL SOLUTIONS</span>
+              </h3>
+              <p class="lorven-capability-desc">
+                Websites, web applications, digital products, and modern online experiences.
+              </p>
+            </div>
+
+            <div class="lorven-capability-item">
+              <h3 class="lorven-capability-title">
+                <svg class="lorven-capability-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <span>BUSINESS GROWTH</span>
+              </h3>
+              <p class="lorven-capability-desc">
+                Digital strategy, growth-focused solutions, brand development, and technology-driven opportunities.
+              </p>
+            </div>
+
+            <div class="lorven-capability-item">
+              <h3 class="lorven-capability-title">
+                <svg class="lorven-capability-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+                <span>TECHNOLOGY</span>
+              </h3>
+              <p class="lorven-capability-desc">
+                Modern web technologies, intelligent systems, automation, and emerging technologies.
+              </p>
+            </div>
+
+            <div class="lorven-capability-item">
+              <h3 class="lorven-capability-title">
+                <svg class="lorven-capability-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>CYBERSECURITY</span>
+              </h3>
+              <p class="lorven-capability-desc">
+                Security-minded digital systems, privacy, secure architecture, and practical cybersecurity thinking.
+              </p>
+            </div>
+
+          </div>
+
+          <!-- 3. Company Narrative -->
+          <div class="lorven-narrative-block">
+            <p class="lorven-narrative-text">
+              Lorven Enterprise is a technology and growth-oriented venture focused on building practical digital solutions, exploring emerging technologies, strengthening digital systems, and turning ideas into useful products and opportunities.
+            </p>
+          </div>
+
+          <!-- 4. Closing Editorial CTA Link -->
+          <div class="lorven-cta-wrapper">
+            <a href="https://lorven.vercel.app" target="_blank" rel="noopener noreferrer" class="lorven-cta-link" aria-label="Explore Lorven Enterprise official website in a new tab" data-cursor-hover="true">
+              <span>EXPLORE LORVEN ENTERPRISE</span>
+              <span class="cta-arrow" aria-hidden="true">→</span>
+            </a>
+            <span class="lorven-cta-note">OFFICIAL VENTURE PLATFORM &bull; LORVEN.VERCEL.APP</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Persistent Sticky 3D Visual Companion (Right Column, spans 100% height of Lorven) -->
+      <div class="lorven-visual-layer" aria-hidden="true">
+        <div class="lorven-3d-sticky">
+          <canvas id="lorven-3d-canvas" class="lorven-3d-canvas"></canvas>
+          <div class="lorven-atmospheric-layer"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECTION: LORVEN ENTERPRISE FOUNDERS
+         The People Behind It — Editorial Founder Showcase
+         ====================================================================== -->
+    <section class="section-founders" id="founders" aria-label="Lorven Enterprise Founders">
+      <div class="founders-ambient-glow" aria-hidden="true"></div>
+
+      <div class="founders-container">
+        <!-- Section Header -->
+        <div class="founders-header-block">
+          <div class="founders-label-badge founders-reveal-badge">
+            <span class="founders-label-text">THE PEOPLE BEHIND IT</span>
+          </div>
+          <h2 class="founders-main-heading founders-reveal-heading">
+            Lorven Enterprise <span>Founders</span>
+          </h2>
+          <p class="founders-subtext founders-reveal-subtext">
+            Built through ideas, collaboration, and a shared vision for growth.
+          </p>
+        </div>
+
+        <!-- 3 Horizontal Founder Profiles -->
+        <div class="founders-grid">
+
+          <!-- Founder 1: ReddyGari Vashishta Reddy -->
+          <article class="founder-profile founders-reveal-card" aria-label="ReddyGari Vashishta Reddy - Founder &amp; CEO">
+            <div class="founder-avatar-frame">
+              <div class="founder-avatar-inner">
+                <img src="/images/founder_vashishta.jpg" alt="ReddyGari Vashishta Reddy" class="founder-avatar-img" style="object-position: center 18%;" width="116" height="116" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <h3 class="founder-name">ReddyGari Vashishta Reddy</h3>
+            <div class="founder-role-primary">Founder &amp; CEO</div>
+            <div class="founder-role-secondary">Chief Executive Officer</div>
+            <p class="founder-bio">
+              Visionary leader driving strategy, partnerships, and the overall direction of Lorven Enterprise.
+            </p>
+            <div class="founder-action-wrapper">
+              <a href="https://vashishtareddy.vercel.app/" target="_blank" rel="noopener noreferrer" class="founder-website-btn" aria-label="Visit ReddyGari Vashishta Reddy's personal website" data-cursor-hover="true">
+                <span>Visit Website</span>
+                <span class="founder-website-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Founder 2: Billakanti Jaya Vardhan -->
+          <article class="founder-profile founders-reveal-card" aria-label="Billakanti Jaya Vardhan - Founder &amp; COO">
+            <div class="founder-avatar-frame">
+              <div class="founder-avatar-inner">
+                <img src="/images/founder_jayavardhan.jpg" alt="Billakanti Jaya Vardhan" class="founder-avatar-img" width="116" height="116" loading="lazy" decoding="async" style="object-position: center 62%;">
+              </div>
+            </div>
+            <h3 class="founder-name">Billakanti Jaya Vardhan</h3>
+            <div class="founder-role-primary">Founder &amp; COO</div>
+            <div class="founder-role-secondary">Chief Operating Officer</div>
+            <p class="founder-bio">
+              Overseeing operations, product development, and ensuring every system runs with precision and purpose.
+            </p>
+            <div class="founder-action-wrapper">
+              <span class="founder-author-badge">Portfolio Author</span>
+            </div>
+          </article>
+
+          <!-- Founder 3: Vishwak Pullepu -->
+          <article class="founder-profile founders-reveal-card" aria-label="Vishwak Pullepu - Founder &amp; CTO">
+            <div class="founder-avatar-frame">
+              <div class="founder-avatar-inner">
+                <img src="/images/founder_vishwak.jpg" alt="Vishwak Pullepu" class="founder-avatar-img" width="116" height="116" loading="lazy" decoding="async" style="object-position: center 13%;">
+              </div>
+            </div>
+            <h3 class="founder-name">Vishwak Pullepu</h3>
+            <div class="founder-role-primary">Founder &amp; CTO</div>
+            <div class="founder-role-secondary">Chief Technology Officer</div>
+            <p class="founder-bio">
+              Leading the technology vision, architecture, and engineering behind Lorven's digital systems.
+            </p>
+            <div class="founder-action-wrapper">
+              <a href="https://vishwak.tech/" target="_blank" rel="noopener noreferrer" class="founder-website-btn" aria-label="Visit Vishwak Pullepu's personal website" data-cursor-hover="true">
+                <span>Visit Website</span>
+                <span class="founder-website-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         10. GET IN TOUCH — FUTURISTIC DIGITAL COMMUNICATION SECTION
+         ====================================================================== -->
+    <section class="section-contact" id="contact" aria-label="Contact Section">
+      <!-- Atmospheric Animated Radial Depth & Grid -->
+      <div class="contact-ambient-glow" aria-hidden="true"></div>
+      <div class="contact-ambient-glow-left" aria-hidden="true"></div>
+      <div class="contact-grid-geometry" aria-hidden="true"></div>
+
+      <div class="contact-container">
+        <!-- Section Header Block -->
+        <header class="contact-header">
+          <div class="contact-label-badge contact-reveal-badge">
+            <span class="contact-label-text">GET IN TOUCH</span>
+          </div>
+          <h2 class="contact-main-heading contact-reveal-heading">
+            Let's <span>Connect</span>
+          </h2>
+          <p class="contact-subtext contact-reveal-subtext">
+            Have an idea, opportunity, or something worth building? Let's start a conversation.
+          </p>
+        </header>
+
+        <!-- Asymmetric 2-Column Contact Matrix -->
+        <div class="contact-layout-grid">
+
+          <!-- LEFT: Refined Futuristic Contact Form -->
+          <div class="contact-form-panel contact-reveal-form">
+            <h3 class="contact-form-title">Send Me a Message</h3>
+            <p class="contact-form-desc">Fill out the fields below and I'll respond directly to your inbox.</p>
+
+            <form class="contact-form" id="contactForm" novalidate>
+              <div class="contact-form-row">
+                <div class="contact-field">
+                  <label for="cf-name">Your Name *</label>
+                  <input type="text" id="cf-name" name="name" class="contact-input" placeholder="e.g. Alex Morgan" required autocomplete="name">
+                </div>
+                <div class="contact-field">
+                  <label for="cf-email">Your Email *</label>
+                  <input type="email" id="cf-email" name="email" class="contact-input" placeholder="e.g. alex@company.com" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="contact-form-row">
+                <div class="contact-field">
+                  <label for="cf-phone">Phone Number</label>
+                  <input type="tel" id="cf-phone" name="phone" class="contact-input" placeholder="+1 (555) 000-0000" autocomplete="tel">
+                </div>
+                <div class="contact-field">
+                  <label for="cf-subject">Subject</label>
+                  <input type="text" id="cf-subject" name="subject" class="contact-input" placeholder="Partnership, Project, or Role">
+                </div>
+              </div>
+
+              <div class="contact-field">
+                <label for="cf-message">Your Message *</label>
+                <textarea id="cf-message" name="message" class="contact-textarea" placeholder="Tell me about what you're looking to build, solve, or collaborate on…" required></textarea>
+              </div>
+
+              <button type="submit" class="contact-submit-btn" id="contactSubmitBtn" aria-label="Send Message" data-cursor-hover="true">
+                <span class="btn-state-send">
+                  <span>SEND MESSAGE</span>
+                  <span class="submit-arrow" aria-hidden="true">→</span>
+                </span>
+                <span class="btn-state-loading">
+                  <span class="submit-spinner" aria-hidden="true"></span>
+                  <span>TRANSMITTING…</span>
+                </span>
+              </button>
+
+              <p class="contact-form-notice" id="contactFormNotice" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+
+          <!-- RIGHT: Direct Contact + Social Links -->
+          <div class="contact-side-column contact-reveal-side">
+
+            <!-- Direct Email Block (Clickable Mailto) -->
+            <a href="mailto:vardhanbillakanti125@gmail.com?subject=Portfolio%20Inquiry" id="contactDirectEmail" class="contact-direct-card" aria-label="Email vardhanbillakanti125@gmail.com" data-cursor-hover="true">
+              <div class="contact-direct-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div class="contact-direct-info">
+                <span class="contact-direct-label">DIRECT EMAIL</span>
+                <span class="contact-direct-value">vardhanbillakanti125@gmail.com</span>
+              </div>
+              <span class="contact-direct-arrow" aria-hidden="true">→</span>
+            </a>
+
+            <!-- Social Links Ecosystem -->
+            <div class="contact-social-group">
+              <div class="contact-social-title">SOCIAL LINKS</div>
+              <div class="contact-social-list">
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/vardhan_billakanti/" target="_blank" rel="noopener noreferrer" class="contact-social-item" aria-label="Visit Jaya Vardhan on Instagram" data-cursor-hover="true">
+                  <div class="contact-social-left">
+                    <span class="contact-social-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                      </svg>
+                    </span>
+                    <span class="contact-social-name">Instagram</span>
+                  </div>
+                  <span class="contact-social-arrow" aria-hidden="true">↗</span>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/" target="_blank" rel="noopener noreferrer" class="contact-social-item" aria-label="Visit Jaya Vardhan on LinkedIn" data-cursor-hover="true">
+                  <div class="contact-social-left">
+                    <span class="contact-social-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                      </svg>
+                    </span>
+                    <span class="contact-social-name">LinkedIn</span>
+                  </div>
+                  <span class="contact-social-arrow" aria-hidden="true">↗</span>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/vardhanbillakanti125-crypto" target="_blank" rel="noopener noreferrer" class="contact-social-item" aria-label="Visit Jaya Vardhan on GitHub" data-cursor-hover="true">
+                  <div class="contact-social-left">
+                    <span class="contact-social-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                      </svg>
+                    </span>
+                    <span class="contact-social-name">GitHub</span>
+                  </div>
+                  <span class="contact-social-arrow" aria-hidden="true">↗</span>
+                </a>
+
+                <!-- Threads -->
+                <a href="https://www.threads.com/@vardhan_billakanti" target="_blank" rel="noopener noreferrer" class="contact-social-item" aria-label="Visit Jaya Vardhan on Threads" data-cursor-hover="true">
+                  <div class="contact-social-left">
+                    <span class="contact-social-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M18.263 11.097c-.03-3.486-1.92-5.586-5.111-5.586-2.13 0-3.922.963-4.863 2.499l2.062 1.438c.535-.843 1.272-1.543 2.628-1.543 1.528 0 2.318.85 2.544 2.431a15 15 0 0 0-2.236-.173c-4.125 0-6.068 1.867-6.068 4.336s1.943 3.99 4.804 3.99c3.139 0 5.013-2.115 5.781-4.735.798.361 1.348 1.204 1.348 2.47 0 3.387-3.907 5.232-7.22 5.232-4.885 0-8.077-3.207-8.077-8.424 0-6.392 4.223-10.487 9.9-10.487 3.808 0 5.69 1.671 6.97 3.914l2.108-1.475C21.44 2.078 18.331 0 13.663 0 6.227 0 1.168 5.277 1.168 12.934c0 7 4.953 11.066 10.856 11.066 4.878 0 9.809-2.846 9.809-7.716 0-2.545-1.46-4.231-3.569-5.187m-6.33 4.855c-1.077 0-2.026-.512-2.026-1.453 0-1.483 1.822-1.934 3.606-1.934.678 0 1.34.045 1.927.173-.422 1.927-1.671 3.215-3.508 3.214Z"/>
+                      </svg>
+                    </span>
+                    <span class="contact-social-name">Threads</span>
+                  </div>
+                  <span class="contact-social-arrow" aria-hidden="true">↗</span>
+                </a>
+
+                <!-- X -->
+                <a href="https://x.com/VardhanBil31357" target="_blank" rel="noopener noreferrer" class="contact-social-item" aria-label="Visit Jaya Vardhan on X" data-cursor-hover="true">
+                  <div class="contact-social-left">
+                    <span class="contact-social-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                        <path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/>
+                      </svg>
+                    </span>
+                    <span class="contact-social-name">X</span>
+                  </div>
+                  <span class="contact-social-arrow" aria-hidden="true">↗</span>
+                </a>
+
+              </div>
+            </div>
+
+          </div><!-- /contact-side-column -->
+
+        </div><!-- /contact-layout-grid -->
+      </div>
+    </section>
+
+    <!-- Certificate Lightbox Viewer Modal -->
+    <div id="certModal" class="cert-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Certificate Image Viewer">
+      <div class="cert-modal-backdrop" aria-hidden="true"></div>
+      <div class="cert-modal-container">
+        <button class="cert-modal-close-btn" type="button" aria-label="Close certificate preview" data-cursor-hover="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+        <div class="cert-modal-body">
+          <img id="certModalImg" class="cert-modal-img" src="" alt="Certificate Preview">
+          <p id="certModalCaption" class="cert-modal-caption"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ======================================================================
+       11. FUTURISTIC DIGITAL FOOTER (TERMINUS)
+       ====================================================================== -->
+  <footer class="site-footer" id="site-footer" role="contentinfo">
+    <!-- Luminous Horizon Beam -->
+    <div class="footer-luminous-wrapper" aria-hidden="true">
+      <div class="footer-luminous-beam">
+        <div class="footer-beam-pulse"></div>
+      </div>
+    </div>
+
+    <div class="footer-content">
+      <div class="footer-bottom-bar">
+        <div class="footer-social-links">
+          <a href="https://github.com/vardhanbillakanti125-crypto" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="GitHub Profile" data-cursor-hover="true">
+            <span>GitHub</span>
+          </a>
+          <a href="https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn Profile" data-cursor-hover="true">
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://www.instagram.com/vardhan_billakanti/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="Instagram Profile" data-cursor-hover="true">
+            <span>Instagram</span>
+          </a>
+        </div>
+
+        <div class="footer-copyright">
+          &copy; 2026 Billakanti Jaya Vardhan. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Futuristic Floating Robot AI Assistant Trigger -->
+  <div id="bob-floating-wrapper" class="bob-floating-wrapper launcher-hidden">
+    <button id="bob-trigger-floating" class="bob-floating-trigger" aria-label="Open AI Assistant" data-cursor-hover="true">
+      <svg class="bob-robot-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2v3"/>
+        <circle cx="12" cy="2" r="0.75" fill="currentColor" stroke="none"/>
+        <rect x="4" y="5" width="16" height="14" rx="4"/>
+        <path d="M2 12h2"/>
+        <path d="M20 12h2"/>
+        <circle cx="8.5" cy="11" r="1.25" fill="currentColor" stroke="none"/>
+        <circle cx="15.5" cy="11" r="1.25" fill="currentColor" stroke="none"/>
+        <path d="M9 15.5h6"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Futuristic Custom Precision Cursor (Desktop Only) -->
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true">
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

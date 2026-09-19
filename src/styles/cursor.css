@@ -1,0 +1,123 @@
+/* ==========================================================================
+   FUTURISTIC SPECIAL CURSOR — SECONDARY VISUAL LAYER
+   The native OS pointer remains 100% visible and primary.
+   This special cursor is an elegant, trailing visual enhancement.
+   ========================================================================== */
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none !important;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.custom-cursor.cursor-active {
+  opacity: 1;
+}
+
+.custom-cursor.cursor-hidden {
+  opacity: 0 !important;
+}
+
+/* Center Precision Detail (Subtle visual accompaniment) */
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--pr-white-pure);
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+  pointer-events: none !important;
+  z-index: 100000;
+  will-change: transform;
+  transition: background-color 0.2s ease, width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Outer Tracking Inertia Ring (Smooth physical follow) */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  background-color: transparent;
+  pointer-events: none !important;
+  z-index: 99999;
+  will-change: transform, width, height, border-color, background-color;
+  transition: width 0.24s var(--ease-cinematic), 
+              height 0.24s var(--ease-cinematic), 
+              border-color 0.24s ease, 
+              background-color 0.24s ease, 
+              box-shadow 0.24s ease;
+}
+
+/* --------------------------------------------------------------------------
+   INTERACTIVE STATES (Subtle & Restrained)
+   -------------------------------------------------------------------------- */
+
+/* 1. Hovering Navigation Links / Brand */
+.custom-cursor.cursor-link .cursor-ring {
+  width: 36px;
+  height: 36px;
+  border-color: rgba(255, 77, 0, 0.7);
+  background-color: rgba(255, 77, 0, 0.06);
+  box-shadow: 0 0 10px rgba(255, 77, 0, 0.18);
+}
+
+.custom-cursor.cursor-link .cursor-dot {
+  background-color: var(--accent-primary);
+  box-shadow: 0 0 6px var(--pr-accent-orange-glow);
+}
+
+/* 2. Hovering Social Profile Circles */
+.custom-cursor.cursor-social .cursor-ring {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(255, 77, 0, 0.8);
+  background-color: rgba(255, 77, 0, 0.08);
+  box-shadow: 0 0 14px rgba(255, 77, 0, 0.25);
+}
+
+.custom-cursor.cursor-social .cursor-dot {
+  width: 4px;
+  height: 4px;
+  background-color: var(--accent-primary);
+  box-shadow: 0 0 8px var(--pr-accent-orange-glow);
+}
+
+/* 3. Hovering GET IN TOUCH Contact Trigger */
+.custom-cursor.cursor-cta .cursor-ring {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(255, 77, 0, 0.9);
+  background-color: rgba(255, 77, 0, 0.1);
+  box-shadow: 0 0 16px rgba(255, 77, 0, 0.3);
+}
+
+.custom-cursor.cursor-cta .cursor-dot {
+  background-color: var(--accent-primary);
+  box-shadow: 0 0 8px var(--pr-accent-orange-glow);
+}
+
+/* 4. Generic Click Micro-Compression */
+.custom-cursor.cursor-clicking .cursor-ring {
+  border-color: var(--accent-primary);
+}
+
+/* NOTE: Native system cursor is NEVER hidden. Zero cursor:none. */
+
+/* Touch Device Kill Switch: Never render on mobile or tablet */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
+}

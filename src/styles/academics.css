@@ -1,0 +1,1080 @@
+/* ==========================================================================
+   PORTFOLIO 2.0 — ACADEMICS FOUNDATION SECTION
+   Futuristic floating academic milestones suspended in deep space, connected
+   to the academic trajectory timeline with precision geometry, restrained depth,
+   and subtle out-of-phase levitation physics.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. SECTION CONTAINER & AMBIENT HORIZON DEPTH
+   -------------------------------------------------------------------------- */
+.section-academics {
+  position: relative;
+  width: 100%;
+  background-color: var(--pr-black-1000, #000000);
+  color: var(--pr-white-pure, #f5f5f7);
+  padding: clamp(5.25rem, 9vh, 7.25rem) clamp(24px, 5vw, 80px) clamp(3.5rem, 6vh, 5.25rem);
+  overflow-x: clip;
+  overflow-y: visible;
+  z-index: 10;
+}
+
+/* Faint technical micro-grid pattern behind the academic section */
+.academics-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, black 20%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 45%, black 20%, transparent 85%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Subtle, restrained ambient warm radial illumination */
+.academics-ambient-glow {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(960px, 90vw);
+  height: 280px;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(255, 77, 0, 0.035) 0%,
+    rgba(255, 77, 0, 0.01) 45%,
+    transparent 75%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Centered main container: 1350–1450px boundary with generous breathing room */
+.academics-container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 3.6vh, 2.5rem);
+  z-index: 2;
+  overflow: visible;
+}
+
+/* --------------------------------------------------------------------------
+   2. SECTION HEADER (PRESERVED EXACTLY AS SPECIFIED)
+   -------------------------------------------------------------------------- */
+.academics-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  max-width: min(840px, 92vw);
+  margin: 0 auto;
+  --acad-text-progress: 0;
+  /* Substantially increased travel distance: 300px–380px on desktop, scaling responsively for viewport widths */
+  --acad-text-travel: clamp(60px, 18vw, 170px);
+  overflow: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (min-width: 768px) {
+  .academics-header {
+    --acad-text-travel: clamp(160px, 20vw, 240px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .academics-header {
+    --acad-text-travel: clamp(240px, 22vw, 300px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .academics-header {
+    --acad-text-travel: clamp(300px, 23vw, 360px);
+  }
+}
+
+@media (min-width: 1600px) {
+  .academics-header {
+    --acad-text-travel: clamp(340px, 21vw, 380px);
+  }
+}
+
+.academics-eyebrow {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pr-orange-primary, #ff4d00);
+  background: rgba(255, 77, 0, 0.08);
+  border: 1px solid rgba(255, 77, 0, 0.2);
+  padding: 3px 12px;
+  border-radius: 9999px;
+  display: inline-block;
+}
+
+.academics-main-heading {
+  font-family: var(--font-display, var(--font-sans, sans-serif));
+  /* Enlarged by ~25-35%: desktop reaches 3.18rem (up from 2.4rem), scaling proportionally */
+  font-size: clamp(1.65rem, 3.5vw, 3.18rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--pr-white-pure, #f5f5f7);
+  margin: 0;
+  overflow: visible;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (min-width: 768px) {
+  .academics-main-heading {
+    font-size: clamp(2.1rem, 3.6vw, 2.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .academics-main-heading {
+    font-size: clamp(2.55rem, 3.4vw, 3.18rem);
+  }
+}
+
+.academics-heading-line {
+  display: block;
+  will-change: transform;
+  white-space: nowrap;
+  overflow: visible;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Text Line 1: "WHERE LEARNING BECAME" starts noticeably farther to the RIGHT (+300px to +380px on desktop), smoothly moves RIGHT → CENTER on scroll down */
+.academics-heading-line--top {
+  transform: translateX(calc((1 - var(--acad-text-progress, 0)) * var(--acad-text-travel, 340px)));
+}
+
+/* Text Line 2: "MY FOUNDATION" starts noticeably farther to the LEFT (-300px to -380px on desktop), smoothly moves LEFT → CENTER on scroll down */
+.academics-heading-line--bottom {
+  transform: translateX(calc((1 - var(--acad-text-progress, 0)) * -1 * var(--acad-text-travel, 340px)));
+}
+
+.academics-heading-line.accent-line {
+  color: var(--pr-orange-primary, #ff4d00);
+  background: linear-gradient(135deg, #ffffff 15%, var(--pr-orange-primary, #ff4d00) 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.academics-intro-para {
+  font-family: var(--font-sans, sans-serif);
+  font-size: clamp(0.88rem, 1vw, 0.96rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.62);
+  margin: 0;
+  max-width: 580px;
+}
+
+
+
+/* --------------------------------------------------------------------------
+   3. FUTURISTIC CONNECTED ACADEMIC SYSTEM
+   -------------------------------------------------------------------------- */
+/* Deliberately framed compact academic system width (avoids edge-to-edge sprawl) */
+.academic-system {
+  position: relative;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* Desktop Horizontal Progression Rail Track (Static Timeline Connector) */
+.journey-rail-track {
+  position: absolute;
+  top: 8px;
+  left: calc(100% / 6);
+  right: calc(100% / 6);
+  height: 2px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+  overflow: visible;
+}
+
+.journey-rail-track .journey-rail-line {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 77, 0, 0.55) 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  overflow: visible;
+}
+
+/* Subtle laser pulse signal traveling along the academic journey track */
+.journey-pulse-signal {
+  position: absolute;
+  top: -2px;
+  left: 100%;
+  width: 28px;
+  height: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent 0%, #ff4d00 50%, #ff8c42 75%, transparent 100%);
+  box-shadow: 0 0 8px rgba(255, 77, 0, 0.6);
+  animation: journey-signal-pulse 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  opacity: 1;
+}
+
+@keyframes journey-signal-pulse {
+  0% {
+    left: 100%;
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+  8% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  82% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    left: 0%;
+    opacity: 0;
+    transform: scaleX(0.4);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. ACADEMICS GRID & STEP STRUCTURE (3 FLOATING MODULES SUSPENDED IN SPACE)
+   -------------------------------------------------------------------------- */
+.academics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 1.6vw, 1.35rem);
+  width: 100%;
+  align-items: stretch;
+  position: relative;
+  z-index: 2;
+}
+
+.academic-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+/* Suspended Module Floor Contact Shadow (Soft Radial Depth) */
+.academic-step::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 12%;
+  right: 12%;
+  height: 14px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.2) 55%, transparent 75%);
+  filter: blur(4px);
+  pointer-events: none;
+  opacity: 0.65;
+  z-index: 1;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Top Connection Hub: Academic Node + Vertical Stem */
+.step-connector-hub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.35rem;
+  position: relative;
+  z-index: 4;
+}
+
+.step-node {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s ease;
+}
+
+/* Active Node: CVR (Card 1) — Precise Ember Beacon */
+.step-node--active .node-ring {
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 77, 0, 0.7);
+  background: rgba(255, 77, 0, 0.1);
+  box-shadow: 0 0 8px rgba(255, 77, 0, 0.4);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.step-node--active .node-dot {
+  position: relative;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--pr-accent-orange, #ff4d00);
+  box-shadow: 0 0 6px #ff4d00;
+  z-index: 2;
+}
+
+.step-node--active .node-ping {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  border: 1px solid var(--pr-accent-orange, #ff4d00);
+  animation: node-ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes node-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  60%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Completed Nodes: Motion (Card 2) & Bhashyam (Card 3) — Clean Precision Markers */
+.step-node--completed .node-ring {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.step-node--completed .node-dot {
+  position: relative;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  z-index: 2;
+}
+
+/* Vertical Stem Line: Suspends Floating Module from Timeline Rail */
+.step-stem {
+  width: 1px;
+  height: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.04));
+  transition: background 0.35s ease, height 0.35s ease;
+}
+
+.academic-step--current .step-stem {
+  background: linear-gradient(180deg, rgba(255, 77, 0, 0.65), rgba(255, 77, 0, 0.12));
+}
+
+/* --------------------------------------------------------------------------
+   5. FLOATING MODULE ARCHITECTURE (NOT A NORMAL RECTANGULAR CARD)
+   Layered thin borders, subtle offset frame, engineered suspension, and
+   out-of-phase levitation physics.
+   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   5. FLOATING MODULE ARCHITECTURE & ASYNCHRONOUS ZERO-G LEVITATION
+   The wrapper (.academic-card-float) runs independent, continuous 2–4px idle
+   levitation. The card itself (.academic-card) handles smooth hover enlargement
+   (scale 1.03, translateY -5px) without interfering or snapping.
+   -------------------------------------------------------------------------- */
+.academic-card-float {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+  will-change: transform;
+}
+
+/* Out-of-Phase Floating Physics for Suspended Space Modules (2–3px gentle movement) */
+.academic-step:nth-child(1) .academic-card-float {
+  animation: academic-card-float-1 7.2s ease-in-out infinite;
+}
+
+.academic-step:nth-child(2) .academic-card-float {
+  animation: academic-card-float-2 8.0s ease-in-out infinite -2.7s;
+}
+
+.academic-step:nth-child(3) .academic-card-float {
+  animation: academic-card-float-3 7.6s ease-in-out infinite -5.2s;
+}
+
+@keyframes academic-card-float-1 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes academic-card-float-2 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.4px);
+  }
+}
+
+@keyframes academic-card-float-3 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.academic-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 290px;
+  padding: clamp(1.1rem, 1.35vw, 1.3rem);
+  background: linear-gradient(180deg, rgba(16, 16, 22, 0.96) 0%, rgba(9, 9, 13, 0.99) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 
+    0 14px 32px -10px rgba(0, 0, 0, 0.8),
+    0 2px 8px -2px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transform-origin: center center;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, border-color, box-shadow;
+  z-index: 2;
+}
+
+/* Card 1 (Current Education) Subtle Richer Obsidian Surface with Ember Top Horizon */
+.academic-card--current {
+  background: 
+    radial-gradient(ellipse at 50% 0%, rgba(255, 77, 0, 0.035) 0%, transparent 65%),
+    linear-gradient(180deg, rgba(19, 17, 24, 0.97) 0%, rgba(9, 9, 12, 0.99) 100%);
+  border-color: rgba(255, 77, 0, 0.22);
+}
+
+/* Top Suspension Tether Mount Anchor (Visual Link to Vertical Stem) */
+.academic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 1px;
+  z-index: 4;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.academic-card--current::before {
+  background: var(--pr-accent-orange, #ff4d00);
+  box-shadow: 0 0 6px rgba(255, 77, 0, 0.6);
+}
+
+/* Layered Inset Chassis Frame — Clean Minimal Contours (All corner pointer/arrow artifacts removed) */
+.card-inner-chassis {
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  border-radius: 4px;
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+
+.academic-card--current .card-inner-chassis {
+  border-color: rgba(255, 77, 0, 0.09);
+}
+
+/* Top Edge Hairline Accent Highlight */
+.card-edge-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.12) 50%, transparent 100%);
+  opacity: 0.5;
+  transition: opacity 0.3s ease, background 0.3s ease;
+  pointer-events: none;
+}
+
+.academic-card--current .card-edge-glow {
+  background: linear-gradient(90deg, rgba(255, 77, 0, 0.75) 0%, rgba(255, 77, 0, 0.2) 60%, transparent 100%);
+  opacity: 0.85;
+}
+
+/* Complete removal of arrow/pointer/chevron elements */
+.card-bracket {
+  display: none !important;
+}
+
+/* Subtle Translucent Shimmer Light Sweep on Hover */
+.card-light-sweep {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.015) 45%,
+    rgba(255, 255, 255, 0.045) 50%,
+    rgba(255, 255, 255, 0.015) 55%,
+    transparent 80%
+  );
+  pointer-events: none;
+  z-index: 3;
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.academic-card:hover .card-light-sweep {
+  left: 140%;
+}
+
+/* --------------------------------------------------------------------------
+   6. CARD TOPBAR & METADATA (REDUCED VERTICAL SPACING)
+   -------------------------------------------------------------------------- */
+.academic-card-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Timeline Badge — Scaled Down to Clean Precision Tag */
+.academic-timeline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(0.7rem, 0.8vw, 0.75rem);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 2.5px 8px;
+  border-radius: 4px;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.academic-timeline--active {
+  color: #ff6b26;
+  background: rgba(255, 77, 0, 0.06);
+  border-color: rgba(255, 77, 0, 0.24);
+}
+
+.status-pulse-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--pr-accent-orange, #ff4d00);
+  box-shadow: 0 0 5px rgba(255, 77, 0, 0.6);
+  animation: status-breathe 2.4s ease-in-out infinite;
+}
+
+@keyframes status-breathe {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.3); }
+}
+
+/* Top-Right Status Markers */
+.academic-status-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-active-glow {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--pr-accent-orange, #ff4d00);
+  box-shadow: 0 0 6px rgba(255, 77, 0, 0.7);
+}
+
+.status-completed-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.26);
+  transition: background-color 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   7. FLOATING LOGO CAPSULE MODULE (OBJECT SUSPENDED INSIDE THE MODULE)
+   -------------------------------------------------------------------------- */
+.academic-logo-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.65rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Logo container: 46px x 46px with internal depth */
+.academic-logo-module {
+  width: 46px;
+  height: 46px;
+  border-radius: 7px;
+  background: rgba(18, 18, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.academic-card--current .academic-logo-module {
+  border-color: rgba(255, 77, 0, 0.25);
+  background: rgba(22, 18, 24, 0.92);
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.55),
+    0 0 10px rgba(255, 77, 0, 0.09),
+    inset 0 1px 0 rgba(255, 77, 0, 0.14);
+}
+
+.logo-ambient-glow {
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(circle, rgba(255, 77, 0, 0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.academic-card--current .logo-ambient-glow {
+  opacity: 0.5;
+}
+
+.academic-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 2;
+}
+
+/* Precision Vertical Connector Stem Leading into Institution Name */
+.logo-connector-stem {
+  width: 1px;
+  height: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent);
+  margin-top: 4px;
+  transition: background 0.3s ease, height 0.3s ease;
+}
+
+.academic-card--current .logo-connector-stem {
+  background: linear-gradient(180deg, rgba(255, 77, 0, 0.45), transparent);
+}
+
+/* --------------------------------------------------------------------------
+   8. INSTITUTION META & ACADEMIC CONTENT (REFINED RESPONSIVE TYPOGRAPHY)
+   -------------------------------------------------------------------------- */
+.academic-institution-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2px;
+  margin-bottom: 0.55rem;
+  position: relative;
+  z-index: 2;
+}
+
+.academic-institution-name {
+  font-family: var(--font-sans, sans-serif);
+  font-size: clamp(1.05rem, 1.25vw, 1.2rem);
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.25;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.academic-location {
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(0.72rem, 0.8vw, 0.78rem);
+  color: rgba(255, 255, 255, 0.46);
+  letter-spacing: 0.03em;
+}
+
+/* Degree / Qualification Block — Controlled Height & Spacing */
+.academic-qualification-group {
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: border-color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.academic-degree-title {
+  font-family: var(--font-sans, sans-serif);
+  font-size: clamp(0.86rem, 1vw, 0.94rem);
+  font-weight: 600;
+  color: #f2f2f6;
+  line-height: 1.32;
+  margin: 0;
+}
+
+.academic-degree-spec {
+  display: block;
+  font-size: clamp(0.75rem, 0.88vw, 0.82rem);
+  font-weight: 500;
+  color: var(--pr-accent-orange, #ff4d00);
+  margin-top: 2px;
+}
+
+/* Description Box — Crisp, Readable Editorial Type */
+.academic-desc-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.academic-desc-para {
+  font-family: var(--font-sans, sans-serif);
+  font-size: clamp(0.8rem, 0.92vw, 0.88rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  text-align: left;
+  transition: color 0.3s ease;
+}
+
+/* --------------------------------------------------------------------------
+   9. REFINED HOVER ELEVATION (CLEAN LIFT, SLIGHT SCALE, SUBTLE DEPTH INCREASE)
+   -------------------------------------------------------------------------- */
+@media (hover: hover) and (pointer: fine) {
+  .academic-card:hover {
+    transform: translateY(-5px) scale(1.03);
+    z-index: 10;
+    background: linear-gradient(180deg, rgba(22, 22, 28, 0.97) 0%, rgba(12, 12, 16, 0.99) 100%);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 22px 48px -12px rgba(0, 0, 0, 0.92),
+      0 4px 14px -2px rgba(0, 0, 0, 0.6),
+      0 0 14px -2px rgba(255, 255, 255, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .academic-step:hover::after {
+    transform: scale(1.08);
+    opacity: 0.85;
+  }
+
+  .academic-card:hover .card-inner-chassis {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .academic-card:hover .academic-logo-module {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(24, 24, 32, 0.95);
+  }
+
+  .academic-card:hover .logo-connector-stem {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), transparent);
+  }
+
+  .academic-card:hover .academic-qualification-group {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .academic-card:hover .academic-desc-para {
+    color: rgba(255, 255, 255, 0.84);
+  }
+
+  .academic-card:hover .status-completed-dot {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Node Reaction when Card is Hovered */
+  .academic-step:hover .step-node--completed .node-ring {
+    border-color: rgba(255, 255, 255, 0.38);
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+  }
+
+  /* Active Education Card (CVR): Controlled, Premium Accent Response */
+  .academic-card--current:hover {
+    transform: translateY(-5px) scale(1.03);
+    z-index: 10;
+    border-color: rgba(255, 77, 0, 0.45);
+    background: 
+      radial-gradient(ellipse at 50% 0%, rgba(255, 77, 0, 0.05) 0%, transparent 65%),
+      linear-gradient(180deg, rgba(24, 21, 28, 0.98) 0%, rgba(12, 11, 15, 0.99) 100%);
+    box-shadow:
+      0 22px 48px -12px rgba(0, 0, 0, 0.95),
+      0 4px 14px -2px rgba(0, 0, 0, 0.65),
+      0 0 18px -2px rgba(255, 77, 0, 0.22),
+      inset 0 1px 0 rgba(255, 77, 0, 0.2);
+  }
+
+  .academic-card--current:hover .card-inner-chassis {
+    border-color: rgba(255, 77, 0, 0.16);
+  }
+
+  .academic-card--current:hover .academic-logo-module {
+    border-color: rgba(255, 77, 0, 0.48);
+    background: rgba(28, 22, 28, 0.95);
+    box-shadow: 
+      0 6px 18px rgba(0, 0, 0, 0.6),
+      0 0 14px rgba(255, 77, 0, 0.16);
+  }
+
+  .academic-card--current:hover .logo-ambient-glow {
+    opacity: 0.8;
+  }
+
+  .academic-card--current:hover .logo-connector-stem {
+    background: linear-gradient(180deg, rgba(255, 77, 0, 0.65), transparent);
+  }
+
+  .academic-step--current:hover .step-node--active .node-ring {
+    border-color: rgba(255, 77, 0, 0.9);
+    box-shadow: 0 0 12px rgba(255, 77, 0, 0.55);
+  }
+}
+
+/* Accessible Keyboard Focus State */
+.academic-card:focus-visible {
+  outline: none;
+  border-color: var(--pr-orange-primary, #ff4d00);
+  box-shadow: 
+    0 0 0 2px rgba(255, 77, 0, 0.4),
+    0 10px 24px -8px rgba(0, 0, 0, 0.75);
+}
+
+/* --------------------------------------------------------------------------
+   10. LIGHTWEIGHT ENTRANCE ANIMATION (INTERSECTION OBSERVER)
+   -------------------------------------------------------------------------- */
+.academics-reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.section-academics.is-visible .academics-reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Academics header is permanently 100% visible and un-shifted throughout scroll */
+.academics-header,
+.academics-header.academics-reveal-item,
+.section-academics .academics-header,
+.section-academics.is-visible .academics-header.academics-reveal-item {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  visibility: visible !important;
+}
+
+/* Sequential Stagger: System -> Step 1 -> Step 2 -> Step 3 */
+.section-academics.is-visible .academic-system.academics-reveal-item {
+  transition-delay: 0.12s;
+}
+
+.academic-step {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-academics.is-visible .academic-step:nth-child(1) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.18s;
+}
+
+.section-academics.is-visible .academic-step:nth-child(2) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.26s;
+}
+
+.section-academics.is-visible .academic-step:nth-child(3) {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.34s;
+}
+
+/* --------------------------------------------------------------------------
+   11. RESPONSIVE BREAKPOINTS (DESKTOP -> TABLET -> MOBILE)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+  .academic-system {
+    max-width: 960px;
+  }
+
+  .academic-card {
+    padding: 1.05rem;
+    min-height: 280px;
+  }
+}
+
+/* Mobile & Small Tablets: Connected Vertical Academic Timeline Journey */
+@media (max-width: 860px) {
+  .section-academics {
+    padding: clamp(2.5rem, 5vh, 3.5rem) 20px;
+  }
+
+  /* Hide Desktop Horizontal Rail */
+  .journey-rail-track {
+    display: none;
+  }
+
+  .academics-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: 0 auto;
+    gap: 1.6rem;
+    position: relative;
+  }
+
+  .academic-step {
+    width: 100%;
+    position: relative;
+  }
+
+  /* Vertical Journey Line connecting steps on mobile */
+  .academic-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: -1.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 1.6rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    z-index: 1;
+  }
+
+  .academic-step--current:not(:last-child)::after {
+    background: linear-gradient(180deg, rgba(255, 77, 0, 0.4), rgba(255, 255, 255, 0.1));
+  }
+
+  .step-connector-hub {
+    margin-bottom: 0.35rem;
+  }
+
+  .step-stem {
+    height: 10px;
+  }
+
+  .academic-card {
+    min-height: auto;
+    padding: 1.25rem;
+  }
+
+  .academic-card-float {
+    /* Gentle mobile floating motion with reduced amplitude */
+    animation-duration: 9s !important;
+  }
+
+  .academic-qualification-group {
+    min-height: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. ACCESSIBILITY: REDUCED MOTION PREFERENCES
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .academics-reveal-item,
+  .academic-step,
+  .journey-rail-track {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .academics-heading-line--top,
+  .academics-heading-line--bottom {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .academic-card-float,
+  .academic-step:nth-child(1) .academic-card-float,
+  .academic-step:nth-child(2) .academic-card-float,
+  .academic-step:nth-child(3) .academic-card-float,
+  .academic-card,
+  .academic-card:hover,
+  .academic-card--current:hover,
+  .academic-logo-img,
+  .academic-logo-module,
+  .card-light-sweep,
+  .status-pulse-dot,
+  .journey-pulse-signal,
+  .node-ping {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,656 @@
+/* ==========================================================================
+   PROJECTS PAGE — /projects.html  — Portfolio 2.0
+   Refined 2-column showcase archive with clean typography, compact cards,
+   editorial "Visit Live Project" interaction, generous black margins, and BOB support.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   BASE & RESETS
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #000000;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans, 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   ATMOSPHERE LAYERS
+   -------------------------------------------------------------------------- */
+
+.pj-bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 25%, black 25%, transparent 88%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 25%, black 25%, transparent 88%);
+}
+
+.pj-ambient-glow {
+  position: fixed;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1000px, 92vw);
+  height: 380px;
+  background: radial-gradient(ellipse at top, rgba(255, 77, 0, 0.035) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --------------------------------------------------------------------------
+   STICKY TOP NAVIGATION BAR
+   Clean, editorial link — no bulky pill/button styling
+   -------------------------------------------------------------------------- */
+
+.pj-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.pj-nav-container {
+  max-width: 1060px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 4vw, 40px);
+}
+
+.pj-nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: rgba(244, 244, 245, 0.72);
+  text-decoration: none;
+  padding: 6px 0;
+  background: transparent;
+  border: none;
+  transition: color 0.25s ease;
+}
+
+.pj-nav-back:hover {
+  color: #ffffff;
+}
+
+.pj-back-arrow {
+  color: rgba(244, 244, 245, 0.6);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+
+.pj-nav-back:hover .pj-back-arrow {
+  transform: translateX(-4px);
+  color: var(--pr-accent-orange, #ff4d00);
+}
+
+.pj-nav-status {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(244, 244, 245, 0.42);
+}
+
+/* --------------------------------------------------------------------------
+   PAGE HERO HEADER (Centered Composition)
+   -------------------------------------------------------------------------- */
+
+.pj-hero-section {
+  position: relative;
+  z-index: 1;
+  padding: clamp(52px, 7vh, 80px) 0 clamp(28px, 4vh, 44px);
+}
+
+.pj-hero-container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+  text-align: center;
+}
+
+.pj-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.pj-hero-tag {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--pr-accent-orange, #ff4d00);
+  text-transform: uppercase;
+}
+
+.pj-hero-title {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--pr-white-pure, #ffffff);
+  margin: 0;
+}
+
+.pj-hero-name-accent {
+  display: inline-block;
+  background: linear-gradient(100deg, #f2d0b8 0%, #e09060 45%, var(--pr-accent-orange, #ff4d00) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pj-hero-desc {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  line-height: 1.62;
+  color: rgba(244, 244, 245, 0.65);
+  max-width: 580px;
+  margin: 16px auto 0;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   CATEGORY FILTERS
+   Human, clean typography, compact capsules
+   -------------------------------------------------------------------------- */
+
+.pj-filters {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.pj-filter-btn {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 245, 0.55);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 6px 15px;
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.pj-filter-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pj-filter-btn.is-active {
+  color: var(--pr-accent-orange, #ff4d00);
+  border-color: rgba(255, 77, 0, 0.45);
+  background: rgba(255, 77, 0, 0.1);
+  box-shadow: 0 0 14px rgba(255, 77, 0, 0.12);
+}
+
+.pj-filter-btn:focus-visible {
+  outline: 2px solid var(--pr-accent-orange, #ff4d00);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   PROJECT SHOWCASE GRID (2-Column Desktop with Large Black Side Margins)
+   -------------------------------------------------------------------------- */
+
+.pj-grid-section {
+  position: relative;
+  z-index: 1;
+  padding: 20px 0 90px;
+}
+
+.pj-grid-container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 60px);
+}
+
+.pj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+/* --------------------------------------------------------------------------
+   SHOWCASE PROJECT CARD (Compact, Refined, Separated)
+   -------------------------------------------------------------------------- */
+
+.pj-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #09090b;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+
+  /* Entrance Animation */
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.32s ease,
+    background-color 0.32s ease,
+    box-shadow 0.32s ease;
+
+  will-change: transform, opacity;
+}
+
+.pj-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pj-card.is-hidden {
+  display: none !important;
+}
+
+/* Card Hover: Controlled lift (-4px), scale 1.015, warm orange border, image zoom */
+.pj-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  background: #0c0c0f;
+  border-color: rgba(255, 100, 20, 0.35);
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 77, 0, 0.08);
+}
+
+.pj-card:focus-visible {
+  outline: 2px solid var(--pr-accent-orange, #ff4d00);
+  outline-offset: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   CARD PREVIEW IMAGE (Compact Height, Proper Aspect Ratio)
+   -------------------------------------------------------------------------- */
+
+.pj-card-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9.2;
+  max-height: 220px;
+  overflow: hidden;
+  background: #050505;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.pj-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.pj-card:hover .pj-card-img {
+  transform: scale(1.02);
+}
+
+.pj-card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(9, 9, 11, 0.6) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   CARD BODY & INFORMATION HIERARCHY (Tightened Spacing)
+   -------------------------------------------------------------------------- */
+
+.pj-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 18px 20px 16px;
+}
+
+.pj-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.pj-card-category {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(244, 244, 245, 0.5);
+  transition: color 0.28s ease;
+}
+
+.pj-card:hover .pj-card-category {
+  color: #e09060;
+}
+
+.pj-card-year {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: rgba(244, 244, 245, 0.35);
+}
+
+.pj-card-title {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(1.22rem, 1.4vw, 1.38rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--pr-white-pure, #ffffff);
+  margin: 0 0 10px;
+}
+
+.pj-card-desc {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.835rem;
+  line-height: 1.62;
+  color: rgba(244, 244, 245, 0.7);
+  margin: 0 0 16px;
+  flex-grow: 1;
+}
+
+/* --------------------------------------------------------------------------
+   CARD TECHNOLOGY PILLS (Complete Stack, Natural Multi-Row Wrap)
+   -------------------------------------------------------------------------- */
+
+.pj-card-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.pj-card-tech-tag {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  line-height: 1.25;
+  color: rgba(244, 244, 245, 0.6);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 3px 8px;
+  border-radius: 4px;
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.pj-card-tech-tag.pj-card-tech-more {
+  display: none !important;
+}
+
+.pj-card:hover .pj-card-tech-tag {
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--pr-white-off, #f4f4f5);
+}
+
+/* --------------------------------------------------------------------------
+   CARD BOTTOM INTERACTION STRIP (Editorial Animated Underline + Arrow Shift)
+   -------------------------------------------------------------------------- */
+
+.pj-card-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: auto;
+  transition: border-color 0.3s ease;
+}
+
+.pj-card:hover .pj-card-cta {
+  border-top-color: rgba(255, 100, 20, 0.22);
+}
+
+.pj-card-cta-link {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.pj-card-cta-label {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: rgba(244, 244, 245, 0.7);
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle warm underline that animates smoothly on hover */
+.pj-card-cta-line {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, #ff4d00 0%, #f2d0b8 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.85;
+}
+
+.pj-card-cta-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(244, 244, 245, 0.55);
+  transition:
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.3s ease;
+}
+
+/* On Card Hover: */
+.pj-card:hover .pj-card-cta-label {
+  color: #ffffff;
+}
+
+.pj-card:hover .pj-card-cta-line {
+  transform: scaleX(1);
+}
+
+.pj-card:hover .pj-card-cta-arrow {
+  transform: translateX(5px);
+  color: var(--pr-accent-orange, #ff4d00);
+}
+
+/* --------------------------------------------------------------------------
+   PAGE FOOTER
+   -------------------------------------------------------------------------- */
+
+.pj-footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 36px 0 52px;
+}
+
+.pj-footer-container {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pj-footer-text {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: rgba(244, 244, 245, 0.4);
+}
+
+.pj-footer-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(244, 244, 245, 0.6);
+  text-decoration: none;
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.pj-footer-back:hover {
+  color: var(--pr-accent-orange, #ff4d00);
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 860px) {
+  .pj-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .pj-card-body {
+    padding: 16px 18px 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pj-grid-container {
+    padding: 0 20px;
+  }
+
+  .pj-grid {
+    max-width: 100%;
+    gap: 18px;
+  }
+
+  .pj-nav-status {
+    display: none;
+  }
+
+  .pj-hero-title {
+    font-size: clamp(1.9rem, 7vw, 2.5rem);
+  }
+
+  .pj-hero-desc {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    padding: 0 4px;
+  }
+
+  .pj-card-media {
+    aspect-ratio: 16 / 9;
+    max-height: 190px;
+  }
+
+  .pj-card-title {
+    font-size: 1.25rem;
+  }
+
+  .pj-filters {
+    gap: 6px;
+    margin-top: 24px;
+  }
+
+  .pj-filter-btn {
+    font-size: 0.7rem;
+    padding: 5px 12px;
+  }
+
+  .pj-footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .pj-card {
+    opacity: 1;
+    transform: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .pj-card:hover {
+    transform: none;
+  }
+
+  .pj-card-img {
+    transition: none;
+  }
+
+  .pj-card:hover .pj-card-img {
+    transform: none;
+  }
+
+  .pj-card-cta-line {
+    transition: none;
+  }
+
+  .pj-card-cta-arrow {
+    transition: none;
+  }
+}

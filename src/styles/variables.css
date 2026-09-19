@@ -1,0 +1,81 @@
+:root {
+  /* ==========================================================================
+     LAYER 1: PRIMITIVES
+     ========================================================================== */
+  /* Palette: Pure & Deep Blacks */
+  --pr-black-1000: #000000;
+  --pr-black-900: #050505;
+  --pr-black-800: #0a0a0a;
+  --pr-black-700: #121214;
+  --pr-black-600: #18181b;
+
+  /* Neutrals */
+  --pr-gray-500: #27272a;
+  --pr-gray-400: #3f3f46;
+  --pr-gray-300: #71717a;
+  --pr-gray-200: #a1a1aa;
+  --pr-gray-100: #d4d4d8;
+
+  /* Whites: High Contrast & Pure */
+  --pr-white-pure: #ffffff;
+  --pr-white-off: #f4f4f5;
+  --pr-white-muted: #e4e4e7;
+
+  /* Singular Restrained Accent: Warm Ember Orange */
+  --pr-accent-orange: #ff4d00;
+  --pr-accent-orange-glow: rgba(255, 77, 0, 0.25);
+  --pr-accent-orange-dim: rgba(255, 77, 0, 0.12);
+
+  /* Fonts - Distinctive Futuristic Editorial + Grotesk System */
+  --font-display: 'Clash Display', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Satoshi', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-signature: 'Instrument Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Spacing Rhythm */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  /* Transitions */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 800ms;
+  --duration-cinematic: 1400ms;
+
+  /* ==========================================================================
+     LAYER 2: SEMANTIC TOKENS
+     ========================================================================== */
+  --bg-primary: var(--pr-black-1000);
+  --bg-surface: var(--pr-black-800);
+  --bg-surface-elevated: var(--pr-black-700);
+  --bg-glass: rgba(0, 0, 0, 0.6);
+
+  --text-primary: var(--pr-white-pure);
+  --text-secondary: var(--pr-white-off);
+  --text-muted: var(--pr-gray-200);
+  --text-dim: var(--pr-gray-300);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-accent: var(--pr-accent-orange);
+
+  --accent-primary: var(--pr-accent-orange);
+  --accent-glow: var(--pr-accent-orange-glow);
+
+  /* ==========================================================================
+     LAYER 3: COMPONENT SCOPED TOKENS (SLIGHTLY INCREASED, CONTROLLED HERO SIZING)
+     ========================================================================== */
+  --nav-height: 72px;
+  --hero-name-size: clamp(2.6rem, 6.2vw, 6.4rem);
+  --hero-name-line-height: 0.94;
+  --hero-name-letter-spacing: -0.025em;
+}

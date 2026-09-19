@@ -1,0 +1,59 @@
+/* Canvas & Radial Graphic Viewport */
+.radial-canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+#radial-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Subtle Text Protection Vignette - Softly shields the center without dimming the speed lines */
+.radial-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    ellipse 60% 45% at 50% 50%,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    transparent 85%
+  );
+}
+
+/* Central ignition point (State 2) */
+.hero-singularity {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pr-white-pure);
+  box-shadow: 0 0 14px 4px rgba(255, 255, 255, 0.9), 0 0 28px 8px var(--pr-accent-orange-glow);
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero-singularity.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.6);
+}
+
+.hero-singularity.faded {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+}

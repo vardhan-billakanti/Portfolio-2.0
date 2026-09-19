@@ -1,0 +1,494 @@
+/* ==========================================================================
+   PROJECTS SECTION — Portfolio 2.0 Homepage
+   Individually separated, compact project cards with direct live links
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   SECTION WRAPPER
+   -------------------------------------------------------------------------- */
+
+.section-projects {
+  position: relative;
+  padding: clamp(80px, 9vh, 120px) 0 clamp(90px, 10vh, 130px);
+  background: var(--pr-black-1000, #000000);
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   SECTION CONTAINER
+   -------------------------------------------------------------------------- */
+
+.projects-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 60px);
+}
+
+/* --------------------------------------------------------------------------
+   SECTION HEADER (Centered Composition)
+   -------------------------------------------------------------------------- */
+
+.projects-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto 52px;
+  max-width: 680px;
+}
+
+.projects-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+/* Eyebrow text increased by ~20% (0.65rem -> 0.78rem), keeping family, weight & warm orange */
+.projects-eyebrow-text {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  color: var(--pr-accent-orange, #ff4d00);
+  text-transform: uppercase;
+}
+
+.projects-main-heading {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--pr-white-pure, #ffffff);
+  margin: 0;
+  text-align: center;
+}
+
+.projects-heading-accent {
+  display: block;
+  background: linear-gradient(100deg, #f2d0b8 0%, #e09060 45%, var(--pr-accent-orange, #ff4d00) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.projects-heading-white {
+  display: block;
+  color: var(--pr-white-pure, #ffffff);
+}
+
+/* 2-line supporting description directly below SELECTED WORKS */
+.projects-intro-desc {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: clamp(0.92rem, 1.1vw, 1.02rem);
+  font-weight: 400;
+  line-height: 1.68;
+  color: rgba(244, 244, 245, 0.68);
+  max-width: 540px;
+  margin: 20px auto 0;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   3-COLUMN SEPARATED GRID
+   -------------------------------------------------------------------------- */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px; /* Visible breathing space between individual cards */
+  background: transparent;
+  border: none;
+  margin: 0 0 48px;
+}
+
+/* --------------------------------------------------------------------------
+   INDIVIDUAL COMPACT PROJECT CARD
+   -------------------------------------------------------------------------- */
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #080808; /* Deep black matching site theme */
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle thin border */
+  border-radius: 8px;
+  padding: 24px 22px 20px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 200px;
+
+  /* Entrance animation */
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.5s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1)),
+    transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  will-change: transform, opacity;
+}
+
+.project-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover state: slight enlarge (1.02–1.03), lift slightly, border to warm peach/orange accent */
+.project-card:hover {
+  transform: translateY(-4px) scale(1.022);
+  background: #0c0c0e;
+  border-color: rgba(255, 100, 20, 0.38);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 100, 20, 0.12);
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--pr-accent-orange, #ff4d00);
+  outline-offset: 3px;
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   CARD TOP ROW: number + category
+   -------------------------------------------------------------------------- */
+
+.card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.card-number {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--pr-accent-orange, #ff4d00);
+  flex-shrink: 0;
+}
+
+.card-category {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pr-gray-300, #71717a);
+  text-align: right;
+  line-height: 1.3;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.28s ease;
+}
+
+.project-card:hover .card-category {
+  color: #e09060; /* Warm peach accent on hover */
+}
+
+/* --------------------------------------------------------------------------
+   CARD TITLE (Strongest element inside the card)
+   -------------------------------------------------------------------------- */
+
+.card-title {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(1.22rem, 1.35vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--pr-white-pure, #ffffff);
+  margin: 0 0 10px;
+  transition: color 0.25s ease;
+}
+
+.project-card:hover .card-title {
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   CARD SHORT DESCRIPTION
+   -------------------------------------------------------------------------- */
+
+.card-desc {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: rgba(244, 244, 245, 0.72); /* Warm white text */
+  margin: 0 0 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(0.78rem * 1.55 * 2);
+  flex-grow: 1; /* Ensures consistent vertical alignment across row */
+}
+
+/* --------------------------------------------------------------------------
+   TECHNOLOGY PILLS / TAGS
+   -------------------------------------------------------------------------- */
+
+.card-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.card-tech-tag {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pr-gray-300, #71717a);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  padding: 3px 7px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 0.22s ease, color 0.22s ease, background-color 0.22s ease;
+}
+
+.card-tech-tag.card-tech-more {
+  color: var(--pr-accent-orange, #ff4d00);
+  border-color: rgba(255, 77, 0, 0.22);
+}
+
+.project-card:hover .card-tech-tag {
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--pr-white-off, #f4f4f5);
+}
+
+.project-card:hover .card-tech-tag.card-tech-more {
+  border-color: rgba(255, 77, 0, 0.45);
+  color: var(--pr-accent-orange, #ff4d00);
+}
+
+/* ==========================================================================
+   VIEW ALL PROJECTS BUTTON (Refined Premium Interactive Capsule)
+   ========================================================================== */
+
+.projects-view-all-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+.projects-view-all-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 48px;
+  padding: 0 10px 0 24px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pr-white-off, #f4f4f5);
+  text-decoration: none;
+  background: rgba(12, 12, 14, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.28s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.28s ease,
+    color 0.28s ease,
+    box-shadow 0.28s ease,
+    background-color 0.28s ease;
+}
+
+/* Subtle gradient border overlay that smoothly brightens on hover */
+.projects-view-all-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), transparent 45%, rgba(255, 77, 0, 0.25));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity 0.28s ease, background 0.28s ease;
+}
+
+/* Very subtle inner ambient warmth on hover */
+.projects-btn-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 40px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(255, 77, 0, 0.15) 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.projects-btn-label {
+  position: relative;
+  z-index: 1;
+  transition: color 0.28s ease;
+}
+
+/* Refined circular arrow disc */
+.projects-btn-arrow-disc {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--pr-gray-200, #a1a1aa);
+  transition:
+    transform 0.28s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.projects-btn-arrow-svg {
+  transition: transform 0.28s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* Hover State: Subtle lift, delicate border transition to warm peach/orange, smooth arrow advance */
+.projects-view-all-btn:hover {
+  transform: translateY(-2px) scale(1.018);
+  border-color: rgba(255, 100, 20, 0.45);
+  color: var(--pr-white-pure, #ffffff);
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.65),
+    0 0 16px rgba(255, 77, 0, 0.12),
+    inset 0 1px 0 rgba(255, 200, 160, 0.18);
+}
+
+.projects-view-all-btn:hover::before {
+  opacity: 1;
+  background: linear-gradient(135deg, rgba(242, 208, 184, 0.5), transparent 40%, rgba(255, 77, 0, 0.5));
+}
+
+.projects-view-all-btn:hover .projects-btn-glow {
+  opacity: 1;
+}
+
+.projects-view-all-btn:hover .projects-btn-arrow-disc {
+  background: rgba(255, 77, 0, 0.15);
+  border-color: rgba(255, 77, 0, 0.35);
+  color: var(--pr-accent-orange, #ff4d00);
+  box-shadow: 0 0 10px rgba(255, 77, 0, 0.2);
+}
+
+.projects-view-all-btn:hover .projects-btn-arrow-svg {
+  transform: translateX(3px);
+}
+
+.projects-view-all-btn:focus-visible {
+  outline: 2px solid var(--pr-accent-orange, #ff4d00);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Tablet: 2 columns */
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+}
+
+/* Mobile: Single column */
+@media (max-width: 640px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .section-projects {
+    padding: 64px 0 84px;
+  }
+
+  .projects-header {
+    margin-bottom: 36px;
+  }
+
+  .projects-desc-br {
+    display: none;
+  }
+
+  .projects-intro-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-top: 16px;
+    padding: 0 8px;
+  }
+
+  .project-card {
+    padding: 20px 18px 18px;
+  }
+
+  .projects-view-all-btn {
+    height: 44px;
+    font-size: 0.68rem;
+    padding: 0 8px 0 18px;
+    gap: 10px;
+  }
+
+  .projects-btn-arrow-disc {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card {
+    opacity: 1;
+    transform: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: none;
+  }
+
+  .card-title,
+  .projects-view-all-btn,
+  .projects-btn-arrow-svg,
+  .projects-btn-arrow-disc {
+    transition: none;
+  }
+
+  .projects-view-all-btn:hover {
+    transform: none;
+  }
+}

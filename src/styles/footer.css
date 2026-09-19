@@ -1,0 +1,145 @@
+/**
+ * PORTFOLIO 2.0 — FUTURISTIC FOOTER (CLEAN DIGITAL TERMINUS)
+ * 
+ * Aesthetic Architecture:
+ * - Pure deep black base: var(--pr-black-1000, #000000)
+ * - Luminous horizon line with traveling warm amber light pulse (preserved exactly)
+ * - Clean, balanced metadata: verified socials & copyright
+ * - Generous, intentional spacing without clutter or empty voids
+ */
+
+/* --------------------------------------------------------------------------
+   1. FOOTER CONTAINER & HORIZON BEAM
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  position: relative;
+  width: 100%;
+  background-color: var(--pr-black-1000, #000000);
+  padding: 0 clamp(24px, 5.5vw, 80px) clamp(36px, 4vw, 56px);
+  overflow: hidden;
+  z-index: 10;
+}
+
+/* Luminous Horizon Divider Line */
+.footer-luminous-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto clamp(36px, 4.5vw, 52px);
+  padding-top: 10px;
+}
+
+.footer-luminous-beam {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 15%,
+    rgba(255, 77, 0, 0.55) 50%,
+    rgba(255, 255, 255, 0.08) 85%,
+    transparent 100%
+  );
+  box-shadow: 0 0 16px -2px rgba(255, 77, 0, 0.35);
+}
+
+/* Traveling Light Particle along the Horizon Beam */
+.footer-beam-pulse {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 90px;
+  height: 5px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 77, 0, 0.8) 45%,
+    transparent 80%
+  );
+  filter: drop-shadow(0 0 8px rgba(255, 77, 0, 0.9));
+  animation: beam-travel 10s ease-in-out infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@keyframes beam-travel {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(min(1240px, 88vw));
+    opacity: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. FOOTER CONTENT & ALIGNMENT
+   -------------------------------------------------------------------------- */
+
+.footer-content {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.footer-bottom-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  color: var(--pr-gray-300, #71717a);
+}
+
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 2.5vw, 28px);
+}
+
+.footer-copyright {
+  font-size: clamp(0.82rem, 0.95vw, 0.88rem);
+  color: var(--pr-gray-300, #71717a);
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pr-gray-200, #a1a1aa);
+  text-decoration: none;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social-link:hover {
+  color: var(--pr-accent-orange, #ff4d00);
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   3. RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .site-footer {
+    padding-bottom: 36px;
+  }
+}

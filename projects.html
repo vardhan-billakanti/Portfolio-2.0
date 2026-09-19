@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#000000">
+
+  <!-- SEO -->
+  <title>Projects Built by Billakanti Jaya Vardhan | Portfolio 2.0</title>
+  <meta name="description" content="A collection of web, cybersecurity, privacy, cloud storage, and interactive projects designed and developed by Billakanti Jaya Vardhan.">
+  <link rel="canonical" href="https://vardhanbillakanti.in/projects">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Projects Built by Billakanti Jaya Vardhan">
+  <meta property="og:description" content="A collection of web, cybersecurity, privacy, cloud storage, and interactive projects designed and developed by Billakanti Jaya Vardhan.">
+  <meta property="og:url" content="https://vardhanbillakanti.in/projects">
+  <meta property="og:image" content="https://vardhanbillakanti.in/images/og-image.png">
+  <meta property="og:site_name" content="Billakanti Jaya Vardhan">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Projects Built by Billakanti Jaya Vardhan">
+  <meta name="twitter:description" content="A collection of web, cybersecurity, privacy, cloud storage, and interactive projects designed and developed by Billakanti Jaya Vardhan.">
+  <meta name="twitter:image" content="https://vardhanbillakanti.in/images/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+  <!-- Instant black paint before stylesheets load to prevent flash -->
+  <style>
+    html, body {
+      background-color: #000000 !important;
+      color: #ffffff !important;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+  </style>
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=satoshi@400,500,700&f[]=jet-brains-mono@400,500&display=swap">
+
+  <!-- Shared Variables & Page Styles -->
+  <link rel="stylesheet" href="/src/styles/variables.css">
+  <link rel="stylesheet" href="/src/styles/bob.css">
+  <link rel="stylesheet" href="/src/styles/projects-page.css">
+</head>
+<body>
+
+  <!-- Background Atmosphere -->
+  <div class="pj-bg-grid" aria-hidden="true"></div>
+  <div class="pj-ambient-glow" aria-hidden="true"></div>
+
+  <!-- ── STICKY TOP NAVIGATION ── -->
+  <header class="pj-nav" role="banner">
+    <div class="pj-nav-container">
+      <a href="/#projects" class="pj-nav-back" aria-label="Back to Portfolio Projects section">
+        <svg class="pj-back-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>Back to Portfolio</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ── PROJECTS PAGE HERO ── -->
+    <section class="pj-hero-section" aria-label="Projects Introduction">
+      <div class="pj-hero-container">
+        <div class="pj-hero-eyebrow">
+          <span class="pj-hero-tag">MY PROJECTS</span>
+        </div>
+        <h1 class="pj-hero-title">
+          Projects Built by Billakanti<br>
+          <span class="pj-hero-name-accent">Jaya Vardhan</span>
+        </h1>
+        <p class="pj-hero-desc">
+          A collection of web, cybersecurity, privacy, cloud storage, and interactive projects designed and developed by Billakanti Jaya Vardhan.
+        </p>
+
+        <!-- Category Filters -->
+        <div class="pj-filters" role="tablist" aria-label="Filter projects by category">
+          <button class="pj-filter-btn is-active" data-filter="all" role="tab" aria-selected="true">
+            ALL PROJECTS (8)
+          </button>
+          <button class="pj-filter-btn" data-filter="web-cloud" role="tab" aria-selected="false">
+            WEB &amp; CLOUD
+          </button>
+          <button class="pj-filter-btn" data-filter="security-privacy" role="tab" aria-selected="false">
+            SECURITY &amp; PRIVACY
+          </button>
+          <button class="pj-filter-btn" data-filter="interactive" role="tab" aria-selected="false">
+            INTERACTIVE
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2-COLUMN SHOWCASE PROJECT GRID ── -->
+    <section class="pj-grid-section" aria-label="All Projects Showcase">
+      <div class="pj-grid-container">
+        <div class="pj-grid" id="pjGrid" role="feed" aria-label="Projects Showcase List">
+          <!-- Populated by projects-main.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="pj-footer">
+      <div class="pj-footer-container">
+        <span class="pj-footer-text">
+          &copy; 2026 Billakanti Jaya Vardhan &mdash; All projects are live and production-grade.
+        </span>
+        <a href="/#projects" class="pj-footer-back" aria-label="Back to Portfolio Projects section">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          <span>Back to Portfolio</span>
+        </a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Futuristic Floating Robot AI Assistant Trigger -->
+  <div id="bob-floating-wrapper" class="bob-floating-wrapper launcher-visible">
+    <button id="bob-trigger-floating" class="bob-floating-trigger" aria-label="Open AI Assistant" data-cursor-hover="true">
+      <svg class="bob-robot-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2v3"/>
+        <circle cx="12" cy="2" r="0.75" fill="currentColor" stroke="none"/>
+        <rect x="4" y="5" width="16" height="14" rx="4"/>
+        <path d="M2 12h2"/>
+        <path d="M20 12h2"/>
+        <circle cx="8.5" cy="11" r="1.25" fill="currentColor" stroke="none"/>
+        <circle cx="15.5" cy="11" r="1.25" fill="currentColor" stroke="none"/>
+        <path d="M9 15.5h6"/>
+      </svg>
+    </button>
+  </div>
+
+  <script type="module" src="/src/projects-main.js"></script>
+</body>
+</html>
