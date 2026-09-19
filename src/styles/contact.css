@@ -497,9 +497,9 @@
   margin-top: 12px;
   padding: 8px 12px;
   background: rgba(18, 18, 24, 0.65);
-  border: 1px solid rgba(255, 107, 0, 0.22);
+  border: 1px solid rgba(74, 222, 128, 0.22);
   border-radius: 8px;
-  color: var(--pr-white-off, #e2e2e8);
+  color: #4ade80;
   font-size: 0.71rem;
   line-height: 1.45;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
@@ -515,7 +515,7 @@
   height: 12px;
   margin-top: 2px;
   flex-shrink: 0;
-  background-color: #ff7a1a;
+  background-color: #4ade80;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center / contain;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center / contain;
 }
