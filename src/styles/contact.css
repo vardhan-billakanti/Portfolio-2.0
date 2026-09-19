@@ -209,7 +209,7 @@
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.25s ease,
               box-shadow 0.28s ease;
-  will-change: transform, border-color, box-shadow;
+  will-change: transform;
   overflow: hidden;
 }
 
@@ -311,7 +311,6 @@
   transition: border-color 0.22s ease, 
               background-color 0.22s ease, 
               box-shadow 0.22s ease;
-  will-change: border-color, box-shadow;
 }
 
 /* Reduced, understated placeholder styling */
@@ -386,7 +385,7 @@
               border-color 0.22s ease,
               transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.22s ease;
-  will-change: transform, box-shadow;
+  will-change: transform;
 }
 
 /* Animated Light Sweep Underline */
@@ -570,7 +569,7 @@
               background-color 0.25s ease,
               transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.25s ease;
-  will-change: transform, box-shadow;
+  will-change: transform;
 }
 
 /* Ensure clicks anywhere on inner text, icon, or labels hit the anchor directly */
@@ -684,7 +683,7 @@
               background-color 0.25s ease,
               transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
               box-shadow 0.25s ease;
-  will-change: transform, border-color;
+  will-change: transform;
 }
 
 .contact-social-item:hover {

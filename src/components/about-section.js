@@ -123,13 +123,13 @@ export class AboutExperienceController {
         const progress = 1 - ((currentTop + this.sectionHeight) / (this.winH + this.sectionHeight));
         const clamped  = Math.max(0, Math.min(1, progress));
 
-        // Photo column: ±3px vertical drift (hardware accelerated translate3d)
-        const imgShift = (clamped - 0.5) * 6;
+        // Photo column: ±2px vertical drift (hardware accelerated translate3d)
+        const imgShift = (clamped - 0.5) * 4;
         photoColumn.style.transform = `translate3d(0, ${imgShift.toFixed(2)}px, 0)`;
 
-        // Background grid: ±2px opposite direction for subtle depth
+        // Background grid: ±1.5px opposite direction for subtle depth
         if (this.ambientDepth) {
-          const bgShift = (clamped - 0.5) * -4;
+          const bgShift = (clamped - 0.5) * -3;
           this.ambientDepth.style.transform = `translate3d(0, ${bgShift.toFixed(2)}px, 0)`;
         }
 

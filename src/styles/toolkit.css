@@ -507,12 +507,16 @@
 }
 
 @media (max-width: 600px) {
+  .section-toolkit {
+    padding: clamp(2.5rem, 5vh, 3.5rem) 12px;
+  }
+
   .toolkit-container {
-    padding: 0 16px;
+    padding: 0;
   }
 
   .orbital-showcase-viewport {
-    height: 410px;
+    height: 400px;
   }
 
   .orbit-node-chip {

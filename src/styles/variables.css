@@ -21,10 +21,18 @@
   --pr-white-off: #f4f4f5;
   --pr-white-muted: #e4e4e7;
 
-  /* Singular Restrained Accent: Warm Ember Orange */
+  /* Singular Restrained Accent: Warm Ember Orange & Atmospheric Cream */
   --pr-accent-orange: #ff4d00;
+  --pr-orange-primary: #ff4d00;
   --pr-accent-orange-glow: rgba(255, 77, 0, 0.25);
   --pr-accent-orange-dim: rgba(255, 77, 0, 0.12);
+
+  /* Atmospheric Supporting Brand Tones */
+  --brand-cream: #FAF7F2;
+  --brand-cream-dim: rgba(250, 247, 242, 0.12);
+  --brand-orange: #D97757;
+  --brand-orange-glow: rgba(217, 119, 87, 0.22);
+  --brand-orange-subtle: rgba(217, 119, 87, 0.08);
 
   /* Fonts - Distinctive Futuristic Editorial + Grotesk System */
   --font-display: 'Clash Display', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -43,13 +51,24 @@
   --space-16: 64px;
   --space-24: 96px;
 
-  /* Transitions */
-  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Motion Categories & Standardized Physics Easing */
+  --ease-micro: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-interaction: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring-soft: cubic-bezier(0.175, 0.885, 0.32, 1.15);
+  --ease-text-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-text-settle: cubic-bezier(0.25, 1, 0.5, 1);
+
+  --duration-micro: 140ms;
+  --duration-interaction: 240ms;
   --duration-fast: 200ms;
-  --duration-normal: 400ms;
-  --duration-slow: 800ms;
-  --duration-cinematic: 1400ms;
+  --duration-normal: 380ms;
+  --duration-reveal: 450ms;
+  --duration-slow: 750ms;
+  --duration-cinematic: 1200ms;
 
   /* ==========================================================================
      LAYER 2: SEMANTIC TOKENS
@@ -78,4 +97,12 @@
   --hero-name-size: clamp(2.6rem, 6.2vw, 6.4rem);
   --hero-name-line-height: 0.94;
   --hero-name-letter-spacing: -0.025em;
+
+  /* Shared Layout & Micro-Interaction Tokens */
+  --container-max-width: 1200px;
+  --card-radius: 6px;
+  --pill-radius: 999px;
+  --hover-scale: 1.02;
+  --hover-lift: -2.5px;
+  --ease-hover: cubic-bezier(0.22, 1, 0.36, 1);
 }

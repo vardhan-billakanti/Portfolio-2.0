@@ -13,13 +13,16 @@
  * - Throttled with requestAnimationFrame.
  */
 
+import { motionEngine } from '../core/motion-engine.js';
+
 export class AcademicsExperienceController {
   constructor() {
     this.section = document.getElementById('academics');
     if (!this.section) return;
 
     this.headingHeader = this.section.querySelector('.academics-header');
-    this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.isReducedMotion = motionEngine.prefersReducedMotion;
+    this.unsubscribers = [];
 
     this.isIntersecting = false;
     this.hasScrollListener = false;
@@ -86,31 +89,26 @@ export class AcademicsExperienceController {
     this.hasScrollListener = true;
     this.measure();
 
-    this.onScroll = () => {
-      if (!this.ticking) {
-        window.requestAnimationFrame(() => {
-          if (this.isIntersecting) {
-            this.updateProgress();
-          }
-          this.ticking = false;
-        });
-        this.ticking = true;
-      }
-    };
+    this.unsubscribers.push(
+      motionEngine.subscribeScroll(() => {
+        if (this.isIntersecting) {
+          this.updateProgress();
+        }
+      })
+    );
 
-    this.onResize = () => {
-      this.measure();
-      this.updateProgress();
-    };
-
-    window.addEventListener('scroll', this.onScroll, { passive: true });
-    window.addEventListener('resize', this.onResize, { passive: true });
+    this.unsubscribers.push(
+      motionEngine.subscribeResize(() => {
+        this.measure();
+        this.updateProgress();
+      })
+    );
   }
 
   detachScrollListener() {
     if (!this.hasScrollListener) return;
-    window.removeEventListener('scroll', this.onScroll);
-    window.removeEventListener('resize', this.onResize);
+    this.unsubscribers.forEach(unsub => unsub());
+    this.unsubscribers = [];
     this.hasScrollListener = false;
   }
 
@@ -147,5 +145,9 @@ export class AcademicsExperienceController {
     if (this.headingHeader) {
       this.headingHeader.style.setProperty('--acad-text-progress', progress.toFixed(4));
     }
+  }
+
+  destroy() {
+    this.detachScrollListener();
   }
 }

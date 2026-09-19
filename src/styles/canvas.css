@@ -1,11 +1,15 @@
-/* Canvas & Radial Graphic Viewport */
+/* Canvas & Radial Graphic Viewport — Overscan layer prevents subpixel boundary seam during cursor parallax */
 .radial-canvas-container {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: -32px;
+  bottom: -32px;
+  left: -32px;
+  right: -32px;
+  width: calc(100% + 64px);
+  height: calc(100% + 64px);
   overflow: hidden;
   pointer-events: none;
+  background-color: var(--pr-black-1000);
   z-index: 1;
 }
 
@@ -20,7 +24,12 @@
 /* Subtle Text Protection Vignette - Softly shields the center without dimming the speed lines */
 .radial-vignette {
   position: absolute;
-  inset: 0;
+  top: -32px;
+  bottom: -32px;
+  left: -32px;
+  right: -32px;
+  width: calc(100% + 64px);
+  height: calc(100% + 64px);
   pointer-events: none;
   z-index: 2;
   background: radial-gradient(

@@ -15,6 +15,8 @@
  *   gold upward arrow (↗), and deep black interior are 100% preserved.
  */
 
+import { motionEngine } from '../core/motion-engine.js';
+
 export class LorvenSectionController {
   constructor() {
     this.section = document.getElementById('lorven');
@@ -29,9 +31,16 @@ export class LorvenSectionController {
     this.height = 0;
     this.centerX = 0;
     this.centerY = 0;
-    this.dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+    this.dpr = motionEngine.dpr;
     this.isMobile = false;
     this.prefersReducedMotion = false;
+
+    // Cached layout geometry (zero getBoundingClientRect inside scroll & render frames)
+    this.cachedSectionTop = 0;
+    this.cachedSectionHeight = 0;
+    this.cachedTotalScrollable = 1;
+    this.cachedCanvasRect = { left: 0, top: 0, width: 0, height: 0 };
+    this.unsubscribers = [];
 
     // Scroll progress tracking (0.0 to 1.0 across the entire Lorven section)
     this.targetProgress = 0;
@@ -68,53 +77,71 @@ export class LorvenSectionController {
 
   init() {
     // Accessibility check
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    this.prefersReducedMotion = motionQuery.matches;
-    motionQuery.addEventListener('change', (e) => {
-      this.prefersReducedMotion = e.matches;
-      this.render();
-    });
+    this.prefersReducedMotion = motionEngine.prefersReducedMotion;
 
     this.handleResize();
-    window.addEventListener('resize', () => this.handleResize(), { passive: true });
 
-    // Desktop micro-parallax listener
-    window.addEventListener('mousemove', (e) => {
-      if (this.isMobile || this.prefersReducedMotion || !this.isIntersecting) return;
-      const nx = (e.clientX / window.innerWidth) - 0.5;
-      const ny = (e.clientY / window.innerHeight) - 0.5;
-      this.targetMouseX = nx * 0.05; // gentle max 3 degrees
-      this.targetMouseY = ny * 0.05;
+    // Subscribe to MotionEngine debounced resize
+    this.unsubscribers.push(
+      motionEngine.subscribeResize(() => this.handleResize())
+    );
 
-      // 3D Logo hit-testing for gentle hover floating interaction
-      const rect = this.canvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left;
-      const my = e.clientY - rect.top;
+    // Subscribe to MotionEngine coalesced scroll
+    this.unsubscribers.push(
+      motionEngine.subscribeScroll((s) => this.handleScroll(s.y))
+    );
 
-      const p = this.currentProgress;
-      const stageYOffset = -this.height * 0.07 + p * (this.height * 0.15);
-      const horizontalCurve = Math.sin(p * Math.PI);
-      const transX = this.isMobile 
-        ? 0 
-        : (this.width * (0.02 + horizontalCurve * 0.02 - p * 0.01));
-      const logoX = this.centerX + transX;
-      const logoY = this.centerY + stageYOffset;
+    // Subscribe to MotionEngine tab visibility
+    this.unsubscribers.push(
+      motionEngine.subscribeVisibility((visible) => {
+        if (visible && this.isIntersecting) {
+          if (!this.rafId) this.animate();
+        } else {
+          if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+            this.rafId = null;
+          }
+        }
+      })
+    );
 
-      const dist = Math.hypot(mx - logoX, my - logoY);
-      const hitRadius = (this.baseRadius || 240) * 1.05;
+    // Desktop micro-parallax via MotionEngine pointer subscriber
+    this.unsubscribers.push(
+      motionEngine.subscribePointer((p) => {
+        if (this.isMobile || this.prefersReducedMotion || !this.isIntersecting) return;
+        this.targetMouseX = p.normX * 0.05; // gentle max 3 degrees
+        this.targetMouseY = p.normY * 0.05;
 
-      if (dist <= hitRadius && mx >= 0 && mx <= this.width && my >= 0 && my <= this.height) {
-        this.isLogoHovered = true;
-        this.targetHoverWeight = 1.0;
-        this.targetHoverTiltX = (mx - logoX) / hitRadius;
-        this.targetHoverTiltY = (my - logoY) / hitRadius;
-      } else {
-        this.isLogoHovered = false;
-        this.targetHoverWeight = 0.0;
-        this.targetHoverTiltX = 0;
-        this.targetHoverTiltY = 0;
-      }
-    }, { passive: true });
+        // 3D Logo hit-testing for gentle hover floating interaction
+        const rect = this.cachedCanvasRect;
+        const mx = p.x - rect.left;
+        const my = p.y - rect.top;
+
+        const prog = this.currentProgress;
+        const stageYOffset = -this.height * 0.07 + prog * (this.height * 0.15);
+        const horizontalCurve = Math.sin(prog * Math.PI);
+        const transX = this.isMobile 
+          ? 0 
+          : (this.width * (0.02 + horizontalCurve * 0.02 - prog * 0.01));
+        const logoX = this.centerX + transX;
+        const logoY = this.centerY + stageYOffset;
+
+        const dist = Math.hypot(mx - logoX, my - logoY);
+        const hitRadius = (this.baseRadius || 240) * 1.05;
+
+        if (dist <= hitRadius && mx >= 0 && mx <= this.width && my >= 0 && my <= this.height) {
+          this.isLogoHovered = true;
+          this.targetHoverWeight = 1.0;
+          this.targetHoverTiltX = (mx - logoX) / hitRadius;
+          this.targetHoverTiltY = (my - logoY) / hitRadius;
+        } else {
+          this.isLogoHovered = false;
+          this.targetHoverWeight = 0.0;
+          this.targetHoverTiltX = 0;
+          this.targetHoverTiltY = 0;
+        }
+      })
+    );
 
     this.canvas.addEventListener('mouseleave', () => {
       this.isLogoHovered = false;
@@ -123,14 +150,11 @@ export class LorvenSectionController {
       this.targetHoverTiltY = 0;
     }, { passive: true });
 
-    // Scroll tracker
-    window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
-
     // Intersection Observer to halt RAF loop when section is outside viewport (0% CPU idle)
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          this.isIntersecting = entry.isIntersecting;
+          this.isIntersecting = entry.isIntersecting && motionEngine.isVisible;
           if (this.isIntersecting) {
             this.handleScroll();
             if (!this.rafId) {
@@ -163,11 +187,29 @@ export class LorvenSectionController {
     this.render();
   }
 
+  measureSection() {
+    if (!this.section) return;
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const rect = this.section.getBoundingClientRect();
+    this.cachedSectionTop = rect.top + scrollY;
+    this.cachedSectionHeight = rect.height || this.section.offsetHeight;
+    this.cachedTotalScrollable = Math.max(1, this.cachedSectionHeight - window.innerHeight);
+
+    const canvasRect = this.canvas.getBoundingClientRect();
+    this.cachedCanvasRect = {
+      left: canvasRect.left,
+      top: canvasRect.top,
+      width: canvasRect.width,
+      height: canvasRect.height
+    };
+  }
+
   handleResize() {
-    const rect = this.canvas.getBoundingClientRect();
-    this.width = rect.width || window.innerWidth;
-    this.height = rect.height || window.innerHeight;
+    this.measureSection();
+    this.width = this.cachedCanvasRect.width || window.innerWidth;
+    this.height = this.cachedCanvasRect.height || window.innerHeight;
     this.isMobile = window.innerWidth < 768;
+    this.dpr = motionEngine.dpr;
 
     this.canvas.width = Math.round(this.width * this.dpr);
     this.canvas.height = Math.round(this.height * this.dpr);
@@ -184,19 +226,12 @@ export class LorvenSectionController {
    * Calculates scroll progress across the ENTIRE Lorven section.
    * Progress = 0.0 when top of Lorven enters/aligns with viewport top.
    * Progress = 1.0 when bottom of Lorven aligns with viewport bottom.
+   * Zero layout reflows during active scroll.
    */
-  handleScroll() {
+  handleScroll(scrollY = window.scrollY || window.pageYOffset || 0) {
     if (!this.section) return;
-    const rect = this.section.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const totalScrollable = rect.height - vh;
-    if (totalScrollable <= 0) {
-      this.targetProgress = 0.5;
-      return;
-    }
-    // Normalized scroll progress [0, 1] through the complete Lorven section
-    const currentDist = -rect.top;
-    const rawProgress = currentDist / totalScrollable;
+    const currentDist = scrollY - this.cachedSectionTop;
+    const rawProgress = currentDist / this.cachedTotalScrollable;
     this.targetProgress = Math.max(0, Math.min(1, rawProgress));
   }
 
@@ -625,12 +660,13 @@ export class LorvenSectionController {
     // Fades smoothly ONLY when Lorven section is actually scrolling off-screen.
     // =========================================================================
     let masterOpacity = 1.0;
-    if (this.section) {
-      const rect = this.section.getBoundingClientRect();
+    if (this.cachedSectionHeight > 0) {
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+      const rectBottom = this.cachedSectionTop + this.cachedSectionHeight - scrollY;
       const vh = window.innerHeight;
-      if (rect.bottom < vh) {
+      if (rectBottom < vh) {
         // Naturally fades out only as the Lorven section finishes and leaves the viewport
-        masterOpacity = Math.max(0, rect.bottom / vh);
+        masterOpacity = Math.max(0, rectBottom / vh);
       }
     }
     const baseAlpha = (this.isMobile ? 0.60 : 0.95) * masterOpacity;
@@ -718,5 +754,14 @@ export class LorvenSectionController {
       }
       ctx.stroke();
     }
+  }
+
+  destroy() {
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+    this.unsubscribers.forEach(unsub => unsub());
+    this.unsubscribers = [];
   }
 }

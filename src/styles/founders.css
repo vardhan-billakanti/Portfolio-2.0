@@ -132,7 +132,7 @@
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.7);
   transform: translateY(0) scale(1);
-  will-change: transform, border-color, box-shadow;
+  will-change: transform;
   /* INSTANT HOVER & RETURN: 0ms delay, fast 240ms natural ease-out */
   transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
               border-color 200ms ease,

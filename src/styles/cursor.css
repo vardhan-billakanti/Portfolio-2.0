@@ -13,7 +13,7 @@
   pointer-events: none !important;
   z-index: 99999;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity var(--duration-fast) var(--ease-micro);
 }
 
 .custom-cursor.cursor-active {
@@ -37,7 +37,10 @@
   pointer-events: none !important;
   z-index: 100000;
   will-change: transform;
-  transition: background-color 0.2s ease, width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color var(--duration-fast) var(--ease-micro), 
+              width var(--duration-fast) var(--ease-micro), 
+              height var(--duration-fast) var(--ease-micro), 
+              box-shadow var(--duration-fast) var(--ease-micro);
 }
 
 /* Outer Tracking Inertia Ring (Smooth physical follow) */
@@ -52,19 +55,27 @@
   background-color: transparent;
   pointer-events: none !important;
   z-index: 99999;
-  will-change: transform, width, height, border-color, background-color;
-  transition: width 0.24s var(--ease-cinematic), 
-              height 0.24s var(--ease-cinematic), 
-              border-color 0.24s ease, 
-              background-color 0.24s ease, 
-              box-shadow 0.24s ease;
+  will-change: transform;
+  transition: width var(--duration-interaction) var(--ease-interaction), 
+              height var(--duration-interaction) var(--ease-interaction), 
+              border-color var(--duration-interaction) var(--ease-micro), 
+              background-color var(--duration-interaction) var(--ease-micro), 
+              box-shadow var(--duration-interaction) var(--ease-micro);
 }
 
 /* --------------------------------------------------------------------------
-   INTERACTIVE STATES (Subtle & Restrained)
+   INTERACTIVE STATES (Subtle, Restrained & Coordinated)
    -------------------------------------------------------------------------- */
 
-/* 1. Hovering Navigation Links / Brand */
+/* 1. Normal / Reset */
+.custom-cursor.cursor-normal .cursor-ring {
+  width: 26px;
+  height: 26px;
+  border-color: rgba(255, 255, 255, 0.42);
+  background-color: transparent;
+}
+
+/* 2. Hovering Navigation Links / Brand */
 .custom-cursor.cursor-link .cursor-ring {
   width: 36px;
   height: 36px;
@@ -78,7 +89,66 @@
   box-shadow: 0 0 6px var(--pr-accent-orange-glow);
 }
 
-/* 2. Hovering Social Profile Circles */
+/* 3. Button / Interactive Controls */
+.custom-cursor.cursor-button .cursor-ring,
+.custom-cursor.cursor-hover .cursor-ring {
+  width: 38px;
+  height: 38px;
+  border-color: rgba(255, 77, 0, 0.75);
+  background-color: rgba(255, 77, 0, 0.08);
+  box-shadow: 0 0 12px rgba(255, 77, 0, 0.22);
+}
+
+/* 4. Project Card Hover */
+.custom-cursor.cursor-project .cursor-ring {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(255, 92, 26, 0.85);
+  background-color: rgba(255, 92, 26, 0.08);
+  box-shadow: 0 0 14px rgba(255, 92, 26, 0.25);
+}
+
+.custom-cursor.cursor-project .cursor-dot {
+  background-color: var(--accent-primary);
+  box-shadow: 0 0 8px var(--pr-accent-orange-glow);
+}
+
+/* 5. Image / Preview Hover */
+.custom-cursor.cursor-image .cursor-ring {
+  width: 42px;
+  height: 42px;
+  border-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+/* 6. Magnetic Attraction */
+.custom-cursor.cursor-magnetic .cursor-ring {
+  width: 48px;
+  height: 48px;
+  border-color: var(--accent-primary);
+  background-color: rgba(255, 77, 0, 0.12);
+  box-shadow: 0 0 16px rgba(255, 77, 0, 0.35);
+}
+
+/* 7. Drag / Swipe Deck */
+.custom-cursor.cursor-drag .cursor-ring {
+  width: 46px;
+  height: 46px;
+  border-color: rgba(255, 200, 100, 0.8);
+  background-color: rgba(255, 200, 100, 0.06);
+}
+
+/* 8. BOB Assistant Floating Trigger */
+.custom-cursor.cursor-bob .cursor-ring {
+  width: 52px;
+  height: 52px;
+  border-color: rgba(255, 120, 30, 0.9);
+  background-color: rgba(255, 120, 30, 0.12);
+  box-shadow: 0 0 18px rgba(255, 120, 30, 0.35);
+}
+
+/* 9. Hovering Social Profile Circles */
 .custom-cursor.cursor-social .cursor-ring {
   width: 44px;
   height: 44px;
@@ -94,7 +164,7 @@
   box-shadow: 0 0 8px var(--pr-accent-orange-glow);
 }
 
-/* 3. Hovering GET IN TOUCH Contact Trigger */
+/* 10. Hovering GET IN TOUCH Contact Trigger */
 .custom-cursor.cursor-cta .cursor-ring {
   width: 48px;
   height: 48px;
@@ -108,8 +178,9 @@
   box-shadow: 0 0 8px var(--pr-accent-orange-glow);
 }
 
-/* 4. Generic Click Micro-Compression */
+/* 11. Generic Click Micro-Compression */
 .custom-cursor.cursor-clicking .cursor-ring {
+  transform-origin: center center;
   border-color: var(--accent-primary);
 }
 

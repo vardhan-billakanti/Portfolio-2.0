@@ -78,11 +78,16 @@ export class ContactSectionController {
     let rafId = null;
     let targetX = 0;
     let targetY = 0;
+    let cardRect = null;
+
+    const updateRect = () => {
+      cardRect = card.getBoundingClientRect();
+    };
 
     const onMouseMove = (e) => {
-      const rect = card.getBoundingClientRect();
-      targetX = e.clientX - rect.left;
-      targetY = e.clientY - rect.top;
+      if (!cardRect) updateRect();
+      targetX = e.clientX - cardRect.left;
+      targetY = e.clientY - cardRect.top;
 
       if (!rafId) {
         rafId = requestAnimationFrame(() => {
@@ -95,6 +100,7 @@ export class ContactSectionController {
     };
 
     const onMouseEnter = () => {
+      updateRect();
       card.style.setProperty('--card-spot-opacity', '1');
     };
 
@@ -109,6 +115,7 @@ export class ContactSectionController {
     card.addEventListener('mousemove', onMouseMove, { passive: true });
     card.addEventListener('mouseenter', onMouseEnter, { passive: true });
     card.addEventListener('mouseleave', onMouseLeave, { passive: true });
+    window.addEventListener('resize', updateRect, { passive: true });
   }
 
   setupFormHandler() {

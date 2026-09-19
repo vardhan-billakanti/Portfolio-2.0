@@ -12,6 +12,7 @@
  */
 
 import { TOOLKIT_TECHNOLOGIES } from '../data/toolkit-data.js';
+import { motionEngine } from '../core/motion-engine.js';
 
 export class ToolkitOrbitEngine {
   constructor(viewportEl, nodesLayerEl, svgTracksEl, techCoreEl) {
@@ -19,6 +20,8 @@ export class ToolkitOrbitEngine {
     this.nodesLayer = nodesLayerEl;
     this.svgTracks = svgTracksEl;
     this.techCore = techCoreEl;
+    this.cachedViewportRect = { left: 0, top: 0, width: 540, height: 540 };
+    this.unsubscribers = [];
 
     // 4 Elliptical Orbit Rings (Expanded ~12% vertically for balanced vertical footprint)
     this.RINGS = [
@@ -161,6 +164,14 @@ export class ToolkitOrbitEngine {
     this.vw = this.viewport.clientWidth || 540;
     this.vh = this.viewport.clientHeight || 540;
 
+    const rect = this.viewport.getBoundingClientRect();
+    this.cachedViewportRect = {
+      left: rect.left,
+      top: rect.top,
+      width: rect.width || this.vw,
+      height: rect.height || this.vh
+    };
+
     // Viewport coordinate center and responsive scale relative to 540px base design
     const s = Math.min(this.vw / 540, this.vh / 540);
     this.scaleX = s;
@@ -183,29 +194,28 @@ export class ToolkitOrbitEngine {
   setupMouseParallax() {
     if (!this.hasFinePointer) return;
 
-    const onMouseMove = (e) => {
-      const rect = this.viewport.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+    this.unsubscribers.push(
+      motionEngine.subscribePointer((p) => {
+        if (!this.isSectionVisible) return;
+        const rect = this.cachedViewportRect;
+        const x = p.x - rect.left;
+        const y = p.y - rect.top;
 
-      // Normalized coordinates: -1 to +1
-      this.mouseX = ((x / rect.width) * 2 - 1);
-      this.mouseY = ((y / rect.height) * 2 - 1);
-    };
-
-    const onMouseLeave = () => {
-      this.mouseX = 0;
-      this.mouseY = 0;
-    };
-
-    this.viewport.addEventListener('mousemove', onMouseMove, { passive: true });
-    this.viewport.addEventListener('mouseleave', onMouseLeave, { passive: true });
+        if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+          this.mouseX = ((x / rect.width) * 2 - 1);
+          this.mouseY = ((y / rect.height) * 2 - 1);
+        } else {
+          this.mouseX = 0;
+          this.mouseY = 0;
+        }
+      })
+    );
   }
 
   setupVisibilityObservers() {
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
-        this.isSectionVisible = entries[0].isIntersecting;
+        this.isSectionVisible = entries[0].isIntersecting && motionEngine.isVisible;
         if (this.isSectionVisible && this.isDocVisible && !this.prefersReducedMotion) {
           this.start();
         } else {
@@ -219,14 +229,16 @@ export class ToolkitOrbitEngine {
       if (!this.prefersReducedMotion) this.start();
     }
 
-    document.addEventListener('visibilitychange', () => {
-      this.isDocVisible = !document.hidden;
-      if (this.isDocVisible && this.isSectionVisible && !this.prefersReducedMotion) {
-        this.start();
-      } else {
-        this.stop();
-      }
-    }, { passive: true });
+    this.unsubscribers.push(
+      motionEngine.subscribeVisibility((visible) => {
+        this.isDocVisible = visible;
+        if (this.isDocVisible && this.isSectionVisible && !this.prefersReducedMotion) {
+          this.start();
+        } else {
+          this.stop();
+        }
+      })
+    );
   }
 
   setDirectNodeHover(toolName, isHovered) {
@@ -399,6 +411,8 @@ export class ToolkitOrbitEngine {
 
   destroy() {
     this.stop();
+    this.unsubscribers.forEach(unsub => unsub());
+    this.unsubscribers = [];
     this.nodeObjects = [];
   }
 }

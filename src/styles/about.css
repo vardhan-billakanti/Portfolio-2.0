@@ -18,7 +18,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. AMBIENT BACKGROUND — subtle atmospheric pulse + drift
+   2. AMBIENT BACKGROUND — subtle static atmospheric depth
    -------------------------------------------------------------------------- */
 .about-ambient-depth {
   position: absolute;
@@ -30,14 +30,8 @@
     linear-gradient(to bottom, rgba(255, 255, 255, 0.013) 1px, transparent 1px);
   background-size: 100% 100%, 100% 100%, 120px 120px, 120px 120px;
   pointer-events: none;
-  opacity: 0.7;
-  animation: about-bg-breathe 9s ease-in-out infinite;
-  will-change: opacity;
-}
-
-@keyframes about-bg-breathe {
-  0%, 100% { opacity: 0.55; }
-  50%       { opacity: 0.78; }
+  opacity: 0.65;
+  will-change: transform;
 }
 
 /* --------------------------------------------------------------------------
@@ -46,7 +40,7 @@
 .about-container {
   position: relative;
   width: 100%;
-  max-width: 1320px;
+  max-width: var(--container-max-width, 1200px);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -146,7 +140,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
-  border-radius: 4px;
+  border-radius: var(--card-radius, 6px);
   overflow: hidden;
   background: var(--pr-black-900);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -158,9 +152,9 @@
   transition:
     opacity      0.95s var(--ease-cinematic) 0.12s,
     clip-path    0.95s var(--ease-cinematic) 0.12s,
-    transform    0.55s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.4s  ease,
-    box-shadow   0.4s  ease;
+    transform    0.35s var(--ease-hover),
+    border-color 0.3s  ease,
+    box-shadow   0.3s  ease;
   will-change: opacity, clip-path, transform;
   transform-origin: center center;
 }
@@ -178,8 +172,8 @@
   transition: opacity var(--duration-normal) ease, border-color var(--duration-normal) ease;
 }
 
-.corner-top-left    { top: 8px;    left: 8px;   border-width: 1.5px 0 0 1.5px; }
-.corner-bottom-right{ bottom: 8px; right: 8px;  border-width: 0 1.5px 1.5px 0; }
+.corner-top-left    { top: 8px;    left: 8px;   border-width: 1.5px 0 0 1.5px; border-top-left-radius: 2px; }
+.corner-bottom-right{ bottom: 8px; right: 8px;  border-width: 0 1.5px 1.5px 0; border-bottom-right-radius: 2px; }
 
 /* Photograph — smooth scale inside contained overflow */
 .about-photo-img {
@@ -189,56 +183,33 @@
   object-position: center top;
   display: block;
   filter: contrast(1.04) brightness(0.96);
-  transform: scale(1.025);
-  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-              filter   0.45s ease;
+  transform: scale(1.02);
+  transition: transform 0.45s var(--ease-hover),
+              filter   0.35s ease;
   will-change: transform;
-}
-
-/* Light sweep pseudo-element — restrained, elegant */
-.about-photo-wrapper::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    118deg,
-    transparent   30%,
-    rgba(255, 255, 255, 0.055) 50%,
-    transparent   70%
-  );
-  transform: translateX(-100%);
-  transition: transform 0.01s;
-  pointer-events: none;
-  z-index: 3;
 }
 
 /* ——— Desktop Photo Hover: smooth contained enlargement + warm glow ——— */
 @media (hover: hover) and (pointer: fine) {
   .about-photo-wrapper:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 77, 0, 0.42);
+    transform: translateY(var(--hover-lift, -2.5px));
+    border-color: rgba(255, 77, 0, 0.45);
     box-shadow:
-      0 0 0 1px rgba(255, 77, 0, 0.28),
-      0 22px 48px rgba(0, 0, 0, 0.8),
-      0 0 28px rgba(255, 77, 0, 0.15);
+      0 0 0 1px rgba(255, 77, 0, 0.2),
+      0 20px 44px rgba(0, 0, 0, 0.75),
+      0 0 24px rgba(255, 77, 0, 0.12);
   }
 
   /* Image smoothly scales up inside container without distorting or exceeding boundary */
   .about-photo-wrapper:hover .about-photo-img {
-    transform: scale(1.045);
-    filter: contrast(1.06) brightness(1.01);
+    transform: scale(1.035);
+    filter: contrast(1.05) brightness(1.0);
   }
 
   /* Corner accents become crisp and luminous on hover */
   .about-photo-wrapper:hover .about-photo-corner {
     opacity: 0.95;
     border-color: rgba(255, 77, 0, 0.9);
-  }
-
-  /* Subtle cinematic light sweep */
-  .about-photo-wrapper:hover::after {
-    transform: translateX(200%);
-    transition: transform 1.35s var(--ease-cinematic);
   }
 }
 
@@ -303,11 +274,9 @@
   margin: 0;
   opacity: 0;
   transform: translateY(16px);
-  filter: blur(3px);
   transition:
     opacity   0.8s var(--ease-cinematic),
-    transform 0.8s var(--ease-cinematic),
-    filter    0.8s ease;
+    transform 0.8s var(--ease-cinematic);
 }
 
 .about-body-para strong {
@@ -404,7 +373,7 @@
   padding: 5px 12px 5px 9px;
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 999px;
+  border-radius: var(--pill-radius, 999px);
   font-family: var(--font-sans);
   font-size: 0.69rem;
   font-weight: 500;
@@ -445,7 +414,7 @@
 /* Pill hover */
 @media (hover: hover) {
   .about-interest-tag:hover {
-    transform: translateY(-2px);
+    transform: translateY(var(--hover-lift, -2px));
     border-color: rgba(255, 77, 0, 0.42);
     background: rgba(255, 77, 0, 0.06);
     color: var(--pr-white-pure);
@@ -453,7 +422,7 @@
 
   .about-interest-tag:hover .tag-icon {
     opacity: 1;
-    transform: scale(1.12);
+    transform: scale(1.08);
   }
 }
 
@@ -487,9 +456,9 @@
   padding: 8px 20px;
   background: rgba(255, 255, 255, 0.035);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
+  border-radius: var(--pill-radius, 999px);
   transition:
-    transform     0.28s var(--ease-cinematic),
+    transform     0.26s var(--ease-hover),
     border-color  0.24s ease,
     background    0.24s ease,
     box-shadow    0.24s ease;
@@ -498,24 +467,24 @@
 .about-explore-link .link-arrow {
   color: var(--accent-primary);
   display: inline-block;
-  transition: transform 0.24s var(--ease-cinematic);
+  transition: transform 0.24s var(--ease-hover);
 }
 
 @media (hover: hover) {
   .about-explore-link:hover {
-    transform: scale(1.03);
+    transform: translateY(var(--hover-lift, -2px)) scale(var(--hover-scale, 1.02));
     background: rgba(255, 77, 0, 0.07);
     border-color: rgba(255, 77, 0, 0.55);
-    box-shadow: 0 0 14px rgba(255, 77, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(255, 77, 0, 0.12);
   }
 
   .about-explore-link:hover .link-arrow {
-    transform: translateX(5px);
+    transform: translateX(4px);
   }
 }
 
 .about-explore-link:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
   transition-duration: 0.1s;
 }
 
@@ -532,7 +501,6 @@
 .section-about-me.is-visible .about-cta-container {
   opacity: 1;
   transform: translateY(0);
-  filter: none;
 }
 
 /* Heading lines revealed via mask */

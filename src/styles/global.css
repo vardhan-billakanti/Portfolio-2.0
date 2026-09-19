@@ -11,6 +11,7 @@ html {
   background-color: var(--pr-black-1000);
   color: var(--text-primary);
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -18,11 +19,17 @@ body {
   background-color: var(--pr-black-1000);
   color: var(--text-primary);
   min-height: 100vh;
+  overflow-x: hidden;
   overflow-x: clip;
   position: relative;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+main,
+#main-content {
+  background-color: var(--pr-black-1000);
 }
 
 /* Custom Architectural Scrollbar */

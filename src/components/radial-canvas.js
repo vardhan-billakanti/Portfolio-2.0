@@ -3,7 +3,15 @@
  * Clearly visible, fast-moving radial speed lines radiating outward.
  * Layered visual hierarchy (bright, medium, subtle, accent),
  * dynamic streak elongation with distance, and smooth 60fps performance.
+ * 
+ * Performance Enhancements:
+ * - Integrated with MotionEngine for coordinated tab visibility (0% CPU when tab hidden).
+ * - Adaptive Canvas DPR based on device capability (prevents mobile GPU thermal throttling).
+ * - Coalesced pointer parallax updates (no raw mousemove listeners).
+ * - Automatic pause when section leaves viewport via IntersectionObserver.
  */
+
+import { motionEngine } from '../core/motion-engine.js';
 
 export class RadialStreakCanvas {
   constructor(canvasElement) {
@@ -15,7 +23,7 @@ export class RadialStreakCanvas {
     this.centerX = 0;
     this.centerY = 0;
     this.maxRadius = 0;
-    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    this.dpr = motionEngine.dpr;
 
     // Micro-parallax damping
     this.targetMouseX = 0;
@@ -32,26 +40,48 @@ export class RadialStreakCanvas {
     this.spawnInnerRadius = 25;
 
     this.rafId = null;
+    this.unsubscribers = [];
 
     this.init();
   }
 
   init() {
     this.handleResize();
-    window.addEventListener('resize', () => this.handleResize());
 
-    window.addEventListener('mousemove', (e) => {
-      const normX = (e.clientX / window.innerWidth) - 0.5;
-      const normY = (e.clientY / window.innerHeight) - 0.5;
-      this.targetMouseX = normX * 22;
-      this.targetMouseY = normY * 22;
-    }, { passive: true });
+    // 1. Subscribe to debounced resize
+    this.unsubscribers.push(
+      motionEngine.subscribeResize(() => this.handleResize())
+    );
 
+    // 2. Subscribe to coalesced pointer updates for micro-parallax
+    this.unsubscribers.push(
+      motionEngine.subscribePointer((p) => {
+        if (!this.active || motionEngine.isTouch) return;
+        this.targetMouseX = p.normX * 22;
+        this.targetMouseY = p.normY * 22;
+      })
+    );
+
+    // 3. Tab Visibility hook (stop RAF completely when tab is hidden)
+    this.unsubscribers.push(
+      motionEngine.subscribeVisibility((visible) => {
+        if (visible && this.active) {
+          if (!this.rafId) this.animate();
+        } else {
+          if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+            this.rafId = null;
+          }
+        }
+      })
+    );
+
+    // 4. Viewport IntersectionObserver
     const heroSection = document.getElementById('home') || this.canvas;
     if ('IntersectionObserver' in window && heroSection) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          this.active = entry.isIntersecting;
+          this.active = entry.isIntersecting && motionEngine.isVisible;
           if (this.active) {
             if (!this.rafId) {
               this.animate();
@@ -72,14 +102,16 @@ export class RadialStreakCanvas {
   }
 
   handleResize() {
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    const parent = this.canvas.parentElement;
+    this.width = parent ? parent.clientWidth : (window.innerWidth + 64);
+    this.height = parent ? parent.clientHeight : (window.innerHeight + 64);
     this.centerX = this.width / 2;
     this.centerY = this.height / 2;
     this.maxRadius = Math.hypot(this.centerX, this.centerY) * 1.05;
+    this.dpr = motionEngine.dpr;
 
-    this.canvas.width = this.width * this.dpr;
-    this.canvas.height = this.height * this.dpr;
+    this.canvas.width = Math.round(this.width * this.dpr);
+    this.canvas.height = Math.round(this.height * this.dpr);
     this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
 
     this.generateStreaks();
@@ -171,7 +203,7 @@ export class RadialStreakCanvas {
   }
 
   animate() {
-    if (!this.active) {
+    if (!this.active || !motionEngine.isVisible) {
       this.rafId = null;
       return;
     }
@@ -245,7 +277,9 @@ export class RadialStreakCanvas {
   destroy() {
     if (this.rafId) {
       cancelAnimationFrame(this.rafId);
+      this.rafId = null;
     }
-    window.removeEventListener('resize', this.handleResize);
+    this.unsubscribers.forEach(unsub => unsub());
+    this.unsubscribers = [];
   }
 }

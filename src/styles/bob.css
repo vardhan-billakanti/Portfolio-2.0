@@ -967,8 +967,33 @@
 }
 
 @media (max-width: 480px) {
+  .bob-panel,
+  .node-panel {
+    max-width: 100vw;
+    width: 100vw;
+  }
+
+  .bob-header,
+  .node-header {
+    padding: 12px 14px;
+  }
+
+  .bob-input-wrapper,
+  .node-input-wrapper {
+    padding: 10px 12px 14px;
+  }
+
+  .bob-conversation,
+  .node-conversation {
+    padding: 14px 12px 8px;
+  }
+
   .bob-image-search-grid {
     grid-template-columns: 1fr;
+  }
+
+  .bob-generated-img {
+    max-height: 280px;
   }
 }
 
