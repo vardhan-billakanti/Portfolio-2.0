@@ -618,8 +618,8 @@ export const PORTFOLIO_KNOWLEDGE = {
   socials: {
     github: {
       label: "GitHub",
-      url: "https://github.com/vardhanbillakanti125-crypto",
-      username: "vardhanbillakanti125-crypto"
+      url: "https://github.com/vardhan-billakanti",
+      username: "vardhan-billakanti"
     },
     linkedin: {
       label: "LinkedIn",
@@ -628,16 +628,16 @@ export const PORTFOLIO_KNOWLEDGE = {
     },
     instagram: {
       label: "Instagram",
-      url: "https://www.instagram.com/vardhan_billakanti/",
-      handle: "vardhan_billakanti"
+      url: "https://www.instagram.com/vardhanxtech/",
+      handle: "vardhanxtech"
     }
   },
 
   contact: {
     email: "vardhanbillakanti125@gmail.com",
-    github: "https://github.com/vardhanbillakanti125-crypto",
+    github: "https://github.com/vardhan-billakanti",
     linkedin: "https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/",
-    instagram: "https://www.instagram.com/vardhan_billakanti/",
+    instagram: "https://www.instagram.com/vardhanxtech/",
     location: "Hyderabad, India",
     portfolioUrl: "https://vardhanbillakanti.in"
   },
@@ -648,9 +648,9 @@ export const PORTFOLIO_KNOWLEDGE = {
   },
 
   canonicalLinks: {
-    github: "https://github.com/vardhanbillakanti125-crypto",
+    github: "https://github.com/vardhan-billakanti",
     linkedin: "https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/",
-    instagram: "https://www.instagram.com/vardhan_billakanti/",
+    instagram: "https://www.instagram.com/vardhanxtech/",
     website: "https://vardhanbillakanti.in",
     email: "vardhanbillakanti125@gmail.com"
   },
@@ -661,9 +661,9 @@ export const PORTFOLIO_KNOWLEDGE = {
     contactChannels: {
       email: "vardhanbillakanti125@gmail.com",
       emailMailto: "mailto:vardhanbillakanti125@gmail.com",
-      github: "https://github.com/vardhanbillakanti125-crypto",
+      github: "https://github.com/vardhan-billakanti",
       linkedin: "https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/",
-      instagram: "https://www.instagram.com/vardhan_billakanti/"
+      instagram: "https://www.instagram.com/vardhanxtech/"
     },
     projects: [
       { id: "portfolio", name: "Portfolio", url: "https://vardhanbillakanti.in/" },
@@ -732,9 +732,9 @@ PRIMARY DIRECTIVES:
    - For Jaya Vardhan's personal contact information, use only the verified contact information supplied by the portfolio knowledge base:
      * Authoritative Email: vardhanbillakanti125@gmail.com
      * Portfolio Website: https://vardhanbillakanti.in
-     * GitHub: https://github.com/vardhanbillakanti125-crypto
+     * GitHub: https://github.com/vardhan-billakanti
      * LinkedIn: https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/
-     * Instagram: https://www.instagram.com/vardhan_billakanti/
+     * Instagram: https://www.instagram.com/vardhanxtech/
      "For Jaya Vardhan's personal contact information, use only the verified contact information supplied by the portfolio knowledge base. Never generate, infer, substitute, or hallucinate an email address."
    - If BOB does not have verified contact information for someone else, it should say that it does not have verified contact information.
 7. CLICKABLE LINKS:

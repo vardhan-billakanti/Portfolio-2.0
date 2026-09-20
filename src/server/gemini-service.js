@@ -78,7 +78,7 @@ function initStaticKnowledgeSlices() {
     contact: PORTFOLIO_DATA.contact,
     verifiedLinks: PORTFOLIO_DATA.verifiedLinks,
     authoritativeEmail: "vardhanbillakanti125@gmail.com",
-    groundingRule: "For Jaya Vardhan's personal contact information and links, use only the verified contact information supplied by the portfolio knowledge base. Never generate, infer, substitute, or hallucinate an email address or profile URL. Exact canonical values: GitHub: https://github.com/vardhanbillakanti125-crypto | LinkedIn: https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/ | Instagram: https://www.instagram.com/vardhan_billakanti/ | Portfolio: https://vardhanbillakanti.in | Email: vardhanbillakanti125@gmail.com"
+    groundingRule: "For Jaya Vardhan's personal contact information and links, use only the verified contact information supplied by the portfolio knowledge base. Never generate, infer, substitute, or hallucinate an email address or profile URL. Exact canonical values: GitHub: https://github.com/vardhan-billakanti | LinkedIn: https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/ | Instagram: https://www.instagram.com/vardhanxtech/ | Portfolio: https://vardhanbillakanti.in | Email: vardhanbillakanti125@gmail.com"
   });
 
   STATIC_CERTIFICATIONS_SLICE = Object.freeze({ certifications: PORTFOLIO_DATA.certifications });
@@ -135,9 +135,9 @@ CRITICAL DIRECTIVES:
 5. EXACT CANONICAL PERSONAL LINKS (ABSOLUTE NO-HALLUCINATION RULE):
    - BOB must NEVER construct, guess, autocomplete, or invent a personal URL or social account.
    - CANONICAL VALUES:
-     * GitHub: https://github.com/vardhanbillakanti125-crypto
+     * GitHub: https://github.com/vardhan-billakanti
      * LinkedIn: https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/
-     * Instagram: https://www.instagram.com/vardhan_billakanti/
+     * Instagram: https://www.instagram.com/vardhanxtech/
      * Official Portfolio / Website: https://vardhanbillakanti.in
      * Email: vardhanbillakanti125@gmail.com
    - Always format verified links as clickable markdown: [URL](URL) or [Title](URL).
@@ -436,12 +436,12 @@ export function formatGeminiContents(messages) {
 export function sanitizePersonalLinks(text) {
   if (!text) return text;
   let s = text;
-  // Prevent any @_var_dhan_ or guessed handle
-  s = s.replace(/@_var_dhan_/gi, '[@vardhan_billakanti](https://www.instagram.com/vardhan_billakanti/)');
-  // Prevent guessed Instagram URLs
-  s = s.replace(/https?:\/\/(?:www\.)?instagram\.com\/(?:_var_dhan_|jaya_vardhan|jayavardhan_billakanti|vardhanbillakanti)\/?/gi, 'https://www.instagram.com/vardhan_billakanti/');
-  // Prevent guessed GitHub URLs
-  s = s.replace(/https?:\/\/github\.com\/(?:vardhanbillakanti|jaya-vardhan|jayavardhan)\/?(?=[^a-zA-Z0-9_-]|$)/gi, 'https://github.com/vardhanbillakanti125-crypto');
+  // Prevent any @_var_dhan_ or old @vardhan_billakanti handle
+  s = s.replace(/@(?:_var_dhan_|vardhan_billakanti)/gi, '[@vardhanxtech](https://www.instagram.com/vardhanxtech/)');
+  // Prevent guessed Instagram URLs or old handle
+  s = s.replace(/https?:\/\/(?:www\.)?instagram\.com\/(?:_var_dhan_|jaya_vardhan|jayavardhan_billakanti|vardhanbillakanti|vardhan_billakanti)\/?/gi, 'https://www.instagram.com/vardhanxtech/');
+  // Prevent guessed or old GitHub URLs
+  s = s.replace(/https?:\/\/github\.com\/(?:vardhanbillakanti|jaya-vardhan|jayavardhan|vardhanbillakanti125-crypto)\/?(?=[^a-zA-Z0-9_-]|$)/gi, 'https://github.com/vardhan-billakanti');
   return s;
 }
 

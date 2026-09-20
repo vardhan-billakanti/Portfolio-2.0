@@ -134,8 +134,8 @@ The optimized production output will be generated in the `dist/` directory.
 **Billakanti Jaya Vardhan**
 
 - **Portfolio**: [https://vardhanbillakanti.in](https://vardhanbillakanti.in)
-- **GitHub**: [https://github.com/vardhanbillakanti125-crypto](https://github.com/vardhanbillakanti125-crypto)
+- **GitHub**: [https://github.com/vardhan-billakanti](https://github.com/vardhan-billakanti)
 - **LinkedIn**: [https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/](https://www.linkedin.com/in/jaya-vardhan-billakanti-0053b7382/)
-- **Instagram**: [https://www.instagram.com/vardhan_billakanti/](https://www.instagram.com/vardhan_billakanti/)
+- **Instagram**: [https://www.instagram.com/vardhanxtech/](https://www.instagram.com/vardhanxtech/)
 - **Threads**: [https://www.threads.com/@vardhan_billakanti](https://www.threads.com/@vardhan_billakanti)
 - **X**: [https://x.com/VardhanBil31357](https://x.com/VardhanBil31357)

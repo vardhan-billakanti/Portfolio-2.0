@@ -450,8 +450,8 @@ export function detectJayaDefenseRoastClaim(rawText) {
 export const VERIFIED_CANONICAL_LINKS = {
   github: {
     label: "GitHub",
-    url: "https://github.com/vardhanbillakanti125-crypto",
-    username: "vardhanbillakanti125-crypto"
+    url: "https://github.com/vardhan-billakanti",
+    username: "vardhan-billakanti"
   },
   linkedin: {
     label: "LinkedIn",
@@ -460,8 +460,8 @@ export const VERIFIED_CANONICAL_LINKS = {
   },
   instagram: {
     label: "Instagram",
-    url: "https://www.instagram.com/vardhan_billakanti/",
-    handle: "vardhan_billakanti"
+    url: "https://www.instagram.com/vardhanxtech/",
+    handle: "vardhanxtech"
   },
   website: {
     label: "Official Portfolio Website",
@@ -488,11 +488,11 @@ export function detectVerifiedPersonalLink(text, norm, lower) {
     return null;
   }
 
-  // 1. Instagram queries ("his insta", "what is his instagram?", "give me his instagram", "instagram", "his ig", "insta", "my instagram", "insta link")
+  // 1. Instagram queries ("his insta", "what is his instagram?", "what's my instagram?", "give me his instagram", "instagram", "his ig", "insta", "my instagram", "insta link")
   const isInstaQuery = 
-    /\b(?:his\s+insta(?:gram)?|my\s+insta(?:gram)?|jaya'?s\s+insta(?:gram)?|vardhan'?s\s+insta(?:gram)?|give\s+me\s+(?:his\s+)?insta(?:gram)?)\b/i.test(lower) ||
-    /^(?:what\s+is\s+)?(?:his|my|your|the|jaya'?s)?\s*(?:instagram|insta|ig)(?:\s+link|\s+url|\s+handle|\s+profile|\s+id|\s+username|\s+account)?\??$/i.test(lower) ||
-    /^(?:give\s+me\s+)?(?:his|my|the|jaya'?s)?\s*(?:instagram|insta|ig)(?:\s+link|\s+url|\s+handle|\s+profile|\s+id|\s+username|\s+account)?\??$/i.test(lower) ||
+    /\b(?:his\s+insta(?:gram)?|my\s+insta(?:gram)?|your\s+insta(?:gram)?|jaya'?s\s+insta(?:gram)?|vardhan'?s\s+insta(?:gram)?|give\s+me\s+(?:his\s+|my\s+|your\s+)?insta(?:gram)?)\b/i.test(lower) ||
+    /^(?:what\s+is|what's|whats)?\s*(?:his|my|your|the|jaya'?s)?\s*(?:instagram|insta|ig)(?:\s+link|\s+url|\s+handle|\s+profile|\s+id|\s+username|\s+account)?\??$/i.test(lower) ||
+    /^(?:give\s+me\s+)?(?:his|my|your|the|jaya'?s)?\s*(?:instagram|insta|ig)(?:\s+link|\s+url|\s+handle|\s+profile|\s+id|\s+username|\s+account)?\??$/i.test(lower) ||
     /^(?:instagram|insta|ig)\??$/i.test(lower.trim());
 
   if (isInstaQuery && !/\b(?:who\s+founded|history\s+of|algorithm\s+of)\b/i.test(lower)) {
@@ -502,9 +502,9 @@ export function detectVerifiedPersonalLink(text, norm, lower) {
 
   // 2. LinkedIn queries ("his linkedin", "what is his linkedin?", "give me his linkedin", "linkedin", "my linkedin", "linkedin link")
   const isLinkedInQuery = 
-    /\b(?:his\s+linkedin|my\s+linkedin|jaya'?s\s+linkedin|vardhan'?s\s+linkedin|give\s+me\s+(?:his\s+)?linkedin)\b/i.test(lower) ||
-    /^(?:what\s+is\s+)?(?:his|my|your|the|jaya'?s)?\s*linkedin(?:\s+link|\s+url|\s+profile|\s+account|\s+id)?\??$/i.test(lower) ||
-    /^(?:give\s+me\s+)?(?:his|my|the|jaya'?s)?\s*linkedin(?:\s+link|\s+url|\s+profile|\s+account|\s+id)?\??$/i.test(lower) ||
+    /\b(?:his\s+linkedin|my\s+linkedin|your\s+linkedin|jaya'?s\s+linkedin|vardhan'?s\s+linkedin|give\s+me\s+(?:his\s+|my\s+|your\s+)?linkedin)\b/i.test(lower) ||
+    /^(?:what\s+is|what's|whats)?\s*(?:his|my|your|the|jaya'?s)?\s*linkedin(?:\s+link|\s+url|\s+profile|\s+account|\s+id)?\??$/i.test(lower) ||
+    /^(?:give\s+me\s+)?(?:his|my|your|the|jaya'?s)?\s*linkedin(?:\s+link|\s+url|\s+profile|\s+account|\s+id)?\??$/i.test(lower) ||
     /^linkedin\??$/i.test(lower.trim());
 
   if (isLinkedInQuery && !/\b(?:who\s+founded|history\s+of)\b/i.test(lower)) {
@@ -512,11 +512,11 @@ export function detectVerifiedPersonalLink(text, norm, lower) {
     return `Jaya Vardhan's verified LinkedIn profile is:\n\n[${url}](${url})`;
   }
 
-  // 3. GitHub queries ("his github", "what is his github?", "give me his github", "github", "my github", "github link")
+  // 3. GitHub queries ("his github", "what is his github?", "what is your github?", "give me his github", "github", "my github", "github link")
   const isGitHubQuery = !lower.includes('bootcamp') && (
-    /\b(?:his\s+github|my\s+github|jaya'?s\s+github|vardhan'?s\s+github|give\s+me\s+(?:his\s+)?github)\b/i.test(lower) ||
-    /^(?:what\s+is\s+)?(?:his|my|your|the|jaya'?s)?\s*github(?:\s+link|\s+url|\s+profile|\s+repo|\s+account|\s+id)?\??$/i.test(lower) ||
-    /^(?:give\s+me\s+)?(?:his|my|the|jaya'?s)?\s*github(?:\s+link|\s+url|\s+profile|\s+repo|\s+account|\s+id)?\??$/i.test(lower) ||
+    /\b(?:his\s+github|my\s+github|your\s+github|jaya'?s\s+github|vardhan'?s\s+github|give\s+me\s+(?:his\s+|my\s+|your\s+)?github)\b/i.test(lower) ||
+    /^(?:what\s+is|what's|whats)?\s*(?:his|my|your|the|jaya'?s)?\s*github(?:\s+link|\s+url|\s+profile|\s+repo|\s+account|\s+id)?\??$/i.test(lower) ||
+    /^(?:give\s+me\s+)?(?:his|my|your|the|jaya'?s)?\s*github(?:\s+link|\s+url|\s+profile|\s+repo|\s+account|\s+id)?\??$/i.test(lower) ||
     /^github\??$/i.test(lower.trim())
   );
 
@@ -525,11 +525,22 @@ export function detectVerifiedPersonalLink(text, norm, lower) {
     return `Jaya Vardhan's verified GitHub profile is:\n\n[${url}](${url})`;
   }
 
+  // 3.5 Where to find projects / code inquiry ("Where can I find my projects?", "where to find my projects/code", "where to find my projects", "where can i find code")
+  const isWhereProjectsQuery = 
+    /\b(?:where\s+(?:can\s+i|to)\s+find\s+(?:his|my|your|the)?\s*(?:projects?\s*\/?\s*code|code|projects?|repos?(?:itories)?))\b/i.test(lower) ||
+    /\b(?:where\s+are\s+(?:his|my|your|the)?\s*(?:projects?|code|repos?(?:itories)?))\b/i.test(lower) ||
+    /\b(?:find\s+(?:his|my|your)?\s*(?:projects?\s*\/?\s*code|code|repos?(?:itories)?))\b/i.test(lower);
+
+  if (isWhereProjectsQuery) {
+    const ghUrl = VERIFIED_CANONICAL_LINKS.github.url;
+    return `You can find Billakanti Jaya Vardhan's projects and open-source code on GitHub:\n\n- **GitHub**: [${ghUrl}](${ghUrl})\n\nYou can also explore all 8 verified live projects on his portfolio:\n- **Projects Archive**: [https://vardhanbillakanti.in/projects](https://vardhanbillakanti.in/projects)`;
+  }
+
   // 4. Email queries ("what is his email?", "his email", "my email", "how can i contact him?", "send me the mail")
   const isEmailQuery = !lower.includes('spam') && !lower.includes('phishing') && !lower.includes('protocol') && (
     /\b(?:his\s+email|my\s+email|his\s+mail|my\s+mail|jaya'?s\s+email|jaya'?s\s+mail|send\s+me\s+(?:the\s+)?mail|send\s+me\s+(?:the\s+)?email)\b/i.test(lower) ||
-    /^(?:what\s+is\s+)?(?:his|my|your|the|jaya'?s)?\s*(?:email|mail|contact\s+email|contact\s+mail)\??$/i.test(lower) ||
-    /^(?:give\s+me\s+)?(?:his|my|the|jaya'?s)?\s*(?:email|mail|contact\s+email|contact\s+mail)\??$/i.test(lower) ||
+    /^(?:what\s+is|what's|whats)?\s*(?:his|my|your|the|jaya'?s)?\s*(?:email|mail|contact\s+email|contact\s+mail)\??$/i.test(lower) ||
+    /^(?:give\s+me\s+)?(?:his|my|your|the|jaya'?s)?\s*(?:email|mail|contact\s+email|contact\s+mail)\??$/i.test(lower) ||
     /^(?:how\s+(?:can\s+i|to)\s+(?:contact|reach|email|mail)\s+(?:him|jaya|vardhan))\??$/i.test(lower) ||
     /^(?:how\s+can\s+i\s+contact\s+him|how\s+to\s+contact\s+him|contact\s+him)\??$/i.test(lower) ||
     /^(?:email|mail)\??$/i.test(lower.trim())
@@ -544,8 +555,8 @@ export function detectVerifiedPersonalLink(text, norm, lower) {
   // 5. Official Website / Portfolio queries ("what is his website?", "his website", "his portfolio", "what is his portfolio?", "portfolio link")
   const isWebsiteQuery = (
     /\b(?:his\s+website|my\s+website|his\s+portfolio|my\s+portfolio|portfolio\s+link|portfolio\s+url|his\s+site|my\s+site|official\s+portfolio|official\s+website)\b/i.test(lower) ||
-    /^(?:what\s+is\s+)?(?:his|my|your|the|jaya'?s)?\s*(?:website|portfolio|official\s+website|official\s+portfolio|site)\??$/i.test(lower) ||
-    /^(?:give\s+me\s+)?(?:his|my|the|jaya'?s)?\s*(?:website|portfolio|official\s+website|official\s+portfolio|site)\??$/i.test(lower) ||
+    /^(?:what\s+is|what's|whats)?\s*(?:his|my|your|the|jaya'?s)?\s*(?:website|portfolio|official\s+website|official\s+portfolio|site)\??$/i.test(lower) ||
+    /^(?:give\s+me\s+)?(?:his|my|your|the|jaya'?s)?\s*(?:website|portfolio|official\s+website|official\s+portfolio|site)\??$/i.test(lower) ||
     /^(?:website|portfolio)\??$/i.test(lower.trim())
   ) && !/\b(?:praise|nice|love|awesome|great|clean|fire|lit|good|beautiful)\b/i.test(lower);
 
@@ -554,10 +565,10 @@ export function detectVerifiedPersonalLink(text, norm, lower) {
     return `You can explore Billakanti Jaya Vardhan's official portfolio website at:\n\n[${url}](${url})`;
   }
 
-  // 6. All Socials / All Links / Contact Channels inquiry
+  // 6. All Socials / All Links / Contact Channels inquiry ("Give me my social links", "my socials", "social links")
   const isAllSocialsQuery = 
-    /\b(?:his\s+socials?|my\s+socials?|social\s+links?|all\s+links?|all\s+socials?|connect\s+with\s+him|reach\s+out\s+to\s+him|verified\s+links?|list\s+links)\b/i.test(lower) ||
-    /^(?:what\s+are\s+)?(?:his|all)\s*(?:socials?|social\s+links?|links?|channels?)\??$/i.test(lower);
+    /\b(?:his\s+socials?|my\s+socials?|your\s+socials?|social\s+links?|all\s+links?|all\s+socials?|connect\s+with\s+him|reach\s+out\s+to\s+him|verified\s+links?|list\s+links)\b/i.test(lower) ||
+    /^(?:what\s+are\s+|give\s+me\s+)?(?:his|my|your|the|all)?\s*(?:socials?|social\s+links?|links?|channels?)\??$/i.test(lower);
 
   if (isAllSocialsQuery) {
     return `Here are Jaya Vardhan's verified links and contact channels:\n\n- **GitHub**: [${VERIFIED_CANONICAL_LINKS.github.url}](${VERIFIED_CANONICAL_LINKS.github.url})\n- **LinkedIn**: [${VERIFIED_CANONICAL_LINKS.linkedin.url}](${VERIFIED_CANONICAL_LINKS.linkedin.url})\n- **Instagram**: [${VERIFIED_CANONICAL_LINKS.instagram.url}](${VERIFIED_CANONICAL_LINKS.instagram.url})\n- **Portfolio Website**: [${VERIFIED_CANONICAL_LINKS.website.url}](${VERIFIED_CANONICAL_LINKS.website.url})\n- **Email**: [${VERIFIED_CANONICAL_LINKS.email.value}](mailto:${VERIFIED_CANONICAL_LINKS.email.value})`;
