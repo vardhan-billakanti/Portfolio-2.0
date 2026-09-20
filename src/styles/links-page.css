@@ -1,0 +1,724 @@
+/* ==========================================================================
+   LINKS PAGE — /links (Instagram Bio & Mobile Developer Hub)
+   Clean, modern, premium dark developer directory
+   Fully responsive across all mobile viewports (320px – 430px+) & desktop
+   ========================================================================== */
+
+/* Prevent white flash during loading */
+html {
+  background-color: #050505;
+  color: #ffffff;
+  font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #050505;
+  color: #ffffff;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Subtle background atmosphere - lightweight CSS only (uses 100% to prevent scrollbar overflow) */
+.links-bg-ambient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at 50% -10%, rgba(255, 77, 0, 0.07) 0%, rgba(5, 5, 5, 0) 65%),
+              radial-gradient(circle at 50% 100%, rgba(217, 119, 87, 0.04) 0%, rgba(5, 5, 5, 0) 50%);
+}
+
+.links-bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 40%, black 30%, transparent 80%);
+}
+
+/* Main content wrapper */
+.links-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3.5rem) 16px clamp(2.5rem, 6vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   1. TOP SECTION — Minimal, Crisp, Visually Strong (ONLY Billakanti Jaya Vardhan)
+   -------------------------------------------------------------------------- */
+.links-header {
+  text-align: center;
+  margin-bottom: 2.25rem;
+  padding: 0 4px;
+  animation: linksFadeDown 400ms var(--ease-reveal, cubic-bezier(0.16, 1, 0.3, 1)) both;
+}
+
+.links-title {
+  margin: 0;
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(1.85rem, 5.5vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* --------------------------------------------------------------------------
+   SHARED SECTION HEADERS
+   -------------------------------------------------------------------------- */
+.links-section {
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.links-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 1.1rem;
+  padding: 0 2px;
+}
+
+.links-section-title {
+  font-family: var(--font-display, 'Clash Display', 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.05rem, 3.2vw, 1.25rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.3;
+}
+
+.links-section-count {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  color: #a1a1aa;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   2. MY LINKS SECTION — Polished Cards / Buttons
+   -------------------------------------------------------------------------- */
+.my-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.link-button-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 18px;
+  min-height: 60px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(18, 18, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.4, 1),
+              background-color 180ms ease,
+              border-color 180ms ease,
+              box-shadow 180ms ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  animation: linksCardEntrance 350ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.link-button-card:nth-child(1) { animation-delay: 60ms; }
+.link-button-card:nth-child(2) { animation-delay: 110ms; }
+.link-button-card:nth-child(3) { animation-delay: 160ms; }
+
+.link-button-card:active {
+  transform: scale(0.985);
+  background-color: rgba(22, 22, 26, 0.95);
+}
+
+.link-button-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+}
+
+.link-button-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f4f4f5;
+  flex-shrink: 0;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.link-button-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.link-button-name {
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-button-meta {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.74rem;
+  color: #71717a;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-button-arrow {
+  color: #71717a;
+  transition: transform 180ms ease, color 180ms ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   3. MY PROJECTS SECTION — Premium Project Directory
+   -------------------------------------------------------------------------- */
+.my-projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.project-entry-card {
+  background-color: rgba(14, 14, 16, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.4, 1),
+              background-color 180ms ease,
+              border-color 180ms ease,
+              box-shadow 180ms ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: linksCardEntrance 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.project-entry-card:active {
+  transform: scale(0.99);
+}
+
+.project-entry-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.project-entry-category {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--pr-accent-orange, #ff4d00);
+  background-color: rgba(255, 77, 0, 0.08);
+  border: 1px solid rgba(255, 77, 0, 0.2);
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.project-entry-index {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  color: #71717a;
+  flex-shrink: 0;
+}
+
+.project-entry-title {
+  margin: 0 0 6px 0;
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.project-entry-desc {
+  margin: 0 0 16px 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #a1a1aa;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.project-entry-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+/* Action button styling */
+.project-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 9px;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.project-action-btn.live-btn {
+  background-color: #ffffff;
+  color: #050505;
+  border: 1px solid #ffffff;
+}
+
+.project-action-btn.github-btn {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #f4f4f5;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.project-action-btn:active {
+  transform: scale(0.97);
+}
+
+.project-action-btn svg {
+  flex-shrink: 0;
+  transition: transform 160ms ease;
+}
+
+/* Desktop Hover Effects (Scoped to hover-capable devices only) */
+@media (hover: hover) {
+  .link-button-card:hover {
+    background-color: rgba(28, 28, 32, 0.95);
+    border-color: rgba(255, 255, 255, 0.22);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5), 0 0 16px rgba(255, 77, 0, 0.08);
+  }
+
+  .link-button-card:hover .link-button-icon-wrap {
+    background-color: rgba(255, 77, 0, 0.12);
+    border-color: rgba(255, 77, 0, 0.3);
+    color: #ffffff;
+  }
+
+  .link-button-card:hover .link-button-arrow {
+    color: #ffffff;
+    transform: translate(2px, -2px);
+  }
+
+  .project-entry-card:hover {
+    background-color: rgba(22, 22, 26, 0.92);
+    border-color: rgba(255, 255, 255, 0.16);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+  }
+
+  .project-action-btn.live-btn:hover {
+    background-color: var(--pr-accent-orange, #ff4d00);
+    border-color: var(--pr-accent-orange, #ff4d00);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(255, 77, 0, 0.35);
+  }
+
+  .project-action-btn.github-btn:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  .project-action-btn:hover svg {
+    transform: translate(1px, -1px);
+  }
+
+  .links-footer-backlink:hover {
+    color: var(--pr-accent-orange, #ff4d00);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+.links-footer {
+  margin-top: 1.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.links-footer-copy {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.74rem;
+  color: #71717a;
+  margin: 0;
+}
+
+.links-footer-backlink {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.74rem;
+  color: #a1a1aa;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+/* --------------------------------------------------------------------------
+   ANIMATIONS & REDUCED MOTION
+   -------------------------------------------------------------------------- */
+@keyframes linksFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes linksCardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .links-header,
+  .link-button-card,
+  .project-entry-card {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .link-button-card:hover,
+  .project-entry-card:hover,
+  .project-action-btn:hover {
+    transform: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE OPTIMIZATIONS (Smartphones, Instagram In-App Browser, Narrow Screens)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .links-container {
+    padding-top: clamp(1.25rem, 4.5vw, 1.75rem);
+    padding-bottom: max(2.5rem, calc(1.75rem + env(safe-area-inset-bottom, 0px)));
+    padding-left: max(14px, env(safe-area-inset-left, 0px));
+    padding-right: max(14px, env(safe-area-inset-right, 0px));
+  }
+
+  .links-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .links-title {
+    font-size: clamp(1.6rem, 6.2vw, 1.95rem);
+    line-height: 1.2;
+  }
+
+  .links-section {
+    margin-bottom: 2rem;
+  }
+
+  .links-section-header {
+    margin-bottom: 0.85rem;
+    gap: 8px;
+  }
+
+  .links-section-title {
+    font-size: clamp(0.98rem, 3.8vw, 1.1rem);
+  }
+
+  .links-section-count {
+    font-size: 0.68rem;
+    padding: 2.5px 8px;
+  }
+
+  /* Link Cards Mobile */
+  .my-links-list {
+    gap: 9px;
+  }
+
+  .link-button-card {
+    padding: 12px 14px;
+    min-height: 56px;
+    border-radius: 12px;
+    gap: 10px;
+  }
+
+  .link-button-left {
+    gap: 12px;
+  }
+
+  .link-button-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+  }
+
+  .link-button-icon-wrap svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .link-button-name {
+    font-size: 0.92rem;
+    line-height: 1.25;
+  }
+
+  .link-button-meta {
+    font-size: 0.72rem;
+    line-height: 1.25;
+  }
+
+  /* Project Cards Mobile */
+  .my-projects-list {
+    gap: 11px;
+  }
+
+  .project-entry-card {
+    padding: 15px 14px;
+    border-radius: 14px;
+  }
+
+  .project-entry-topbar {
+    gap: 8px;
+    margin-bottom: 7px;
+    align-items: center;
+  }
+
+  .project-entry-category {
+    font-size: clamp(0.62rem, 2.3vw, 0.68rem);
+    padding: 2.5px 7px;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+    max-width: calc(100% - 32px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .project-entry-index {
+    font-size: 0.68rem;
+  }
+
+  .project-entry-title {
+    font-size: clamp(1.06rem, 4vw, 1.16rem);
+    line-height: 1.28;
+    margin-bottom: 6px;
+  }
+
+  .project-entry-desc {
+    font-size: 0.84rem;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  /* Action Buttons: 2-column balanced grid with 44px min tap targets */
+  .project-entry-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+    padding-top: 2px;
+  }
+
+  .project-entry-actions > .project-action-btn:only-child {
+    grid-column: 1 / -1;
+  }
+
+  .project-action-btn {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 10px;
+    justify-content: center;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    box-sizing: border-box;
+    gap: 5px;
+  }
+
+  .project-action-btn svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* Footer Mobile */
+  .links-footer {
+    margin-top: 1.25rem;
+    padding-top: 1.5rem;
+    gap: 6px;
+  }
+
+  .links-footer-copy,
+  .links-footer-backlink {
+    font-size: 0.72rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   EXTRA SMALL VIEWPORTS (<= 360px: iPhone SE 1st Gen, Galaxy S compacts)
+   -------------------------------------------------------------------------- */
+@media (max-width: 360px) {
+  .links-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .links-title {
+    font-size: 1.55rem;
+  }
+
+  .link-button-card {
+    padding: 10px 12px;
+    min-height: 52px;
+    gap: 8px;
+  }
+
+  .link-button-left {
+    gap: 10px;
+  }
+
+  .link-button-icon-wrap {
+    width: 32px;
+    height: 32px;
+  }
+
+  .link-button-name {
+    font-size: 0.88rem;
+  }
+
+  .link-button-meta {
+    font-size: 0.68rem;
+  }
+
+  .project-entry-card {
+    padding: 13px 11px;
+  }
+
+  .project-entry-category {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+
+  .project-entry-title {
+    font-size: 1.02rem;
+  }
+
+  .project-entry-desc {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    margin-bottom: 12px;
+  }
+
+  .project-entry-actions {
+    gap: 6px;
+  }
+
+  .project-action-btn {
+    font-size: 0.76rem;
+    padding: 8px 6px;
+    min-height: 42px;
+  }
+}
+
+/* Narrowest viewports (< 320px) — Stack buttons if needed to ensure 100% comfort */
+@media (max-width: 319px) {
+  .project-entry-actions {
+    grid-template-columns: 1fr;
+  }
+}

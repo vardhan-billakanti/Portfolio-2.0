@@ -48,6 +48,23 @@ export default defineConfig(({ mode }) => {
         }
       },
       {
+        name: 'route-rewrite-middleware',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            const rawUrl = req.originalUrl || req.url || '';
+            const pathName = rawUrl.split('?')[0];
+            if (pathName === '/links' || pathName === '/links/') {
+              const query = rawUrl.includes('?') ? '?' + rawUrl.split('?')[1] : '';
+              req.url = '/links.html' + query;
+            } else if (pathName === '/projects' || pathName === '/projects/') {
+              const query = rawUrl.includes('?') ? '?' + rawUrl.split('?')[1] : '';
+              req.url = '/projects.html' + query;
+            }
+            next();
+          });
+        }
+      },
+      {
         name: 'bob-gemini-api-middleware',
         configureServer(server) {
           server.middlewares.use(async (req, res, next) => {
@@ -340,6 +357,7 @@ export default defineConfig(({ mode }) => {
         input: {
           main: resolve(__dirname, 'index.html'),
           projects: resolve(__dirname, 'projects.html'),
+          links: resolve(__dirname, 'links.html'),
         }
       }
     }

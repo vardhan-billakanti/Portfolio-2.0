@@ -32,6 +32,14 @@
   ],
   "rewrites": [
     {
+      "source": "/links",
+      "destination": "/links.html"
+    },
+    {
+      "source": "/projects",
+      "destination": "/projects.html"
+    },
+    {
       "source": "/api/bob/health",
       "destination": "/api/bob"
     },

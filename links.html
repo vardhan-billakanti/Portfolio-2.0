@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#050505">
+
+  <!-- SEO -->
+  <title>Billakanti Jaya Vardhan — Links &amp; Projects</title>
+  <meta name="description" content="Personal links and verified projects directory for Billakanti Jaya Vardhan. Explore web, cloud storage, privacy, and security projects.">
+  <link rel="canonical" href="https://vardhanbillakanti.in/links">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Billakanti Jaya Vardhan — Links &amp; Projects">
+  <meta property="og:description" content="Personal links and verified projects directory for Billakanti Jaya Vardhan. Explore web, cloud storage, privacy, and security projects.">
+  <meta property="og:url" content="https://vardhanbillakanti.in/links">
+  <meta property="og:site_name" content="Billakanti Jaya Vardhan">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Billakanti Jaya Vardhan — Links &amp; Projects">
+  <meta name="twitter:description" content="Personal links and verified projects directory for Billakanti Jaya Vardhan. Explore web, cloud storage, privacy, and security projects.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+
+  <!-- Instant dark paint before stylesheets load to prevent flash -->
+  <style>
+    html, body {
+      background-color: #050505 !important;
+      color: #ffffff !important;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+  </style>
+
+  <!-- Preconnect & Fonts (Matching Portfolio 2.0 Typography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=satoshi@400,500,600,700&f[]=jet-brains-mono@400,500,600&display=swap">
+
+  <!-- Design System Variables & Dedicated Page Styles -->
+  <link rel="stylesheet" href="/src/styles/variables.css">
+  <link rel="stylesheet" href="/src/styles/links-page.css">
+</head>
+<body>
+
+  <!-- Subtle background atmosphere (lightweight pure CSS) -->
+  <div class="links-bg-ambient" aria-hidden="true"></div>
+  <div class="links-bg-grid" aria-hidden="true"></div>
+
+  <div class="links-container">
+
+    <!-- 1. TOP SECTION — Minimal, Crisp, Visually Strong (ONLY Billakanti Jaya Vardhan) -->
+    <header class="links-header">
+      <h1 class="links-title">Billakanti Jaya Vardhan</h1>
+    </header>
+
+    <main id="main-content">
+
+      <!-- 2. MY LINKS SECTION -->
+      <section class="links-section" aria-labelledby="my-links-title">
+        <div class="links-section-header">
+          <h2 id="my-links-title" class="links-section-title">My Links</h2>
+        </div>
+        <nav class="my-links-list" id="myLinksList" aria-label="Personal Profiles and Portfolio">
+          <!-- Populated dynamically from portfolio-knowledge.js -->
+        </nav>
+      </section>
+
+      <!-- 3. MY PROJECTS SECTION -->
+      <section class="links-section" aria-labelledby="my-projects-title">
+        <div class="links-section-header">
+          <h2 id="my-projects-title" class="links-section-title">My Projects</h2>
+          <span class="links-section-count" id="projectsCount">8 PROJECTS</span>
+        </div>
+        <div class="my-projects-list" id="myProjectsList" role="feed" aria-label="Verified Projects Directory">
+          <!-- Populated dynamically from projects-data.js (exact 8 projects) -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="links-footer" role="contentinfo">
+      <p class="links-footer-copy">&copy; 2026 Billakanti Jaya Vardhan</p>
+      <a href="https://vardhanbillakanti.in" class="links-footer-backlink" aria-label="Back to main portfolio">vardhanbillakanti.in</a>
+    </footer>
+
+  </div>
+
+  <script type="module" src="/src/links-main.js"></script>
+</body>
+</html>
