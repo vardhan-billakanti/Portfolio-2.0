@@ -5,6 +5,7 @@
  */
 
 import { PROJECTS } from './data/projects-data.js';
+import { initSmoothScroll } from './core/smooth-scroll.js';
 
 // Category mapping for functional filters
 const PROJECT_FILTER_MAP = {
@@ -196,6 +197,7 @@ class ProjectsPageController {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+  initSmoothScroll();
   new ProjectsPageController();
 
   // Lazy-load BOB AI Assistant on demand

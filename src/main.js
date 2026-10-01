@@ -20,6 +20,7 @@ import './styles/contact.css';
 import './styles/footer.css';
 
 // Core Motion & Performance Foundation
+import { initSmoothScroll } from './core/smooth-scroll.js';
 import { motionEngine } from './core/motion-engine.js';
 import { attachHoverPhysics } from './core/hover-physics.js';
 import { textMotionSystem } from './core/text-motion.js';
@@ -41,6 +42,9 @@ import { FoundersSectionController } from './components/founders-section.js';
 import { ContactSectionController } from './components/contact-section.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // 0. SMOOTH SCROLL FOUNDATION (Lenis)
+  initSmoothScroll();
+
   // 1. PRIMARY STAGE (Critical Path: Cursor, Hero Visuals, Navigation)
   const cursorElement = document.getElementById('custom-cursor');
   if (cursorElement) {

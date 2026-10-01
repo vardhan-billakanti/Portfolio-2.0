@@ -8,6 +8,8 @@
  * - Mobile drawer toggle & auto-close
  */
 
+import { getLenis } from '../core/smooth-scroll.js';
+
 export class NavigationController {
   constructor(navElement, mobileToggle, mobileDrawer) {
     this.nav = navElement;
@@ -110,11 +112,20 @@ export class NavigationController {
   setupMobileDrawer() {
     if (!this.toggle || !this.drawer) return;
 
+    this.drawer.setAttribute('data-lenis-prevent', '');
+
     this.toggle.addEventListener('click', () => {
       this.isOpen = !this.isOpen;
       this.toggle.classList.toggle('open', this.isOpen);
       this.drawer.classList.toggle('open', this.isOpen);
       document.body.style.overflow = this.isOpen ? 'hidden' : '';
+
+      const lenis = getLenis();
+      if (this.isOpen) {
+        lenis?.stop();
+      } else {
+        lenis?.start();
+      }
     });
 
     const drawerLinks = this.drawer.querySelectorAll('a');
@@ -124,6 +135,7 @@ export class NavigationController {
         this.toggle.classList.remove('open');
         this.drawer.classList.remove('open');
         document.body.style.overflow = '';
+        getLenis()?.start();
       });
     });
   }
@@ -263,6 +275,26 @@ export class NavigationController {
    * - Zero conflicting animation loops
    */
   scrollToTarget(targetY, targetId) {
+    const lenis = getLenis();
+    if (lenis) {
+      this.isProgrammaticScroll = true;
+      window.__isProgrammaticNavScroll = true;
+      window.__programmaticNavTarget = targetId;
+      this.setActiveSection(targetId);
+
+      lenis.scrollTo(targetY, {
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        onComplete: () => {
+          this.isProgrammaticScroll = false;
+          window.__isProgrammaticNavScroll = false;
+          window.__programmaticNavTarget = null;
+          this.setActiveSection(targetId);
+        }
+      });
+      return;
+    }
+
     // 1. Cleanly cancel any previous scroll animation
     if (this.scrollRaf) {
       cancelAnimationFrame(this.scrollRaf);

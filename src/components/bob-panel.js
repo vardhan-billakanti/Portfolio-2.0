@@ -38,6 +38,7 @@ export class BobAssistantController {
     this.backdrop.className = 'bob-backdrop node-backdrop';
     this.backdrop.setAttribute('aria-hidden', 'true');
     this.backdrop.setAttribute('data-cursor-hover', 'true');
+    this.backdrop.setAttribute('data-lenis-prevent', '');
 
     // 2. Create Main Panel
     this.panel = document.createElement('aside');
@@ -46,6 +47,7 @@ export class BobAssistantController {
     this.panel.setAttribute('role', 'dialog');
     this.panel.setAttribute('aria-modal', 'true');
     this.panel.setAttribute('aria-label', 'BOB Intelligent Portfolio Assistant');
+    this.panel.setAttribute('data-lenis-prevent', '');
 
     this.panel.innerHTML = `
       <header class="bob-header node-header">

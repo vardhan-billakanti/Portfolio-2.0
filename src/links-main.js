@@ -6,8 +6,10 @@
 
 import { PROJECTS } from './data/projects-data.js';
 import { PORTFOLIO_KNOWLEDGE } from './data/portfolio-knowledge.js';
+import { initSmoothScroll } from './core/smooth-scroll.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  initSmoothScroll();
   renderMyLinks();
   renderMyProjects();
 });

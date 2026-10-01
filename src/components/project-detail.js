@@ -11,6 +11,7 @@
  */
 
 import { PROJECTS, getProjectBySlug, getNextProject } from '../data/projects-data.js';
+import { getLenis } from '../core/smooth-scroll.js';
 
 /* Stored original page title to restore on back */
 const PAGE_TITLE_DEFAULT = document.title;
@@ -51,6 +52,7 @@ export class ProjectDetailRouter {
     el.setAttribute('aria-label', 'Project case study');
     el.setAttribute('aria-hidden', 'true');
     el.setAttribute('tabindex', '-1');
+    el.setAttribute('data-lenis-prevent', '');
     return el;
   }
 
@@ -88,8 +90,9 @@ export class ProjectDetailRouter {
     // Scroll to top
     this.overlay.scrollTop = 0;
 
-    // Lock body scroll
+    // Lock body scroll and pause Lenis
     document.body.style.overflow = 'hidden';
+    getLenis()?.stop();
 
     // Show overlay
     this.overlay.setAttribute('aria-hidden', 'false');
@@ -150,6 +153,7 @@ export class ProjectDetailRouter {
     this.overlay.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     this._isOpen = false;
+    getLenis()?.start();
 
     // Restore document title
     document.title = PAGE_TITLE_DEFAULT;
@@ -164,7 +168,12 @@ export class ProjectDetailRouter {
     // Scroll #projects section into view
     setTimeout(() => {
       const section = document.getElementById('projects');
-      if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const lenis = getLenis();
+      if (lenis && section) {
+        lenis.scrollTo(section, { offset: -72 });
+      } else if (section) {
+        section.scrollIntoView({ behavior: 'auto', block: 'start' });
+      }
     }, 80);
   }
 
