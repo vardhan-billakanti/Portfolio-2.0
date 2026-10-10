@@ -2,14 +2,13 @@
  * projects-section.js — Portfolio 2.0
  * 
  * 3D Draggable Circular Project Carousel:
- * - Adapts the OrbitGallery 3D spatial cylindrical concept for text-based project cards
- * - Features the 8 verified projects from Portfolio 2.0 (Portfolio, VAULTIX, MyCloudStore,
- *   Explore The Globe, DoomChat, Toolock, Resuvana, CookPro)
- * - Natural pointer drag with inertia momentum & snap-to-card physics
- * - Clickable cards opening verified live project URLs in new tab
- * - Zero accidental navigation on drag release (drag distance threshold guard)
- * - Mobile pan-y touch-action: vertical page scrolling remains 100% natural and fluid
- * - Accessible controls: Left/Right arrow buttons, keyboard Arrow navigation, and 8 indicator dots
+ * - Compact, refined 3D spatial cylindrical arrangement
+ * - 8 verified projects with direct clickable live website navigation
+ * - Native <a> card links opening verified external URLs in new tabs
+ * - Drag-vs-click discrimination (>6px drag suppresses clicks, genuine tap/click navigates)
+ * - Horizontal inertia momentum & nearest-slot snapping physics
+ * - touch-action: pan-y preserves natural vertical page scrolling on mobile
+ * - Accessible controls: Prev/Next buttons, Arrow keys, Tab focus, 8 indicator dots
  * - Respects prefers-reduced-motion preferences
  */
 
@@ -34,11 +33,11 @@ export class ProjectsSectionController {
     this.itemsCount = this.projects.length;
     this.angleStep = 360 / this.itemsCount; // 45 degrees
 
-    // Layout Metrics
+    // Layout Metrics (Refined & Compact)
     this.stageWidth = 900;
-    this.faceWidth = 300;
-    this.cardGap = 24;
-    this.radius = 420;
+    this.faceWidth = 235;
+    this.cardGap = 16;
+    this.radius = 328;
 
     // Carousel State
     this.currentRotation = 0;
@@ -47,8 +46,10 @@ export class ProjectsSectionController {
 
     // Pointer Interaction State
     this.isDragging = false;
+    this.hasCaptured = false;
     this.pointerId = null;
     this.startX = 0;
+    this.startY = 0;
     this.lastX = 0;
     this.lastTime = 0;
     this.velocity = 0;
@@ -92,7 +93,7 @@ export class ProjectsSectionController {
   }
 
   /* ------------------------------------------------------------------
-     1. CARD & INDICATOR RENDERING
+     1. CARD & INDICATOR RENDERING (Native Clickable Links)
      ------------------------------------------------------------------ */
 
   _renderCards() {
@@ -101,7 +102,10 @@ export class ProjectsSectionController {
     this.cardElements = [];
 
     this.projects.forEach((project, index) => {
-      const card = document.createElement('article');
+      const card = document.createElement('a');
+      card.href = project.liveUrl;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
       card.className = 'project-orbit-card';
       card.setAttribute('data-index', String(index));
       card.setAttribute('data-slug', project.slug);
@@ -109,11 +113,11 @@ export class ProjectsSectionController {
       card.setAttribute('tabindex', '0');
       card.setAttribute(
         'aria-label',
-        `Project ${project.number}: ${project.title} — ${project.category}. Click to explore live.`
+        `Project ${project.number}: ${project.title} — ${project.category}. Click to open live project.`
       );
 
       const description = project.mainDescription || project.shortDescription;
-      const techList = project.mainTech || project.tech.slice(0, 4);
+      const techList = (project.mainTech || project.tech).slice(0, 3);
       const techHTML = techList
         .map((t) => `<span class="orbit-card-tech-tag">${t}</span>`)
         .join('');
@@ -133,7 +137,7 @@ export class ProjectsSectionController {
           </div>
 
           <div class="orbit-card-footer">
-            <span class="orbit-card-action">EXPLORE PROJECT</span>
+            <span class="orbit-card-action">LIVE PROJECT</span>
             <span class="orbit-card-arrow" aria-hidden="true">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M7 17L17 7M7 7h10v10"/>
@@ -143,39 +147,17 @@ export class ProjectsSectionController {
         </div>
       `;
 
-      // Click card to open live URL
+      // Click card: Allow native navigation on genuine click, suppress only if dragged
       card.addEventListener('click', (e) => {
-        if (performance.now() < this.ignoreClickUntil) {
+        if (this.dragDistance > 6 || performance.now() < this.ignoreClickUntil) {
           e.preventDefault();
+          e.stopPropagation();
           return;
         }
-
-        // If clicking a card that is not currently facing front, rotate it to front first,
-        // or if it's already front-facing, open live project
-        const cardAngle = index * this.angleStep;
-        const normalizedRot = ((-this.currentRotation % 360) + 360) % 360;
-        const diff = Math.abs(normalizedRot - cardAngle);
-        const shortest = Math.min(diff, 360 - diff);
-
-        if (shortest > 20) {
-          e.preventDefault();
-          this.rotateToIndex(index);
-        } else if (project.liveUrl) {
-          window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
-        }
+        // Genuine click: Native navigation proceeds to project.liveUrl in new tab
       });
 
-      // Keydown on card: Enter or Space opens liveUrl
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          if (project.liveUrl) {
-            window.open(project.liveUrl, '_blank', 'noopener,noreferrer');
-          }
-        }
-      });
-
-      // Focus on card brings it to center
+      // Focus on card brings it into center view
       card.addEventListener('focus', () => {
         this.rotateToIndex(index);
       });
@@ -214,24 +196,27 @@ export class ProjectsSectionController {
   }
 
   /* ------------------------------------------------------------------
-     2. RESPONSIVE DIMENSIONS & 3D GEOMETRY
+     2. REFINED COMPACT DIMENSIONS & 3D GEOMETRY
      ------------------------------------------------------------------ */
 
   _updateDimensions() {
     this.stageWidth = this.stage.clientWidth || window.innerWidth || 900;
 
-    if (this.stageWidth < 480) {
-      this.faceWidth = Math.min(270, Math.max(220, Math.round(this.stageWidth * 0.74)));
-      this.cardGap = 16;
+    if (this.stageWidth < 380) {
+      this.faceWidth = 165;
+      this.cardGap = 8;
+    } else if (this.stageWidth < 520) {
+      this.faceWidth = 185;
+      this.cardGap = 10;
     } else if (this.stageWidth < 768) {
-      this.faceWidth = Math.min(290, Math.max(250, Math.round(this.stageWidth * 0.46)));
-      this.cardGap = 20;
-    } else if (this.stageWidth < 1100) {
-      this.faceWidth = 295;
-      this.cardGap = 22;
+      this.faceWidth = 205;
+      this.cardGap = 12;
+    } else if (this.stageWidth < 1024) {
+      this.faceWidth = 220;
+      this.cardGap = 14;
     } else {
-      this.faceWidth = 320;
-      this.cardGap = 26;
+      this.faceWidth = 235;
+      this.cardGap = 16;
     }
 
     // Cylindrical radius calculation: radius = (faceWidth + cardGap) / (2 * sin(PI / N))
@@ -239,7 +224,7 @@ export class ProjectsSectionController {
       (this.faceWidth + this.cardGap) / (2 * Math.sin(Math.PI / this.itemsCount))
     );
 
-    const perspective = Math.max(880, Math.round(this.stageWidth * 1.15));
+    const perspective = Math.max(1100, Math.round(this.stageWidth * 1.3));
     this.stage.style.perspective = `${perspective}px`;
 
     // Position each card in 3D circular cylinder
@@ -267,35 +252,44 @@ export class ProjectsSectionController {
   }
 
   /* ------------------------------------------------------------------
-     3. POINTER INTERACTIONS (Drag & Momentum)
+     3. POINTER INTERACTIONS (Drag vs. Click Discrimination)
      ------------------------------------------------------------------ */
 
   _bindPointerEvents() {
     const onPointerDown = (e) => {
-      // Allow only primary button (0) or touch
       if (e.button !== undefined && e.button !== 0) return;
 
       this.stopMomentum();
       this.pointerId = e.pointerId;
       this.startX = e.clientX;
+      this.startY = e.clientY;
       this.lastX = e.clientX;
       this.lastTime = performance.now();
       this.velocity = 0;
       this.dragDistance = 0;
-      this.isDragging = true;
-
-      try {
-        this.stage.setPointerCapture(e.pointerId);
-      } catch (_) {}
-
-      this.stage.classList.add('is-dragging');
+      this.isDragging = false;
+      this.hasCaptured = false;
     };
 
     const onPointerMove = (e) => {
-      if (!this.isDragging || e.pointerId !== this.pointerId) return;
+      if (this.pointerId === null || e.pointerId !== this.pointerId) return;
+
+      const deltaX = e.clientX - this.lastX;
+      const totalDx = Math.abs(e.clientX - this.startX);
+
+      // Only engage active drag when user moves beyond 6px threshold
+      if (!this.isDragging && totalDx > 6) {
+        this.isDragging = true;
+        this.stage.classList.add('is-dragging');
+        try {
+          this.stage.setPointerCapture(e.pointerId);
+          this.hasCaptured = true;
+        } catch (_) {}
+      }
+
+      if (!this.isDragging) return;
 
       const now = performance.now();
-      const deltaX = e.clientX - this.lastX;
       const dt = Math.max(now - this.lastTime, 8);
 
       this.velocity = (deltaX / dt) * 1000; // px / second
@@ -303,37 +297,42 @@ export class ProjectsSectionController {
       this.lastX = e.clientX;
       this.lastTime = now;
 
-      // Responsive drag sensitivity: comfortable and intuitive
-      const sensitivity = this.stageWidth < 600 ? 0.22 : 0.17;
+      const sensitivity = this.stageWidth < 600 ? 0.22 : 0.16;
       this.currentRotation += deltaX * sensitivity;
 
       this._updateTrackTransform();
     };
 
     const onPointerUp = (e) => {
-      if (!this.isDragging || e.pointerId !== this.pointerId) return;
+      if (this.pointerId === null || e.pointerId !== this.pointerId) return;
+
+      const wasDragging = this.isDragging;
+      const captured = this.hasCaptured;
 
       this.isDragging = false;
       this.pointerId = null;
+      this.hasCaptured = false;
       this.stage.classList.remove('is-dragging');
 
-      try {
-        this.stage.releasePointerCapture(e.pointerId);
-      } catch (_) {}
-
-      if (this.dragDistance > 7) {
-        this.ignoreClickUntil = performance.now() + 200;
+      if (captured) {
+        try {
+          this.stage.releasePointerCapture(e.pointerId);
+        } catch (_) {}
       }
 
-      // Smooth inertia momentum and snapping to nearest card
-      const velocityImpact = Math.max(-140, Math.min(140, this.velocity * 0.12));
-      const projected = this.currentRotation + velocityImpact;
-      const nearestSlot = Math.round(projected / this.angleStep) * this.angleStep;
+      if (wasDragging || this.dragDistance > 6) {
+        this.ignoreClickUntil = performance.now() + 250;
 
-      if (!this.prefersReducedMotion && Math.abs(this.velocity) > 30) {
-        this.rotateTo(nearestSlot);
-      } else {
-        this.rotateTo(Math.round(this.currentRotation / this.angleStep) * this.angleStep);
+        // Smooth inertia momentum and snapping to nearest card
+        const velocityImpact = Math.max(-120, Math.min(120, this.velocity * 0.1));
+        const projected = this.currentRotation + velocityImpact;
+        const nearestSlot = Math.round(projected / this.angleStep) * this.angleStep;
+
+        if (!this.prefersReducedMotion && Math.abs(this.velocity) > 25) {
+          this.rotateTo(nearestSlot);
+        } else {
+          this.rotateTo(Math.round(this.currentRotation / this.angleStep) * this.angleStep);
+        }
       }
     };
 
@@ -403,7 +402,7 @@ export class ProjectsSectionController {
 
     const startAngle = this.currentRotation;
     const distance = targetAngle - startAngle;
-    const duration = Math.min(650, Math.max(380, Math.abs(distance) * 5));
+    const duration = Math.min(600, Math.max(340, Math.abs(distance) * 4.5));
     const startTime = performance.now();
 
     const tick = (now) => {
@@ -429,7 +428,6 @@ export class ProjectsSectionController {
 
   rotateToIndex(targetIndex) {
     const targetSlotAngle = -targetIndex * this.angleStep;
-    // Find shortest rotational path from current rotation
     const currentNormalized = this.currentRotation % 360;
     let diff = (targetSlotAngle - currentNormalized) % 360;
     if (diff > 180) diff -= 360;
@@ -457,19 +455,17 @@ export class ProjectsSectionController {
     // Update cards depth modulation & visual hierarchy
     this.cardElements.forEach((card, i) => {
       const cardAngle = i * this.angleStep;
-      // Angular distance from the camera front (0 degrees)
       const relAngle = ((cardAngle + this.currentRotation) % 360 + 360) % 360;
       const angleFromFront = Math.min(relAngle, 360 - relAngle);
 
-      // Card is facing camera (front-half of cylinder)
       const isFrontFacing = angleFromFront <= 80;
       const isDirectFront = angleFromFront <= 22.5;
 
       card.classList.toggle('is-front', isFrontFacing);
       card.classList.toggle('is-active-center', isDirectFront);
 
-      // Subtle depth opacity: front cards 1.0, sides 0.75, rear cards 0.35
-      const depthOpacity = 1 - Math.pow(angleFromFront / 180, 1.2) * 0.68;
+      // Subtle depth opacity: front cards 1.0, sides 0.82, rear cards 0.4
+      const depthOpacity = 1 - Math.pow(angleFromFront / 180, 1.2) * 0.6;
       card.style.opacity = depthOpacity.toFixed(3);
     });
   }
