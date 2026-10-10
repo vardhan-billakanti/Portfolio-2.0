@@ -42,21 +42,32 @@ import { FoundersSectionController } from './components/founders-section.js';
 import { ContactSectionController } from './components/contact-section.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  const safeInit = (name, fn) => {
+    try {
+      return fn();
+    } catch (err) {
+      console.warn(`[Portfolio 2.0] Component "${name}" initialization warning:`, err);
+      return null;
+    }
+  };
+
   // 0. SMOOTH SCROLL FOUNDATION (Lenis)
-  initSmoothScroll();
+  safeInit('Lenis Smooth Scroll', () => initSmoothScroll());
 
   // 1. PRIMARY STAGE (Critical Path: Cursor, Hero Visuals, Navigation)
   const cursorElement = document.getElementById('custom-cursor');
   if (cursorElement) {
-    new CustomCursorController(cursorElement);
+    safeInit('Custom Cursor', () => new CustomCursorController(cursorElement));
   }
 
   // Initialize Radial Streak Engine
   const canvasElement = document.getElementById('radial-canvas');
-  const canvasEngine = canvasElement ? new RadialStreakCanvas(canvasElement) : null;
+  const canvasEngine = canvasElement
+    ? safeInit('Radial Streak Canvas', () => new RadialStreakCanvas(canvasElement))
+    : null;
 
   // Initialize Hero Multi-Layer Depth Parallax & Scroll Transition
-  new HeroParallaxController();
+  safeInit('Hero Parallax', () => new HeroParallaxController());
 
   // Cache DOM references for the hero sequence
   const sequenceElements = {
@@ -69,66 +80,75 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Initialize Hero Opening Sequence (States 1 to 8)
-  const orchestrator = new HeroSequenceOrchestrator(canvasEngine, sequenceElements);
-  orchestrator.start();
+  const orchestrator = safeInit('Hero Sequence', () => {
+    const orch = new HeroSequenceOrchestrator(canvasEngine, sequenceElements);
+    orch.start();
+    return orch;
+  });
 
   // Initialize Minimal Navigation with Smooth Scrolling & ScrollSpy
   const navElement = document.getElementById('site-nav');
   const mobileToggle = document.getElementById('mobile-nav-toggle');
   const mobileDrawer = document.getElementById('mobile-nav-drawer');
-  new NavigationController(navElement, mobileToggle, mobileDrawer);
+  safeInit('Navigation', () => new NavigationController(navElement, mobileToggle, mobileDrawer));
 
   // 2. SECONDARY STAGE (Initialized progressively to keep boot time fast & 60fps)
+  let secondaryInitialized = false;
   const initSecondarySections = () => {
+    if (secondaryInitialized) return;
+    secondaryInitialized = true;
+
     // Initialize Cinematic Pre-About Scroll Transition Experience
-    new AboutIntroController();
+    safeInit('About Intro Transition', () => new AboutIntroController());
 
     // Initialize Futuristic About Section Experience
-    new AboutExperienceController();
+    safeInit('About Experience', () => new AboutExperienceController());
 
     // Initialize Futuristic Academics Trajectory Experience
-    new AcademicsExperienceController();
+    safeInit('Academics Experience', () => new AcademicsExperienceController());
 
     // Initialize Futuristic 3D Orbital Toolkit Command Center
-    new ToolkitExperienceController();
+    safeInit('Toolkit Experience', () => new ToolkitExperienceController());
 
-    // Initialize Selected Works Projects Section (homepage 3-col grid)
-    new ProjectsSectionController();
+    // Initialize Selected Works Projects Section
+    safeInit('Projects Section', () => new ProjectsSectionController());
 
     // Initialize Authentic Certifications Fanned Deck Experience
-    new CertificationsExperienceController();
+    safeInit('Certifications Experience', () => new CertificationsExperienceController());
 
     // Initialize Lorven Enterprise 3D Scroll-Storytelling Experience
-    new LorvenSectionController();
+    safeInit('Lorven Experience', () => new LorvenSectionController());
 
     // Initialize Lorven Enterprise Founders Experience
-    new FoundersSectionController();
+    safeInit('Founders Experience', () => new FoundersSectionController());
 
     // Initialize Futuristic Contact Section & Footer Experience
-    new ContactSectionController();
+    safeInit('Contact Experience', () => new ContactSectionController());
 
     // Attach subtle, tactile hover physics to key interactive components
     if (!motionEngine.isTouch && !motionEngine.prefersReducedMotion) {
-      // Subtle magnetic pull on CTA & social buttons
-      attachHoverPhysics('.nav-contact-capsule', { magnetic: 0.18, maxMagneticOffset: 5 });
-      attachHoverPhysics('.hero-social-circle', { magnetic: 0.22, maxMagneticOffset: 6 });
-
-      // Subtle 3D perspective tilt on project cards & founder cards
-      attachHoverPhysics('.project-card', { tilt: 4.5, spotlight: true });
-      attachHoverPhysics('.founder-member-card', { tilt: 4.0, spotlight: true });
+      safeInit('Hover Physics', () => {
+        attachHoverPhysics('.nav-contact-capsule', { magnetic: 0.18, maxMagneticOffset: 5 });
+        attachHoverPhysics('.hero-social-circle', { magnetic: 0.22, maxMagneticOffset: 6 });
+        attachHoverPhysics('.project-card', { tilt: 4.5, spotlight: true });
+        attachHoverPhysics('.founder-member-card', { tilt: 4.0, spotlight: true });
+      });
     }
   };
 
-  // Use requestIdleCallback if available, fallback to fast timeout
+  // Initialize secondary sections on idle, but immediately if user scrolls or interacts
   if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(initSecondarySections, { timeout: 300 });
+    window.requestIdleCallback(initSecondarySections, { timeout: 250 });
   } else {
-    setTimeout(initSecondarySections, 40);
+    setTimeout(initSecondarySections, 30);
   }
+
+  window.addEventListener('scroll', initSecondarySections, { passive: true, once: true });
+  window.addEventListener('pointerdown', initSecondarySections, { passive: true, once: true });
 
   // Quick skip sequence on spacebar if user wants immediate access
   window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' && !orchestrator.isCompleted) {
+    if (e.code === 'Space' && orchestrator && !orchestrator.isCompleted) {
       orchestrator.skipToSettled();
     }
   });

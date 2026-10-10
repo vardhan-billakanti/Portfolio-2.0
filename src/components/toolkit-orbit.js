@@ -77,13 +77,17 @@ export class ToolkitOrbitEngine {
   init() {
     if (!this.viewport || !this.nodesLayer) return;
 
-    this.prefersReducedMotion = typeof window !== 'undefined' && 
+    this.prefersReducedMotion = Boolean(
+      typeof window !== 'undefined' && 
       window.matchMedia && 
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
 
-    this.hasFinePointer = typeof window !== 'undefined' && 
+    this.hasFinePointer = Boolean(
+      typeof window !== 'undefined' && 
       window.matchMedia && 
-      window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    );
 
     this.buildNodes();
     this.updateDimensions();
@@ -91,11 +95,18 @@ export class ToolkitOrbitEngine {
     this.setupMouseParallax();
     this.setupVisibilityObservers();
 
+    // Dynamically respond to OS reduced-motion preference changes
+    this.unsubscribers.push(
+      motionEngine.subscribeMotionPreference((reduced) => {
+        this.prefersReducedMotion = reduced;
+      })
+    );
+
     // Initial render
     this.renderFrame(0);
 
     // Start loop if visible
-    if (!this.prefersReducedMotion && this.isSectionVisible) {
+    if (this.isSectionVisible) {
       this.start();
     }
   }
@@ -215,27 +226,42 @@ export class ToolkitOrbitEngine {
   setupVisibilityObservers() {
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
-        this.isSectionVisible = entries[0].isIntersecting && motionEngine.isVisible;
-        if (this.isSectionVisible && this.isDocVisible && !this.prefersReducedMotion) {
+        const isInter = entries[0].isIntersecting;
+        this.isSectionVisible = isInter;
+        if (isInter && this.isDocVisible) {
           this.start();
-        } else {
+        } else if (!isInter) {
           this.stop();
         }
-      }, { threshold: 0.05, rootMargin: '100px 0px' });
+      }, { threshold: 0, rootMargin: '120px 0px' });
 
       io.observe(this.viewport);
     } else {
       this.isSectionVisible = true;
-      if (!this.prefersReducedMotion) this.start();
+      this.start();
     }
 
     this.unsubscribers.push(
       motionEngine.subscribeVisibility((visible) => {
         this.isDocVisible = visible;
-        if (this.isDocVisible && this.isSectionVisible && !this.prefersReducedMotion) {
+        if (this.isDocVisible && this.isSectionVisible) {
           this.start();
         } else {
           this.stop();
+        }
+      })
+    );
+
+    // Resilient fallback check on scroll to ensure rotation resumes
+    this.unsubscribers.push(
+      motionEngine.subscribeScroll(() => {
+        if (!this.isRunning && this.isDocVisible) {
+          const rect = this.viewport.getBoundingClientRect();
+          const vh = window.innerHeight || 800;
+          if (rect.bottom > -50 && rect.top < vh + 100) {
+            this.isSectionVisible = true;
+            this.start();
+          }
         }
       })
     );
@@ -328,8 +354,9 @@ export class ToolkitOrbitEngine {
       const ring = this.RINGS[node.ring];
 
       // Advance angular position with delta-time
-      if (dt > 0 && !this.prefersReducedMotion) {
-        node.angle += ring.speed * ring.dir * dt;
+      if (dt > 0) {
+        const speedScale = this.prefersReducedMotion ? 0.25 : 1.0;
+        node.angle += ring.speed * ring.dir * dt * speedScale;
       }
 
       // Smooth target scale interpolation
@@ -393,7 +420,7 @@ export class ToolkitOrbitEngine {
   };
 
   start() {
-    if (this.isRunning || this.prefersReducedMotion) return;
+    if (this.isRunning) return;
     this.isRunning = true;
     this.lastTs = 0;
     this.rafId = requestAnimationFrame(this.tick);

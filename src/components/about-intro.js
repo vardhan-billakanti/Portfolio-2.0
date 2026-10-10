@@ -32,18 +32,24 @@ export class AboutIntroController {
     this.canvas = this.section.querySelector('.about-intro-canvas');
     if (!this.stage || !this.title || !this.canvas) return;
 
-    this.ctx = this.canvas.getContext('2d');
-    this.isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.ctx = null;
+    try {
+      this.ctx = this.canvas.getContext('2d');
+    } catch (e) {
+      console.warn('[AboutIntro] Canvas 2D context creation failed:', e);
+    }
+
+    this.isReducedMotion = Boolean(
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
 
     // Cached layout geometry
-    this.introTop = 0;
-    this.introHeight = 0;
     this.winH = 0;
     this.winW = 0;
     this.dpr = 1;
-    this.startY = 0;
-    this.endY = 0;
-    this.totalDistance = 1;
+    this.scrollDistance = 1;
 
     // Fragments extracted directly from the letters
     this.fragments = [];
@@ -68,8 +74,8 @@ export class AboutIntroController {
 
     this.measure();
 
-    // If page is loaded or refreshed already past Hero, lock transition as passed
-    if (this.lastScrollY > this.introTop) {
+    const rect = this.section.getBoundingClientRect();
+    if (rect.bottom < this.winH) {
       this.hasPassed = true;
       this.hideStage();
     } else {
@@ -84,6 +90,9 @@ export class AboutIntroController {
       document.fonts.ready.then(() => {
         this.prepareFragments();
         this.onScrollUpdate();
+      }).catch(() => {
+        this.prepareFragments();
+        this.onScrollUpdate();
       });
     } else {
       setTimeout(() => {
@@ -96,39 +105,32 @@ export class AboutIntroController {
   }
 
   measure() {
-    this.winH = window.innerHeight || 800;
-    this.winW = window.innerWidth || 1200;
+    this.winH = window.innerHeight || document.documentElement.clientHeight || 800;
+    this.winW = window.innerWidth || document.documentElement.clientWidth || 1200;
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    const aboutElement = document.getElementById('about');
-    const heroElement = document.getElementById('home');
-    const currentScrollY = window.scrollY || window.pageYOffset || 0;
+    const sectionH = this.section.offsetHeight || Math.round(this.winH * 1.3);
+    this.scrollDistance = Math.max(100, sectionH - this.winH);
 
-    let heroBottom = this.winH;
-    if (aboutElement) {
-      heroBottom = aboutElement.getBoundingClientRect().top + currentScrollY;
-    } else if (heroElement) {
-      heroBottom = heroElement.offsetHeight || this.winH;
+    // Responsive target scale for Phase 3
+    if (this.winW <= 480) {
+      this.targetScale = 1.20;
+    } else if (this.winW < 768) {
+      this.targetScale = 1.35;
+    } else {
+      this.targetScale = 1.65;
     }
 
-    this.introTop = heroBottom;
-
-    // Transition runway: activates as user scrolls DOWN out of Hero top (~12% of viewport height)
-    this.startY = Math.max(60, Math.round(this.winH * 0.12));
-
-    // Transition completes before arriving directly at About's content
-    this.endY = Math.max(this.startY + 250, Math.round(heroBottom - 40));
-    this.totalDistance = Math.max(100, this.endY - this.startY);
-
-    // Target scale for Phase 3 (desktop vs mobile)
-    this.targetScale = this.winW < 768 ? 1.35 : 1.65;
-
-    // Resize canvas to full viewport with high-DPI scaling
-    this.canvas.width = Math.floor(this.winW * this.dpr);
-    this.canvas.height = Math.floor(this.winH * this.dpr);
-    this.canvas.style.width = `${this.winW}px`;
-    this.canvas.style.height = `${this.winH}px`;
-    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    // Resize canvas with high-DPI transform
+    if (this.canvas) {
+      this.canvas.width = Math.floor(this.winW * this.dpr);
+      this.canvas.height = Math.floor(this.winH * this.dpr);
+      this.canvas.style.width = '100%';
+      this.canvas.style.height = '100%';
+      if (this.ctx) {
+        this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+      }
+    }
   }
 
   /**
@@ -139,7 +141,7 @@ export class AboutIntroController {
     if (!this.title) return;
 
     const style = window.getComputedStyle(this.title);
-    const fontSize = parseFloat(style.fontSize) || (this.winW < 768 ? 48 : 88);
+    const fontSize = parseFloat(style.fontSize) || (this.winW <= 480 ? 36 : (this.winW < 768 ? 48 : 88));
     const fontFamily = style.fontFamily || "'Instrument Serif', Georgia, serif";
     const fontStyle = style.fontStyle || 'italic';
     const fontWeight = style.fontWeight || '400';
@@ -148,7 +150,13 @@ export class AboutIntroController {
     const sampledFontSize = fontSize * this.targetScale;
 
     const offCanvas = document.createElement('canvas');
-    const offCtx = offCanvas.getContext('2d', { willReadFrequently: true });
+    let offCtx = null;
+    try {
+      offCtx = offCanvas.getContext('2d', { willReadFrequently: true });
+    } catch (e) {
+      return;
+    }
+    if (!offCtx) return;
 
     offCtx.font = `${fontStyle} ${fontWeight} ${sampledFontSize}px ${fontFamily}`;
     const textMetrics = offCtx.measureText('About Me');
@@ -171,7 +179,13 @@ export class AboutIntroController {
     offCtx.textAlign = 'center';
     offCtx.fillText('About Me', offCanvas.width / 2, offCanvas.height / 2);
 
-    const imgData = offCtx.getImageData(0, 0, offCanvas.width, offCanvas.height);
+    let imgData = null;
+    try {
+      imgData = offCtx.getImageData(0, 0, offCanvas.width, offCanvas.height);
+    } catch (e) {
+      return;
+    }
+    if (!imgData) return;
     const data = imgData.data;
 
     // Grid sampling step for optimal density (~400 to 700 stroke fragments)
@@ -179,8 +193,8 @@ export class AboutIntroController {
     const centerX = offCanvas.width / 2;
     const centerY = offCanvas.height / 2;
 
-    // Wide horizontal spread: allows particles and lines to expand dramatically across the screen toward left and right edges
-    const horizontalSpread = Math.max(200, Math.round(this.winW * 0.32));
+    // Restrained horizontal spread on mobile so fragments do not clip screen boundaries
+    const horizontalSpread = Math.min(Math.round(this.winW * 0.32), this.winW <= 480 ? 110 : 340);
 
     this.fragments = [];
 
@@ -206,10 +220,10 @@ export class AboutIntroController {
           const lineWidth = 1.1 + Math.random() * 0.5;
           const radius = 1.0 + Math.random() * 0.8;
 
-          // Organic drift vectors originating from letter geometry (wide horizontal spread)
-          const normX = relX / (textWidth / 2);
-          const vx = (Math.random() - 0.5) * 50 + normX * horizontalSpread;
-          const vy = (Math.random() - 0.5) * 45 - 12;
+          // Organic drift vectors originating from letter geometry (restrained on mobile)
+          const normX = relX / (textWidth / 2 || 1);
+          const vx = (Math.random() - 0.5) * 40 + normX * horizontalSpread;
+          const vy = (Math.random() - 0.5) * 40 - 10;
           const rotSpeed = (Math.random() - 0.5) * 2.2;
           const stagger = Math.random() * 0.12;
 
@@ -279,11 +293,9 @@ export class AboutIntroController {
   onScrollUpdate() {
     const scrollY = window.scrollY || window.pageYOffset || 0;
     const delta = scrollY - this.lastScrollY;
-    const isScrollingUp = delta < -0.5;
+    const isScrollingUp = delta < -10;
 
     // 1. Programmatic auto-scroll guard:
-    // When user clicks a nav link jumping past About (e.g. Toolkit, Projects, Certifications...),
-    // cleanly suppress intermediate stage visibility/canvas drawing and mark passed
     if (window.__isProgrammaticNavScroll) {
       const target = window.__programmaticNavTarget;
       if (target && target !== 'home' && target !== 'about') {
@@ -296,50 +308,44 @@ export class AboutIntroController {
       return;
     }
 
-    // 2. CRITICAL DIRECTION GUARD: If scrolling UP, immediately disable/hide transition
-    // Absolutely NO reverse transition, NO reverse animation, NO dots, NO lines, NO black overlay
-    if (isScrollingUp) {
-      this.hideStage();
-      // Re-arm transition ONLY when the user reaches the very top of Hero (<= 60px)
-      if (scrollY <= 60) {
-        this.hasPassed = false;
-      }
-      this.lastScrollY = scrollY;
-      return;
-    }
+    const rect = this.section.getBoundingClientRect();
 
-    // 3. Reset passed guard when user returns to top of Hero (<= 60px)
-    if (scrollY <= 60) {
+    // 2. Reset passed guard when user returns to top of Hero (<= 80px)
+    if (scrollY <= 80 || rect.top > this.winH * 0.7) {
       this.hasPassed = false;
+    }
+
+    // 3. Direction Guard: If user scrolls UP inside or past the section, hide stage (no reverse replay)
+    if (isScrollingUp && rect.top < 0 && rect.bottom > 0) {
       this.hideStage();
       this.lastScrollY = scrollY;
       return;
     }
 
-    // 4. One-way guard: Once completed for this downward pass, keep stage hidden
-    if (this.hasPassed) {
+    // 4. If passed and already below section, keep stage hidden
+    if (this.hasPassed && rect.bottom <= this.winH + 10) {
       this.hideStage();
       this.lastScrollY = scrollY;
       return;
     }
 
-    // 5. Above transition start point (in Hero)
-    if (scrollY < this.startY) {
+    // 5. Above transition start point (still in Hero)
+    if (rect.top > 0) {
       this.hideStage();
       this.lastScrollY = scrollY;
       return;
     }
 
-    // 6. Past transition end point (reached real About section)
-    if (scrollY >= this.endY - 6) {
+    // 6. Past transition end point (bottom of runway reached About)
+    if (rect.bottom <= this.winH + 10) {
       this.hasPassed = true;
       this.hideStage();
       this.lastScrollY = scrollY;
       return;
     }
 
-    // 7. Strictly DOWNWARD scroll progress [0.0 ... 1.0]
-    let progress = (scrollY - this.startY) / this.totalDistance;
+    // 7. Inside section runway: compute smooth scroll progress [0.0 ... 1.0]
+    let progress = -rect.top / this.scrollDistance;
     progress = Math.max(0, Math.min(1, progress));
 
     this.applyProgress(progress);

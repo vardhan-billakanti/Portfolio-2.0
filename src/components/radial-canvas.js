@@ -16,14 +16,19 @@ import { motionEngine } from '../core/motion-engine.js';
 export class RadialStreakCanvas {
   constructor(canvasElement) {
     this.canvas = canvasElement;
-    this.ctx = canvasElement.getContext('2d', { alpha: true });
+    this.ctx = null;
+    try {
+      this.ctx = canvasElement ? canvasElement.getContext('2d', { alpha: true }) : null;
+    } catch (e) {
+      console.warn('[RadialStreakCanvas] Canvas 2D context creation failed:', e);
+    }
     
     this.width = 0;
     this.height = 0;
     this.centerX = 0;
     this.centerY = 0;
     this.maxRadius = 0;
-    this.dpr = motionEngine.dpr;
+    this.dpr = motionEngine.dpr || 1;
 
     // Micro-parallax damping
     this.targetMouseX = 0;
@@ -42,10 +47,13 @@ export class RadialStreakCanvas {
     this.rafId = null;
     this.unsubscribers = [];
 
-    this.init();
+    if (this.ctx) {
+      this.init();
+    }
   }
 
   init() {
+    if (!this.ctx) return;
     this.handleResize();
 
     // 1. Subscribe to debounced resize
@@ -102,6 +110,7 @@ export class RadialStreakCanvas {
   }
 
   handleResize() {
+    if (!this.ctx) return;
     const parent = this.canvas.parentElement;
     this.width = parent ? parent.clientWidth : (window.innerWidth + 64);
     this.height = parent ? parent.clientHeight : (window.innerHeight + 64);
@@ -203,7 +212,7 @@ export class RadialStreakCanvas {
   }
 
   animate() {
-    if (!this.active || !motionEngine.isVisible) {
+    if (!this.ctx || !this.active || !motionEngine.isVisible) {
       this.rafId = null;
       return;
     }

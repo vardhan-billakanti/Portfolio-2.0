@@ -84,7 +84,9 @@ export class HeroParallaxController {
   }
 
   onScroll() {
-    const scrollY = motionEngine.scrollY;
+    const scrollY = (motionEngine.scroll && typeof motionEngine.scroll.y === 'number')
+      ? motionEngine.scroll.y
+      : (window.scrollY || window.pageYOffset || 0);
     const heroH = window.innerHeight || 800;
 
     if (scrollY <= 0) {

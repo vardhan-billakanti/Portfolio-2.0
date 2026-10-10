@@ -272,6 +272,365 @@
 }
 
 /* ==========================================================================
+   3D DRAGGABLE CIRCULAR PROJECT CAROUSEL (Priority 4)
+   Adapts OrbitGallery cylindrical math to text-based project cards
+   ========================================================================== */
+
+.projects-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.projects-carousel-stage {
+  position: relative;
+  width: 100%;
+  height: clamp(480px, 58vh, 560px);
+  margin: 0 auto;
+  cursor: grab;
+  touch-action: pan-y; /* Critical: allows vertical page scrolling on mobile while dragging horizontally */
+  outline: none;
+  overflow: visible;
+}
+
+.projects-carousel-stage:focus-visible {
+  outline: 2px solid var(--pr-accent-orange, #ff4d00);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.projects-carousel-stage.is-dragging {
+  cursor: grabbing;
+}
+
+.projects-carousel-track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* 3D Orbit Project Card */
+.project-orbit-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform-style: preserve-3d;
+  pointer-events: auto;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.project-orbit-card:focus-visible .orbit-card-inner {
+  outline: 2px solid var(--pr-accent-orange, #ff4d00);
+  outline-offset: 3px;
+  border-color: rgba(255, 100, 20, 0.6);
+}
+
+.orbit-card-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: clamp(280px, 34vh, 320px);
+  padding: 24px 22px 20px;
+  background: #080808;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.03);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition:
+    transform 0.28s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    box-shadow 0.28s ease;
+  overflow: hidden;
+}
+
+/* Subtle corner gradient sheen */
+.orbit-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at 100% 0%, rgba(255, 77, 0, 0.08), transparent 70%);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.project-orbit-card:hover .orbit-card-inner {
+  transform: translateY(-4px) scale(1.02);
+  background: #0c0c0f;
+  border-color: rgba(255, 100, 20, 0.42);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.8),
+    0 0 24px rgba(255, 77, 0, 0.15),
+    0 0 0 1px rgba(255, 100, 20, 0.18);
+}
+
+.project-orbit-card:hover .orbit-card-inner::before {
+  opacity: 1;
+}
+
+/* Card Content Typography & Layout */
+.orbit-card-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.orbit-card-number {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--pr-accent-orange, #ff4d00);
+}
+
+.orbit-card-category {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.orbit-card-title {
+  font-family: var(--font-display, 'Clash Display', sans-serif);
+  font-size: clamp(1.2rem, 1.35vw, 1.42rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--pr-white-pure, #ffffff);
+  margin: 0 0 10px;
+}
+
+.orbit-card-desc {
+  font-family: var(--font-sans, 'Satoshi', sans-serif);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgba(244, 244, 245, 0.72);
+  margin: 0 0 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.orbit-card-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+.orbit-card-tech-tag {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 3px 7px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.project-orbit-card:hover .orbit-card-tech-tag {
+  border-color: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.orbit-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.orbit-card-action {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--pr-accent-orange, #ff4d00);
+  text-transform: uppercase;
+}
+
+.orbit-card-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 77, 0, 0.12);
+  color: var(--pr-accent-orange, #ff4d00);
+  transition: transform 0.24s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.project-orbit-card:hover .orbit-card-arrow {
+  transform: translate(2px, -2px);
+  background: rgba(255, 77, 0, 0.22);
+}
+
+/* Vignette Depth Masks */
+.carousel-vignette {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.vignette-left {
+  left: 0;
+  background: linear-gradient(to right, #000000 0%, rgba(0, 0, 0, 0.6) 40%, transparent 100%);
+}
+
+.vignette-right {
+  right: 0;
+  background: linear-gradient(to left, #000000 0%, rgba(0, 0, 0, 0.6) 40%, transparent 100%);
+}
+
+/* Navigation Buttons */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(12, 12, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--pr-white-pure, #ffffff);
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition:
+    transform 0.24s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1)),
+    background-color 0.24s ease,
+    border-color 0.24s ease,
+    color 0.24s ease,
+    box-shadow 0.24s ease;
+}
+
+.carousel-nav-prev {
+  left: 8px;
+}
+
+.carousel-nav-next {
+  right: 8px;
+}
+
+.carousel-nav-btn:hover {
+  transform: translateY(-50%) scale(1.08);
+  background: rgba(255, 77, 0, 0.16);
+  border-color: rgba(255, 77, 0, 0.45);
+  color: var(--pr-accent-orange, #ff4d00);
+  box-shadow: 0 0 16px rgba(255, 77, 0, 0.25);
+}
+
+.carousel-nav-btn:focus-visible {
+  outline: 2px solid var(--pr-accent-orange, #ff4d00);
+  outline-offset: 3px;
+}
+
+/* Footer Control Bar */
+.carousel-footer-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.carousel-drag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+}
+
+.carousel-drag-pill .drag-icon {
+  color: var(--pr-accent-orange, #ff4d00);
+}
+
+.carousel-indicators {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.28s var(--ease-cinematic, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.carousel-indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: scale(1.15);
+}
+
+.carousel-indicator-dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--pr-accent-orange, #ff4d00);
+  box-shadow: 0 0 12px rgba(255, 77, 0, 0.45);
+}
+
+.carousel-indicator-dot:focus-visible {
+  outline: 2px solid var(--pr-accent-orange, #ff4d00);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
    VIEW ALL PROJECTS BUTTON (Refined Premium Interactive Capsule)
    ========================================================================== */
 
@@ -464,6 +823,86 @@
     width: 28px;
     height: 28px;
   }
+
+  /* 3D Carousel Mobile Refinements */
+  .projects-carousel-stage {
+    height: 470px;
+  }
+
+  .carousel-vignette {
+    width: 10%;
+  }
+
+  .carousel-nav-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .carousel-nav-prev {
+    left: 4px;
+  }
+
+  .carousel-nav-next {
+    right: 4px;
+  }
+
+  .orbit-card-inner {
+    padding: 20px 18px 16px;
+    min-height: 260px;
+  }
+
+  .orbit-card-title {
+    font-size: 1.15rem;
+  }
+
+  .orbit-card-desc {
+    font-size: 0.78rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .carousel-drag-pill {
+    font-size: 0.58rem;
+    padding: 5px 12px;
+    letter-spacing: 0.12em;
+  }
+
+  .carousel-indicators {
+    gap: 6px;
+  }
+
+  .carousel-indicator-dot.active {
+    width: 18px;
+  }
+}
+
+@media (max-width: 380px) {
+  .projects-carousel-stage {
+    height: 440px;
+  }
+
+  .orbit-card-inner {
+    padding: 16px 14px 14px;
+    min-height: 245px;
+  }
+
+  .orbit-card-title {
+    font-size: 1.05rem;
+  }
+
+  .orbit-card-desc {
+    font-size: 0.74rem;
+    margin-bottom: 10px;
+  }
+
+  .orbit-card-tech-list {
+    margin-bottom: 12px;
+    gap: 4px;
+  }
+
+  .orbit-card-tech-tag {
+    font-size: 0.54rem;
+    padding: 2px 5px;
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -490,5 +929,21 @@
 
   .projects-view-all-btn:hover {
     transform: none;
+  }
+
+  .project-orbit-card:hover .orbit-card-inner {
+    transform: none;
+  }
+
+  .project-orbit-card:hover .orbit-card-arrow {
+    transform: none;
+  }
+
+  .carousel-nav-btn:hover {
+    transform: translateY(-50%);
+  }
+
+  .carousel-indicator-dot {
+    transition: none;
   }
 }

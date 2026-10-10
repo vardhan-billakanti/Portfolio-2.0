@@ -137,7 +137,13 @@ export class HeroSequenceOrchestrator {
     this.isCompleted = true;
 
     if (this.canvas) {
+      this.canvas.setGlobalAlpha(0.75);
       this.canvas.setSpeed(2.2);
+    }
+
+    if (this.elements.singularity) {
+      this.elements.singularity.classList.remove('active');
+      this.elements.singularity.classList.add('faded');
     }
 
     if (this.elements.nav) {
@@ -177,7 +183,14 @@ export class HeroSequenceOrchestrator {
   skipToSettled() {
     if (this.isCompleted) return;
     this.clearAllTimers();
-    this.transitionToState1();
+    if (this.canvas) {
+      this.canvas.setGlobalAlpha(0.75);
+      this.canvas.setSpeed(2.2);
+    }
+    if (this.elements.singularity) {
+      this.elements.singularity.classList.remove('active');
+      this.elements.singularity.classList.add('faded');
+    }
     this.transitionToState6();
     this.transitionToState7();
     this.transitionToState8();

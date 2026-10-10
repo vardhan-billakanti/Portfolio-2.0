@@ -68,15 +68,21 @@ class MotionEngine {
     this.scrollSubscribers = new Set();
     this.resizeSubscribers = new Set();
     this.visibilitySubscribers = new Set();
+    this.motionPreferenceSubscribers = new Set();
 
     // Loop State
     this.rafId = null;
     this.isRunning = false;
     this.lastFrameTime = 0;
+    this._motionQueryListenerBound = false;
 
     if (this.isClient) {
       this.init();
     }
+  }
+
+  get scrollY() {
+    return this.scroll.y;
   }
 
   init() {
@@ -90,26 +96,49 @@ class MotionEngine {
   }
 
   detectCapabilities() {
-    this.prefersReducedMotion = window.matchMedia && 
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.prefersReducedMotion = Boolean(
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
 
-    this.hasFinePointer = window.matchMedia && 
-      window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    this.hasFinePointer = Boolean(
+      typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    );
 
-    this.isTouch = 'ontouchstart' in window || 
-      (navigator.maxTouchPoints > 0) || 
-      (window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+    this.isTouch = Boolean(
+      typeof window !== 'undefined' &&
+      ('ontouchstart' in window ||
+        (navigator.maxTouchPoints > 0) ||
+        (window.matchMedia && window.matchMedia('(pointer: coarse)').matches))
+    );
 
     // Adaptive DPR: Prevent mobile GPU thermal throttling while keeping desktop razor-sharp
-    const rawDpr = window.devicePixelRatio || 1;
+    const rawDpr = (typeof window !== 'undefined' && window.devicePixelRatio) || 1;
     this.dpr = this.isTouch ? Math.min(rawDpr, 1.25) : Math.min(rawDpr, 2.0);
 
-    // Reduced motion media query listener
-    if (window.matchMedia) {
-      window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
-        this.prefersReducedMotion = e.matches;
-        this.notifyVisibility(this.isVisible);
-      });
+    // Reduced motion media query listener (attach once safely)
+    if (typeof window !== 'undefined' && window.matchMedia && !this._motionQueryListenerBound) {
+      this._motionQueryListenerBound = true;
+      try {
+        const mql = window.matchMedia('(prefers-reduced-motion: reduce)');
+        const handler = (e) => {
+          this.prefersReducedMotion = Boolean(e.matches);
+          this.motionPreferenceSubscribers.forEach((cb) => {
+            try { cb(this.prefersReducedMotion); } catch (err) { console.error('[MotionEngine] motion preference callback error:', err); }
+          });
+          this.notifyVisibility(this.isVisible);
+        };
+        if (mql.addEventListener) {
+          mql.addEventListener('change', handler);
+        } else if (mql.addListener) {
+          mql.addListener(handler);
+        }
+      } catch (e) {
+        console.warn('[MotionEngine] Could not attach prefers-reduced-motion listener:', e);
+      }
     }
   }
 
@@ -351,6 +380,16 @@ class MotionEngine {
     this.visibilitySubscribers.add(callback);
     return () => {
       this.visibilitySubscribers.delete(callback);
+    };
+  }
+
+  /**
+   * Subscribe a callback to prefers-reduced-motion OS changes.
+   */
+  subscribeMotionPreference(callback) {
+    this.motionPreferenceSubscribers.add(callback);
+    return () => {
+      this.motionPreferenceSubscribers.delete(callback);
     };
   }
 }

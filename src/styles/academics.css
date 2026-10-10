@@ -9,6 +9,7 @@
    1. SECTION CONTAINER & AMBIENT HORIZON DEPTH
    -------------------------------------------------------------------------- */
 .section-academics {
+  --acad-text-travel: 320px;
   position: relative;
   width: 100%;
   background-color: var(--pr-black-1000, #000000);
@@ -981,6 +982,7 @@
 /* Mobile & Small Tablets: Connected Vertical Academic Timeline Journey */
 @media (max-width: 860px) {
   .section-academics {
+    --acad-text-travel: 140px;
     padding: clamp(2.5rem, 5vh, 3.5rem) 20px;
   }
 
@@ -1039,6 +1041,16 @@
 
   .academic-qualification-group {
     min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-academics {
+    --acad-text-travel: clamp(35px, 12vw, 65px);
+  }
+
+  .academics-main-heading {
+    font-size: clamp(1.4rem, 6.5vw, 1.85rem);
   }
 }
 
