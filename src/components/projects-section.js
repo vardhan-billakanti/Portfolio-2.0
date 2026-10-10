@@ -147,6 +147,9 @@ export class ProjectsSectionController {
         </div>
       `;
 
+      card.setAttribute('draggable', 'false');
+      card.addEventListener('dragstart', (e) => e.preventDefault());
+
       // Click card: Allow native navigation on genuine click, suppress only if dragged
       card.addEventListener('click', (e) => {
         if (this.dragDistance > 6 || performance.now() < this.ignoreClickUntil) {
@@ -336,16 +339,20 @@ export class ProjectsSectionController {
       }
     };
 
+    const onDragStart = (e) => e.preventDefault();
+
     this.stage.addEventListener('pointerdown', onPointerDown);
     this.stage.addEventListener('pointermove', onPointerMove);
     this.stage.addEventListener('pointerup', onPointerUp);
     this.stage.addEventListener('pointercancel', onPointerUp);
+    this.stage.addEventListener('dragstart', onDragStart);
 
     this.unsubscribers.push(() => {
       this.stage.removeEventListener('pointerdown', onPointerDown);
       this.stage.removeEventListener('pointermove', onPointerMove);
       this.stage.removeEventListener('pointerup', onPointerUp);
       this.stage.removeEventListener('pointercancel', onPointerUp);
+      this.stage.removeEventListener('dragstart', onDragStart);
     });
   }
 
@@ -452,20 +459,34 @@ export class ProjectsSectionController {
       dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
-    // Update cards depth modulation & visual hierarchy
+    // Update cards depth modulation & visual hierarchy (Strict Backface Culling)
     this.cardElements.forEach((card, i) => {
       const cardAngle = i * this.angleStep;
       const relAngle = ((cardAngle + this.currentRotation) % 360 + 360) % 360;
       const angleFromFront = Math.min(relAngle, 360 - relAngle);
 
-      const isFrontFacing = angleFromFront <= 80;
-      const isDirectFront = angleFromFront <= 22.5;
+      // Strict Culling: Any card facing away from the viewer (> 85 degrees) is completely hidden.
+      // This physically prevents rear cards from projecting mirrored text or ghosted layers.
+      if (angleFromFront > 85) {
+        card.style.visibility = 'hidden';
+        card.style.pointerEvents = 'none';
+        card.style.opacity = '0';
+        card.classList.remove('is-front', 'is-active-center');
+        return;
+      }
 
-      card.classList.toggle('is-front', isFrontFacing);
+      // Front-facing cards (facing camera):
+      card.style.visibility = 'visible';
+      card.style.pointerEvents = 'auto';
+
+      const isDirectFront = angleFromFront <= 22.5;
+      card.classList.add('is-front');
       card.classList.toggle('is-active-center', isDirectFront);
 
-      // Subtle depth opacity: front cards 1.0, sides 0.82, rear cards 0.4
-      const depthOpacity = 1 - Math.pow(angleFromFront / 180, 1.2) * 0.6;
+      // Natural depth opacity curve for visible front arc:
+      // Front center (0 deg) = 1.0, immediate neighbors (~45 deg) = 0.82, outer edge (~80 deg) = 0.45
+      const norm = angleFromFront / 85;
+      const depthOpacity = 1 - Math.pow(norm, 1.4) * 0.55;
       card.style.opacity = depthOpacity.toFixed(3);
     });
   }

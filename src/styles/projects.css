@@ -320,7 +320,9 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  transform-style: preserve-3d;
+  transform-style: flat; /* Flattens card contents to eliminate internal 3D text projection */
+  backface-visibility: hidden; /* Culls backside when card rotates away from viewer */
+  -webkit-backface-visibility: hidden;
   pointer-events: auto;
   cursor: pointer;
   display: block;
@@ -334,7 +336,19 @@
   text-align: left;
   user-select: none;
   -webkit-user-select: none;
-  transition: opacity 0.3s ease;
+  -webkit-user-drag: none;
+}
+
+.project-orbit-card,
+.project-orbit-card * {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Suppress hover states during active dragging */
+.projects-carousel-stage.is-dragging .project-orbit-card {
+  pointer-events: none;
 }
 
 .project-orbit-card:focus-visible .orbit-card-inner {
